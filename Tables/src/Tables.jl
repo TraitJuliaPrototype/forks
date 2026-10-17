@@ -708,6 +708,10 @@ include("dicts.jl")
 
 include("scan.jl")
 
+# the traits (forks/, plan §2): Column, TableSource
+using TraitWorld: @trait_module
+include("ColumnCore.jl")
+
 """
     Tables.columnindex(table, name::Symbol)
 

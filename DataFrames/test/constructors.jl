@@ -12,7 +12,7 @@ const ≅ = isequal
     @inferred DataFrame()
 
     @test isempty(_columns(df))
-    @test _columns(df) isa Vector{AbstractVector}
+    @test _columns(df) isa AbstractVector{AbstractVector}   # forks: a view of the Vector{Dynamic{Column}} storage
     @test index(df) == Index()
     @test size(DataFrame(copycols=false)) == (0, 0)
 

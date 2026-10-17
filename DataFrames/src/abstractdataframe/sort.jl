@@ -604,10 +604,36 @@ function Base.sortperm(df::AbstractDataFrame, cols=All();
     if cols isa MultiColumnIndex && !(cols isa AbstractVector)
         cols = index(df)[cols]
     end
+    if !checkunique && alg === nothing && lt === isless && by === identity && order === Forward
+        perm = _sortperm_columns(df, cols, rev)
+        perm === nothing || return perm
+    end
     ord = ordering(df, cols, lt, by, rev, order)
     _alg = Sort.defalg(df, ord; alg=alg, cols=cols)
     checkunique && _perform_uniqueness_checks(df, cols, lt, by, order)
     return _sortperm(df, _alg, ord)
+end
+
+# The default ordering (`isless`, stable, optionally reversed per column) on columns given by
+# name or position: the columns refine a permutation from the last to the first, each in a
+# worker per column type (ColumnKernels.refine!). `nothing` for anything else (`order(...)`
+# clauses, `by`, `lt`), which takes upstream's path.
+function _sortperm_columns(df::AbstractDataFrame, cols, rev)
+    if cols isa ColumnIndex
+        cs = Int[index(df)[cols]]
+    elseif cols isa AbstractVector && all(c -> c isa ColumnIndex, cols)
+        cs = Int[index(df)[c] for c in cols]
+    else
+        return nothing
+    end
+    isempty(cs) && return nothing
+    revs = rev isa Bool ? fill(rev, length(cs)) : collect(Bool, rev)
+    length(revs) == length(cs) || return nothing
+    perm = collect(1:nrow(df))
+    for k in length(cs):-1:1
+        refine!(perm, _dcolumn(df, cs[k]), revs[k])
+    end
+    return perm
 end
 
 _sortperm(df::AbstractDataFrame, a::Algorithm, o::Union{Perm, DFPerm}) =

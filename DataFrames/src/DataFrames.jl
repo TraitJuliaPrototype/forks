@@ -20,6 +20,8 @@ using Base.Sort,
 @reexport using Missings, InvertedIndices
 
 using Tables: ByRow
+using TraitWorld: TraitWorld, Dynamic, @trait_module
+using Tables.ColumnCore: Column, tocolumn
 
 import Base.keepat!,
        Base.stack,
@@ -144,6 +146,8 @@ include("abstractdataframe/sort.jl")
 
 include("groupeddataframe/groupeddataframe.jl")
 include("groupeddataframe/utils.jl")
+include("other/kernels.jl")
+using .ColumnKernels
 
 include("other/broadcasting.jl")
 

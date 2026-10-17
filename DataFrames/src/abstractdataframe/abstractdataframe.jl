@@ -738,36 +738,15 @@ function _describe(df::AbstractDataFrame, stats::AbstractVector)
     predefined_funs_local = predefined_funs
 
     # An array of Dicts for summary statistics
-    col_stats_dicts = map(eachcol(df)) do col
-        if eltype(col) >: Missing
-            t = skipmissing(col)
-            d = get_stats(t, predefined_funs_local)
-            get_stats!(d, t, custom_funs)
-        else
-            d = get_stats(col, predefined_funs_local)
-            get_stats!(d, col, custom_funs)
+    # one worker per column type (ColumnKernels.colstats); custom statistics are user
+    # functions, called as upstream does
+    dcols = df isa DataFrame ? _dcolumns(df) : Dynamic{Column}[tocolumn(col) for col in eachcol(df)]
+    col_stats_dicts = map(eachindex(dcols)) do i
+        d = colstats(dcols[i], predefined_funs_local)
+        if !isempty(custom_funs)
+            col = df[!, i]
+            get_stats!(d, eltype(col) >: Missing ? skipmissing(col) : col, custom_funs)
         end
-
-        if :nmissing in predefined_funs_local
-            d[:nmissing] = count(ismissing, col)
-        end
-
-        if :nnonmissing in predefined_funs_local
-            d[:nnonmissing] = count(!ismissing, col)
-        end
-
-        if :first in predefined_funs_local
-            d[:first] = isempty(col) ? nothing : first(col)
-        end
-
-        if :last in predefined_funs_local
-            d[:last] = isempty(col) ? nothing : last(col)
-        end
-
-        if :eltype in predefined_funs_local
-            d[:eltype] = eltype(col)
-        end
-
         return d
     end
 

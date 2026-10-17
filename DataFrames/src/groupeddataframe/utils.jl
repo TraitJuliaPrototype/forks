@@ -505,3 +505,100 @@ function compute_indices(groups::AbstractVector{<:Integer}, ngroups::Integer)
 
     return rperm, starts, stops
 end
+
+# forks: the groups of the rows of `cols`, as `row_group_slots!(cols, Val(false), groups,
+# skipmissing, sort, true)` computes them, from per-column codes made by workers compiled per
+# column type (ColumnKernels.refcodes, ColumnKernels.firstcodes!), combined in integer code:
+# nothing is compiled per tuple of column types. Returns the number of groups and whether
+# the groups are sorted.
+function _group_rows!(cols::Vector{Dynamic{Column}}, groups::Vector{Int},
+                      skipmissing::Bool, sort::Union{Bool, Nothing})::Tuple{Int, Bool}
+    n = length(groups)
+    N = length(cols)
+    if sort !== false
+        # upstream's path for columns with reference pools (integer columns of a narrow range,
+        # pooled and categorical columns): groups in the order of the pools' codes
+        rcs = Union{Nothing, Tuple{Vector{Int}, Int, Bool}}[refcodes(c, skipmissing, sort === true) for c in cols]
+        if all(!isnothing, rcs)
+            codes = Vector{Int}[rc[1] for rc in rcs]
+            ngs = Int[rc[2] for rc in rcs]
+            if !(prod(big.(ngs)) > typemax(Int) || prod(ngs) > Int64(2) * n)
+                ngroups = prod(ngs)
+                strides = ones(Int, N)
+                for k in N-1:-1:1
+                    strides[k] = strides[k+1] * ngs[k+1]
+                end
+                seen = fill(false, ngroups)
+                @inbounds for i in 1:n
+                    j = 1
+                    neg = false
+                    for k in 1:N
+                        x = codes[k][i]
+                        neg |= x < 0
+                        j += x * strides[k]
+                    end
+                    if skipmissing && neg
+                        groups[i] = 0
+                    else
+                        seen[j] = true
+                        groups[i] = j
+                    end
+                end
+                if sum(seen) < length(seen)
+                    remap = zeros(Int, ngroups)
+                    ngroups = 0
+                    @inbounds for i in eachindex(remap, seen)
+                        ngroups += seen[i]
+                        remap[i] = ngroups
+                    end
+                    @inbounds for i in eachindex(groups)
+                        gix = groups[i]
+                        groups[i] = gix > 0 ? remap[gix] : 0
+                    end
+                end
+                return ngroups, sort === true
+            end
+        end
+    end
+    # upstream's hashing path: groups in order of first appearance of the rows
+    codes = [Vector{Int}(undef, n) for _ in 1:N]
+    ns = Int[firstcodes!(codes[k], cols[k], skipmissing) for k in 1:N]
+    if N == 1
+        copyto!(groups, codes[1])
+        return ns[1], false
+    end
+    ngroups = 0
+    if prod(big.(ns .+ 1)) <= typemax(Int)
+        strides = ones(Int, N)
+        for k in N-1:-1:1
+            strides[k] = strides[k+1] * (ns[k+1] + 1)
+        end
+        d = Dict{Int, Int}()
+        sizehint!(d, min(n, prod(ns)))
+        @inbounds for i in 1:n
+            key = 0
+            skip = false
+            for k in 1:N
+                x = codes[k][i]
+                skip |= x == 0
+                key += x * strides[k]
+            end
+            if skip
+                groups[i] = 0
+            else
+                groups[i] = get!(() -> (ngroups += 1), d, key)
+            end
+        end
+    else
+        dv = Dict{Vector{Int}, Int}()
+        @inbounds for i in 1:n
+            key = Int[codes[k][i] for k in 1:N]
+            if any(==(0), key)
+                groups[i] = 0
+            else
+                groups[i] = get!(() -> (ngroups += 1), dv, key)
+            end
+        end
+    end
+    return ngroups, false
+end

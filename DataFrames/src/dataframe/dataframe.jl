@@ -176,7 +176,9 @@ julia> DataFrame([1 0; 2 0], :auto) # matrix constructor
 ```
 """
 mutable struct DataFrame <: AbstractDataFrame
-    columns::Vector{AbstractVector}
+    # each column kept as a dynamic value of the `Column` trait (Tables.ColumnCore): the vector
+    # itself, reached by code bounded by `Column` in workers compiled per column type
+    columns::Vector{Dynamic{Column}}
     colindex::Index
     metadata::Union{Nothing, Dict{String, Tuple{Any, Any}}}
     colmetadata::Union{Nothing, Dict{Int, Dict{String, Tuple{Any, Any}}}}
@@ -193,7 +195,7 @@ mutable struct DataFrame <: AbstractDataFrame
     function DataFrame(columns::Union{Vector{Any}, Vector{AbstractVector}},
                        colindex::Index; copycols::Bool=true)
         if length(columns) == length(colindex) == 0
-            return new(AbstractVector[], Index(), nothing, nothing, true)
+            return new(Dynamic{Column}[], Index(), nothing, nothing, true)
         elseif length(columns) != length(colindex)
             throw(DimensionMismatch("Number of columns ($(length(columns))) and number of " *
                                     "column names ($(length(colindex))) are not equal"))
@@ -234,7 +236,7 @@ mutable struct DataFrame <: AbstractDataFrame
             firstindex(col) != 1 && _onebased_check_error(i, col)
         end
 
-        return new(convert(Vector{AbstractVector}, columns), colindex, nothing, nothing, true)
+        return new(Dynamic{Column}[tocolumn(col::AbstractVector) for col in columns], colindex, nothing, nothing, true)
     end
 end
 
@@ -438,7 +440,42 @@ index(df::DataFrame) = getfield(df, :colindex)
 #    each element (column) has the same length
 # 4. if length of the vector is changed that the index of the `DataFrame`
 #    is adjusted appropriately
-_columns(df::DataFrame) = getfield(df, :columns)
+_columns(df::DataFrame) = ColumnVectors(getfield(df, :columns))
+"The columns of `df` as dynamic values of `Column`, for code bounded by `Column`."
+_dcolumns(df::DataFrame) = getfield(df, :columns)
+"Column `i` of a data frame as a dynamic value of `Column`."
+_dcolumn(df::DataFrame, i::Int) = getfield(df, :columns)[i]
+_dcolumn(df::AbstractDataFrame, i::Int) = tocolumn(df[!, i])::Dynamic{Column}
+
+"""
+    ColumnVectors
+
+The column vectors of a `DataFrame`, read and written through its storage, a
+`Vector{Dynamic{Column}}`: `cols[i]` is the stored vector itself, `cols[i] = v` stores `v`.
+Code written for `Vector{AbstractVector}` storage works on it unchanged.
+"""
+struct ColumnVectors <: AbstractVector{AbstractVector}
+    cols::Vector{Dynamic{Column}}
+end
+Base.size(c::ColumnVectors) = size(c.cols)
+Base.IndexStyle(::Type{ColumnVectors}) = IndexLinear()
+Base.@propagate_inbounds Base.getindex(c::ColumnVectors, i::Int) = Tables.ColumnCore.vector(c.cols[i])::AbstractVector
+Base.@propagate_inbounds Base.getindex(c::ColumnVectors, I::AbstractVector) = AbstractVector[Tables.ColumnCore.vector(d)::AbstractVector for d in c.cols[I]]
+Base.@propagate_inbounds function Base.setindex!(c::ColumnVectors, v::AbstractVector, i::Int)
+    c.cols[i] = tocolumn(v)
+    return c
+end
+Base.push!(c::ColumnVectors, v::AbstractVector) = (push!(c.cols, tocolumn(v)); c)
+Base.insert!(c::ColumnVectors, i::Integer, v::AbstractVector) = (insert!(c.cols, i, tocolumn(v)); c)
+Base.deleteat!(c::ColumnVectors, i) = (deleteat!(c.cols, i); c)
+Base.keepat!(c::ColumnVectors, i) = (keepat!(c.cols, i); c)
+Base.empty!(c::ColumnVectors) = (empty!(c.cols); c)
+Base.resize!(c::ColumnVectors, n::Integer) = (resize!(c.cols, n); c)
+Base.permute!(c::ColumnVectors, p::AbstractVector) = (permute!(c.cols, p); c)
+Base.copy!(a::ColumnVectors, b::ColumnVectors) = (copy!(a.cols, b.cols); a)
+Base.copy(c::ColumnVectors) = AbstractVector[c[i] for i in eachindex(c.cols)]
+Base.similar(c::ColumnVectors) = Vector{AbstractVector}(undef, length(c))
+Base.similar(c::ColumnVectors, ::Type{T}, dims::Dims{1}) where {T} = Vector{T}(undef, dims)
 
 _onebased_check_error() =
     throw(ArgumentError("Currently DataFrames.jl supports only columns " *
@@ -572,6 +609,10 @@ function _threaded_getindex(selected_rows::AbstractVector,
             @spawn new_columns[i] = df_columns[selected_columns[i]][selected_rows]
         end
         return DataFrame(new_columns, idx, copycols=false)
+    elseif df_columns isa ColumnVectors && selected_rows isa AbstractVector{Int}
+        # a worker per column type (ColumnKernels.takerows)
+        return DataFrame(AbstractVector[takerows(df_columns.cols[i], selected_rows) for i in selected_columns],
+                         idx, copycols=false)
     else
         return DataFrame(AbstractVector[df_columns[i][selected_rows] for i in selected_columns],
                             idx, copycols=false)

@@ -235,7 +235,8 @@ function _combine_process_agg((cs_i,)::Ref{Any},
     in_col_idx = first(cs_i)
     incol = parentdf[!, in_col_idx]
     agg = check_aggregate(first(last(cs_i)), incol)
-    outcol = agg(incol, gd)
+    # forks: a worker per column type and aggregate (ColumnKernels.aggregate)
+    outcol = agg isa AbstractAggregate ? aggregate(_dcolumn(parentdf, in_col_idx), agg, gd) : agg(incol, gd)
 
     return function()
         if haskey(seen_cols, out_col_name)

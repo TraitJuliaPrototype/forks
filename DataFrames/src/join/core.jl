@@ -527,7 +527,15 @@ end
 function find_inner_rows(joiner::DataFrameJoiner)
 
     left_col, right_col, right_shorter, disallow_sorted = preprocess_columns(joiner)
+    # forks: one join column on each side: a worker per pair of column types
+    # (ColumnKernels.innerrows), not native code compiled at run time per pair
+    if !(left_col isa OnCol) && !(right_col isa OnCol)
+        return innerrows(tocolumn(left_col), tocolumn(right_col), right_shorter, disallow_sorted)
+    end
+    return _find_inner_rows(left_col, right_col, right_shorter, disallow_sorted)
+end
 
+function _find_inner_rows(left_col, right_col, right_shorter::Bool, disallow_sorted::Bool)
     # we treat this case separately so we know we have at least one element later
     (isempty(left_col) || isempty(right_col)) && return Int[], Int[]
 
