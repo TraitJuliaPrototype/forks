@@ -2,7 +2,7 @@
 
 Forks of Tables 1.14.0, DataFrames 1.8.2 and CSV 1.1.0 with traits brought in where they fit, measured as an interactive session against the unmodified upstream packages and against pandas. The plan is `../writeup/plans/2026-10-17-dataframes-traits-plan.md`; `git diff upstream` is the port.
 
-Status (session 27, 2026-10-17): M0 (baseline and harness) done.
+Status (session 27, 2026-10-17): M0 (baseline and harness) and M1 (forks, upstream test suites) done.
 
 ## The workload
 
@@ -43,3 +43,15 @@ Harness: `scripts/measure_session.sh [runs] [configs]` (one job at a time under 
 - **The first read costs 3.6 s,** almost all compilation inside CSV (`--trace-compile`): `CSV._parse` is recompiled (marked `# recompile`: its precompiled code was invalidated), `parsecolchunk!` is compiled for `UnionColumn{Int64}` and `UnionColumn{Float64}` (columns with missing values, outside CSV's workload), and `CSV.read(…, DataFrame)` with the sink. `CSV.File` alone on `people.csv`: 1.18 s with only CSV loaded, 1.59 s after InlineStrings, 2.30 s after DataFrames.
 - show (PrettyTables, 0.73 s in one keyword call), describe (per column type), sort on two columns (per tuple of column types), groupby-combine and join are about 1 s each at first call. A second schema with the same column types is fast except for sorting (0.45 s: a new tuple of column types).
 - The second schema and the `String15` part cost 0.7 s together; pandas 0.06 s.
+
+## M1: the forks and the correctness bar
+
+`Tables/`, `DataFrames/` and `CSV/` are the depot's sources of the three versions, committed unchanged and tagged `upstream`; `env_forks/` points at them with `[sources]` and keeps the upstream names and UUIDs. Their upstream test suites run unchanged (`scripts/testsuites.sh`; logs in `logs/*-M1-upstream.log`; patched build, one thread). The test dependencies missing from the depot (CategoricalArrays, DataValues, ShiftedArrays, DataDecimals, QueryOperators) were fetched from the package server, so nothing is skipped.
+
+| suite | tests passed | time |
+|---|---|---|
+| Tables | 466 365 | 49 s |
+| CSV | 330 549 | 5.8 min |
+| DataFrames | 16 515 336 | 22.5 min |
+
+Test lines that reach the column storage (`DataFrames._columns`), to be checked when the storage changes (M3): `constructors.jl:14–15`, `indexing_offset.jl:16–18`, `show.jl:600`, `indexing.jl:641, 643, 795, 802`, `dataframe.jl:137–148`, `io.jl:1047`, `join.jl:693, 1932`, `grouping.jl:118`, `iteration.jl:49`.
