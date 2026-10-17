@@ -22,6 +22,9 @@ include("tables.jl")     # Tables.jl support and row access
 include("api.jl")        # File, read, Rows, Chunks, and option handling
 include("write.jl")      # write and RowWriter
 include("scan.jl")       # Tables.Scan support
+# forks: the trait module (CSVSource; the reader as a worker per source type)
+using TraitWorld: @trait_module
+include("ColumnParsers.jl")
 
 # These are namespace APIs, not exports. Their public docs stay here so the
 # complete supported surface is in one place.
@@ -219,6 +222,16 @@ import Dates, CodecZlib
             write(path, f)
         end
         join(RowWriter((a=[1], b=["x"])))
+        # forks: a read from a path (the common case: the worker for `String` sources), with
+        # missing values in integer and float columns, a date and a time stamp
+        withmissing = "i,f,s,d,t,b\n1,1.5,x,2020-01-02,2020-01-02T03:04:05,true\n,,,,,\n3,2.5,z,2020-01-03,2020-01-03T03:04:05,false\n"
+        mktemp() do path, io
+            Base.write(io, mixed); close(io)
+            File(path)
+            Base.write(path, withmissing)
+            File(path)
+            File(path; stringtype=String)
+        end
     end
 end
 

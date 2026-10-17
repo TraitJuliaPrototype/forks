@@ -71,3 +71,37 @@ PrecompileTools.@compile_workload begin
     combine(df, AsTable(r"x") .=> [ByRow(sum), ByRow(mean)])
     combine(groupby(df, :id), AsTable(r"x") .=> [ByRow(sum), ByRow(mean)])
 end
+
+# forks: the workers of ColumnKernels for the common column types (the keys), each with and
+# without missing values. A key's workers are compiled once and kept in this image; a schema
+# of these column types then compiles nothing at its first call.
+PrecompileTools.@compile_workload begin
+    let n = 6,
+        cols = Any[[3, 1, 2, 3, 1, 2], [3, missing, 2, 3, 1, 2],
+                   [0.5, 1.5, 0.5, 2.5, 1.0, 2.0], [0.5, missing, 0.5, 2.5, 1.0, 2.0],
+                   ["b", "a", "c", "b", "a", "c"], ["b", missing, "c", "b", "a", "c"],
+                   [true, false, true, true, false, false],
+                   [Dates.Date(2020, 1, k) for k in 1:n], [Dates.DateTime(2020, 1, k, 1, 2, 3) for k in 1:n],
+                   PooledArray(["b", "a", "c", "b", "a", "c"]), InlineStrings.String15.(["b", "a", "c", "b", "a", "c"])]
+        for (k, c) in enumerate(cols)
+            df = DataFrame(g = [1, 2, 1, 2, 1, 2], s = ["x", "y", "x", "y", "x", "y"], c = c)
+            describe(df)
+            sort(df, :c); sort(df, :c, rev = true); sort(df, [:s, :c], rev = [false, true]); sort(df, [:c, :g])
+            df[[2, 1, 3], :]
+            show(IOBuffer(), df)
+            gd = groupby(df, :c)
+            combine(gd, nrow)
+            combine(groupby(df, :s), :c => length => :n, nrow)
+            if nonmissingtype(eltype(c)) <: Real
+                combine(groupby(df, :s), :c => sum, :c => mean, :c => maximum, :c => minimum,
+                        :c => sum ∘ skipmissing, :c => mean ∘ skipmissing,
+                        :c => maximum ∘ skipmissing, :c => minimum ∘ skipmissing)
+            end
+            innerjoin(df, df, on = :c, makeunique = true, matchmissing = :equal)
+            nonmissingtype(eltype(c)) <: Union{Int, Float64} && (c ./ 2; c .* 2; c .+ 1; c .- 1)
+            combine(groupby(df, :s), :c => first => :f, nrow)
+            innerjoin(df, DataFrame(c = c[[1, 3, 4]], z = 1:3), on = :c, matchmissing = :equal)
+            Base.nonmissingtype(eltype(c)) === eltype(c) && innerjoin(df, DataFrame(c = c[[1, 3, 4]], z = 1:3), on = :c)
+        end
+    end
+end

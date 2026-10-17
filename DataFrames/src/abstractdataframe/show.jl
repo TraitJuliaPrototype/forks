@@ -377,6 +377,12 @@ else
         end
 
         # Print the table with the selected options.
+        # forks: rendered into a buffer that carries `io`'s properties and display size, then
+        # written to `io`: PrettyTables' code is compiled once, for this buffer, not again for
+        # each kind of `io` (the REPL's terminal)
+        outio = io
+        buf = IOBuffer()
+        io = IOContext(IOContext(buf, outio), :displaysize => displaysize(outio), :color => get(outio, :color, false))
         pretty_table(io, df;
                      alignment                         = alignment,
                      alignment_anchor_fallback         = :r,
@@ -403,7 +409,7 @@ else
                      title_alignment                   = :l,
                      vertical_crop_mode                = :middle,
                      kwargs...)
-
+        write(outio, take!(buf))
         return nothing
     end
 end

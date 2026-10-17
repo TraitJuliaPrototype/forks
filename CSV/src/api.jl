@@ -90,7 +90,7 @@ function _sentinels(missingstring)
     return isempty(sentinels) ? nothing : sentinels
 end
 
-Base.@nospecializeinfer function _probedelim(@nospecialize(dialectkw))
+function _probedelim(dialectkw)
     quotechar = get(dialectkw, :quotechar, '"')
     openquotechar = get(dialectkw, :openquotechar, nothing)
     oq = something(openquotechar, quotechar)
@@ -816,13 +816,13 @@ end
 
 # Keep sniffing and row-window construction independent of the caller's keyword
 # names and container types. Hot column loops specialize later.
-Base.@nospecializeinfer function _prepare(buf::Vector{UInt8}, @nospecialize(header), normalizenames::Bool,
-                  @nospecialize(skipto), @nospecialize(footerskip), @nospecialize(missingstring),
-                  @nospecialize(delim), @nospecialize(limit), samplebytes::Int,
-                  @nospecialize(chunkbytes::Union{Nothing, Int}), parallel::Bool,
-                  @nospecialize(ntasks::Union{Nothing, Int}),
+function _prepare(buf::Vector{UInt8}, header, normalizenames::Bool,
+                  skipto, footerskip, missingstring,
+                  delim, limit, samplebytes::Int,
+                  chunkbytes::Union{Nothing, Int}, parallel::Bool,
+                  ntasks::Union{Nothing, Int},
                   validate::Bool, lenient::Bool,
-                  @nospecialize(kw))
+                  kw)
     header isa Integer && header < 0 &&
         throw(ArgumentError("header must be ≥ 0 (got $header)"))
     if header isa AbstractVector{<:Integer} && !isempty(header)
@@ -1107,10 +1107,10 @@ function _prepareindexed(source; kw...)
     try
         buf = resolvesource(source; buffer_in_memory=get(kw, :buffer_in_memory, false)::Bool,
                             prefetch=get(kw, :prefetch, true)::Bool, workers)
-        p = _prepare(buf; kw...)
+        p = _prepare(buf; kw...)::Prepared        # forks: asserted, so what follows is concrete under the policy
         bi = _indexdata(p)
         if bi.barequote && !p.d.lenient
-            p = _relenient(p; kw...)
+            p = _relenient(p; kw...)::Prepared
             bi = _indexdata(p)
         end
         return IndexedSource(p, bi)
@@ -1190,16 +1190,23 @@ function File(source;
               parallel::Bool=ntasks === nothing ? Threads.nthreads() > 1 : ntasks > 1,
               validate::Bool=true,
               kw...)
+    # forks: a source the trait module reads goes through its worker (ColumnParsers.readfile)
+    source isa Union{AbstractString, IO, AbstractVector{UInt8}} &&
+        return ColumnParsers.readfile(source, types, select, drop, scan, pool, downcast, transpose, Val(stringtype),
+                                      on_error, maxproblems, ntasks, parallel, validate, kw)
     return _file(source, types, select, drop, scan, pool, downcast, transpose, stringtype,
                  on_error, maxproblems, ntasks, parallel, validate, kw)
 end
 
-Base.@nospecializeinfer function _file(@nospecialize(source), @nospecialize(types),
-               @nospecialize(select), @nospecialize(drop), @nospecialize(scan),
-               @nospecialize(pool), downcast::Bool, transpose::Bool,
-               @nospecialize(stringtype::Type), on_error::Symbol, maxproblems::Int,
-               @nospecialize(ntasks::Union{Nothing, Int}), parallel::Bool,
-               validate::Bool, @nospecialize(kw))
+function _file(source, types,
+               select, drop, scan,
+               pool, downcast::Bool, transpose::Bool,
+               stringtype::Union{Type, Val}, on_error::Symbol, maxproblems::Int,
+               ntasks::Union{Nothing, Int}, parallel::Bool,
+               validate::Bool, kw)
+    # forks: the trait module passes the string type as a `Val`, a value of a concrete type, so
+    # that the reader's calls are facts under the policy (a type passed as a value is a run-time site)
+    stringtype = _unval(stringtype)
     maxproblems >= 0 || throw(ArgumentError("maxproblems must be ≥ 0 (got $maxproblems)"))
     _checkstringtype(stringtype)
     _checkonerror(on_error)
@@ -1236,9 +1243,10 @@ Base.@nospecializeinfer function _file(@nospecialize(source), @nospecialize(type
         downcast && (t = _downcast(t))
         return File(nm, t, Dict(n => j for (j, n) in enumerate(names(t))))
     end
-    s = _prepareindexed(source; parallel, ntasks, maxproblems=capturecap, validate, kw...)
-    return _filefromprepared(s, _sourcename(source); types, select, drop, pool, downcast,
-                             stringtype, on_error, maxproblems, parallel, ntasks, validate)
+    s = _prepareindexed(source; parallel, ntasks, maxproblems=capturecap, validate, kw...)::IndexedSource
+    # forks: the positional method, so the call is at concrete types under the facts policy
+    return _filefromprepared(s, _sourcename(source), types, select, drop, pool, downcast,
+                             Val(stringtype), on_error, maxproblems, parallel, validate, ntasks, nothing)
 end
 
 _sourcename(source) = source isa AbstractString ? String(source) : "<$(nameof(typeof(source)))>"
@@ -1264,16 +1272,17 @@ function _filefromprepared(s::IndexedSource, nm::String; types=nothing, select=n
                              on_error, maxproblems, parallel, validate, ntasks, available)
 end
 
-Base.@nospecializeinfer function _filefromprepared(s::IndexedSource, nm::String,
-                           @nospecialize(types),
-                           @nospecialize(select), @nospecialize(drop), @nospecialize(pool),
-                           downcast::Bool, @nospecialize(stringtype::Type),
+function _filefromprepared(s::IndexedSource, nm::String,
+                           types,
+                           select, drop, pool,
+                           downcast::Bool, stringtype::Union{Type, Val},
                            on_error::Symbol, maxproblems::Int, parallel::Bool, validate::Bool,
-                           @nospecialize(ntasks::Union{Nothing, Int}),
-                           @nospecialize(available::Union{Nothing, Vector{Int}}))
+                           ntasks::Union{Nothing, Int},
+                           available::Union{Nothing, Vector{Int}})
     p = s.p
     viewnames = available === nothing ? p.names : p.names[available]
-    plan = settlecolumns(p; select, drop, types, available, validate)
+    # forks: results asserted, so what follows is concrete under the facts policy
+    plan = settlecolumns(p; select, drop, types, available, validate)::ColumnPlan
     p.limit == 0 && _setemptytypes!(plan)
     # File(::LazyFile) resolves pool keys against the columns exposed by the
     # LazyFile, not against columns that were already dropped.
@@ -1283,17 +1292,19 @@ Base.@nospecializeinfer function _filefromprepared(s::IndexedSource, nm::String,
     # method exposes; in particular, a LazyFile prepared with defaults must not
     # silently cap a later larger maxproblems request at 10,000.
     t = _parseprepared(s, plan; parallel, ntasks, validate,
-                       maxproblems=max(maxproblems, 1))
+                       maxproblems=max(maxproblems, 1))::ParsedTable
     headerlog = _headerproblems(p.buf, p.headerrefs, p.opts, max(maxproblems, 1))
-    t, firstproblem = _mergeproblems(t, headerlog, maxproblems)
-    t, firstproblem = _narrowtypes(t, plan, s.bi.chunks, maxproblems, firstproblem)
+    t, firstproblem = _mergeproblems(t, headerlog, maxproblems)::Tuple{ParsedTable, Any}
+    t, firstproblem = _narrowtypes(t, plan, s.bi.chunks, maxproblems, firstproblem)::Tuple{ParsedTable, Any}
     _reportproblems(t, on_error, firstproblem, nm)
     tasklimit = _readtasklimit(parallel, ntasks)
-    t = _poolcolumns(t, poolspecs[plan.positions]; tasklimit)
-    t = _finishstrings(t, stringtype, _requestedstrings(plan); tasklimit)
-    downcast && (t = _downcast(t))
+    t = _poolcolumns(t, poolspecs[plan.positions]; tasklimit)::ParsedTable
+    t = _finishstrings(t, _unval(stringtype), _requestedstrings(plan); tasklimit)::ParsedTable
+    downcast && (t = _downcast(t)::ParsedTable)
     return File(nm, t, Dict(n => j for (j, n) in enumerate(names(t))))
 end
+_unval(T::Type) = T
+_unval(::Val{T}) where {T} = T
 
 # One place applies the `on_error` policy once the problems of a read are
 # final: `:error` throws the source-earliest problem as a `ParseError`,

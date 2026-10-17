@@ -21,6 +21,7 @@ using Base.Sort,
 
 using Tables: ByRow
 using TraitWorld: TraitWorld, Dynamic, @trait_module
+import Dates
 using Tables.ColumnCore: Column, tocolumn
 
 import Base.keepat!,

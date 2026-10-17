@@ -364,10 +364,10 @@ function makevalueopts(d::Dialect; dateformat=nothing, decimal::Char='.',
                          stripwhitespace, groupmark, sentinels)
 end
 
-Base.@nospecializeinfer function makevalueopts(d::Dialect, @nospecialize(dateformat), decimal::Char,
-                       @nospecialize(truestrings), @nospecialize(falsestrings),
+function makevalueopts(d::Dialect, dateformat, decimal::Char,
+                       truestrings, falsestrings,
                        stripwhitespace::Bool, groupmark::Union{Nothing, Char},
-                       @nospecialize(sentinels))
+                       sentinels)
     isascii(decimal) || throw(ArgumentError("decimal must be ASCII (got $(repr(decimal)))"))
     # A digit, sign, or exponent letter as the decimal separator would make
     # ordinary integers parse as fractions (`decimal='0'` read 105 as 1.5).
@@ -3561,10 +3561,10 @@ function settlecolumns(names::Vector{Symbol}, opts::ValueOpts;
                          validate, matchnormalized)
 end
 
-Base.@nospecializeinfer function settlecolumns(names::Vector{Symbol}, opts::ValueOpts,
-                       @nospecialize(select), @nospecialize(drop), @nospecialize(types),
-                       @nospecialize(available::Union{Nothing, Vector{Int}}),
-                       @nospecialize(colopts::Union{Nothing, Vector{ValueOpts}}),
+function settlecolumns(names::Vector{Symbol}, opts::ValueOpts,
+                       select, drop, types,
+                       available::Union{Nothing, Vector{Int}},
+                       colopts::Union{Nothing, Vector{ValueOpts}},
                        validate::Bool, matchnormalized::Bool)
     ncols = length(names)
     allavailable = available === nothing
@@ -3746,13 +3746,13 @@ end
 # once per index/mask shape rather than once per keyword combination: every
 # distinct keyword set (`delim`, `comment`, `dateformat`, `missingstring`, ...)
 # would otherwise specialize this whole function again on first use.
-Base.@nospecializeinfer function _parse(buf::Vector{UInt8}, d::Dialect, baseopts::ValueOpts, sc::Symbol,
-                @nospecialize(tm::Union{Nothing, Dict{Type, Type}}), chunkbytes::Int, parallel::Bool,
+function _parse(buf::Vector{UInt8}, d::Dialect, baseopts::ValueOpts, sc::Symbol,
+                tm::Union{Nothing, Dict{Type, Type}}, chunkbytes::Int, parallel::Bool,
                 tasklimit::Int, maxproblems::Int, on_error::Symbol, validate::Bool,
                 reportstructural::Bool,
-                @nospecialize(nsample::Union{Nothing, Int}),
-                @nospecialize(limit::Union{Nothing, Int}), @nospecialize(header), @nospecialize(types),
-                @nospecialize(select), colopts::Union{Nothing, Vector{ValueOpts}},
+                nsample::Union{Nothing, Int},
+                limit::Union{Nothing, Int}, header, types,
+                select, colopts::Union{Nothing, Vector{ValueOpts}},
                 columnplan::Union{Nothing, ColumnPlan}, rowmask::Union{Nothing, Vector{Bool}},
                 index::Union{Nothing, BufferIndex})
     datastart = length(buf) >= 3 && buf[1] == 0xef && buf[2] == 0xbb && buf[3] == 0xbf ? 4 : 1  # BOM

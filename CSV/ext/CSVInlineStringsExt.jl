@@ -124,4 +124,18 @@ end
 CSV._levelvector(::Type{T}, levels::CSV.DataStringVector, n::Int) where {T <: InlineString} =
     T[_inl(T, levels[i]) for i in 1:n]
 
+# forks: the reads with an inline string type, compiled in this extension's image (the reader's
+# worker per string type, CSV.ColumnParsers.readfile, and the conversion it reaches)
+using PrecompileTools: @compile_workload
+@compile_workload begin
+    mktemp() do path, io
+        Base.write(io, "a,s,t\n1,ab,x\n2,cd,\n"); close(io)
+        CSV.File(path; stringtype = String15)
+        CSV.File(path; stringtype = InlineString)
+    end
+end
+
 end # module
+
+
+
