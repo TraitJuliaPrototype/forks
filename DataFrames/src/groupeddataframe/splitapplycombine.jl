@@ -235,8 +235,10 @@ function _combine_process_agg((cs_i,)::Ref{Any},
     in_col_idx = first(cs_i)
     incol = parentdf[!, in_col_idx]
     agg = check_aggregate(first(last(cs_i)), incol)
-    # forks: a worker per column type and aggregate (ColumnKernels.aggregate)
-    outcol = agg isa AbstractAggregate ? aggregate(_dcolumn(parentdf, in_col_idx), agg, gd) : agg(incol, gd)
+    # forks: an aggregate whose result does not depend on the column's kind runs over the
+    # cells (ColumnKernels.aggregate); maximum, minimum, first and last keep the column's kind
+    # (`similar(incol)`) and stay upstream's
+    outcol = _cellaggregate(agg) ? aggregate(_dcolumn(parentdf, in_col_idx), agg, gd) : agg(incol, gd)
 
     return function()
         if haskey(seen_cols, out_col_name)

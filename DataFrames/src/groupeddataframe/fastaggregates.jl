@@ -290,3 +290,10 @@ end
 isagg((col, (fun, outcol))::Pair{<:ColumnIndex, <:Pair{<:Any, <:SymbolOrString}}, gdf::GroupedDataFrame) =
     check_aggregate(fun, parent(gdf)[!, col]) isa AbstractAggregate
 isagg(::Any, gdf::GroupedDataFrame) = false
+
+# forks: the fast aggregates computed over a column's cells (ColumnKernels.aggregate)
+_cellaggregate(::Any) = false
+_cellaggregate(r::Reduce) = r.op === Base.add_sum || r.op === Base.mul_prod
+_cellaggregate(::Aggregate{typeof(var)}) = true
+_cellaggregate(::Aggregate{typeof(std)}) = true
+_cellaggregate(::Aggregate{typeof(length)}) = true

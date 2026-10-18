@@ -20,9 +20,9 @@ using Base.Sort,
 @reexport using Missings, InvertedIndices
 
 using Tables: ByRow
-using TraitWorld: TraitWorld, Dynamic, @trait_module
+using TraitWorld: TraitWorld, Dynamic, @trait_module, @implement, conforms
 import Dates
-using Tables.ColumnCore: Column, tocolumn
+using Tables.ColumnCore: Column, tocolumn, TableSource
 
 import Base.keepat!,
        Base.stack,

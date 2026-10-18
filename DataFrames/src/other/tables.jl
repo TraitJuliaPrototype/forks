@@ -53,6 +53,10 @@ function DataFrame(x; copycols::Union{Nothing, Bool}=nothing)
          all(v -> v isa Pair{<:AbstractString, <:AbstractVector}, x))
         df = DataFrame(AbstractVector[last(v) for v in x], [first(v) for v in x],
                        copycols=something(copycols, true))
+    elseif (src = x isa Tables.CopiedColumns ? Tables.source(x) : x; conforms(typeof(src), TableSource))
+        # forks: a table conforming to `TableSource` (a `CSV.File`, a column table) is read
+        # through the trait: its columns as `Dynamic{Column}` values, no schema type
+        df = fromsource(src, something(copycols, !(x isa Tables.CopiedColumns)))
     else
         cols = Tables.columns(x)
         names = collect(Symbol, Tables.columnnames(cols))

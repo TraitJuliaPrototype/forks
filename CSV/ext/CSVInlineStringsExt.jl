@@ -9,17 +9,25 @@
 # Conversion runs from the DataString payloads directly: inline values
 # rebuild from the payload words, views copy out of the retained buffer — one
 # pass, no intermediate Vector{String}.
+#
+# forks: the extension is a set of conformances. `Vector{S}`, for an InlineString
+# type `S` (with or without `Missing`, and the auto-width `InlineString` itself),
+# conforms to CSV's trait `ColumnParsers.TextColumn`, whose operations the
+# reader calls for any string type it does not know. Declaring a conformance
+# adds a method to the conformance registry and no method to CSV's internal
+# functions, so loading InlineStrings invalidates none of the reader's compiled
+# code. Upstream's extension added methods to `_stringsink`,
+# `_settledstringtype`, `_materializecolumn`, `_rowstringtype`, `_lazyeltype`,
+# `_rowstring` and `_levelvector`.
 module CSVInlineStringsExt
 
 using CSV, InlineStrings
+using TraitWorld: @implement
+using CSV.ColumnParsers: TextColumn
 
 const _WIDTHS = (String1, String3, String7, String15, String31, String63, String127, String255)
 
 _capacity(::Type{T}) where {T <: InlineString} = sizeof(T) - 1
-
-# validation hook
-CSV._stringsink(::Type{InlineString}) = true
-CSV._stringsink(::Type{T}) where {T <: InlineString} = true
 
 # smallest InlineString type holding `n` bytes
 function _fitwidth(n::Int)
@@ -55,87 +63,33 @@ end
 # file never fails to read because of its text width.
 const _AUTO_MAX_WIDTH = _capacity(String31)
 
-# smallest auto width for a column, or `nothing` when the text is too wide
-function _widthfor(col::CSV.DataStringVector)
-    m = 0
-    @inbounds for i in eachindex(col)
-        x = col[i]
-        x === missing && continue
-        m = max(m, ncodeunits(x))
-    end
-    return m <= _AUTO_MAX_WIDTH ? _fitwidth(m) : nothing
-end
+# the cell type text of `maxlen` bytes settles to: a fixed width stays; the
+# auto width is the smallest that fits, or `String` past the ceiling
+_settled(::Type{InlineString}, maxlen::Int) = maxlen <= _AUTO_MAX_WIDTH ? _fitwidth(maxlen) : String
+_settled(::Type{T}, maxlen::Int) where {T <: InlineString} = T
 
-# Chunks settles the auto width once for its whole row window from the
-# longest value the schema pass saw, so every batch has one element type.
-CSV._settledstringtype(::Type{InlineString}, maxlen::Int) =
-    maxlen <= _AUTO_MAX_WIDTH ? _fitwidth(maxlen) : String
+_newcolumn(::Type{S}, n::Int, withmissing::Bool) where {S} =
+    withmissing ? Vector{Union{S, Missing}}(undef, n) : Vector{S}(undef, n)
 
-function CSV._materializecolumn(::Type{InlineString}, col::CSV.DataStringVector,
-                                tasklimit::Int=Threads.nthreads())
-    W = _widthfor(col)
-    return W === nothing ? CSV._materializecolumn(String, col, tasklimit) :
-                           CSV._materializecolumn(W, col, tasklimit)
-end
-
-function CSV._materializecolumn(::Type{T}, col::CSV.DataStringVector,
-                                tasklimit::Int=Threads.nthreads()) where {T <: InlineString}
-    n = length(col)
-    if Missing <: eltype(col)
-        out = Vector{Union{T, Missing}}(undef, n)
-        CSV._rowranges(n, tasklimit) do lo, hi
-            @inbounds for i in lo:hi
-                x = col[i]
-                out[i] = x === missing ? missing : _inl(T, x)
-            end
-        end
-        # The parser already settles missingness. Preserve a declared Union
-        # even when this particular column or batch contains no missing cells.
-        return out
-    end
-    out = Vector{T}(undef, n)
-    CSV._rowranges(n, tasklimit) do lo, hi
-        @inbounds for i in lo:hi
-            out[i] = _inl(T, col[i])
-        end
-    end
-    return out
-end
+# per-cell conversion for row access: the auto width picks the smallest width per cell
+_rowcell(::Type{InlineString}, x::CSV.DataString) =
+    (ncodeunits(x) <= _AUTO_MAX_WIDTH ? _inl(_fitwidth(ncodeunits(x)), x) : String(x))::Union{InlineString, String}
+_rowcell(::Type{T}, x::CSV.DataString) where {T <: InlineString} = _inl(T, x)
 
 # Auto width can return either an InlineString or an owned String. Tables
 # consumers must allocate a column that can hold both, including >255 bytes.
-CSV._rowstringtype(::Type{InlineString}) = Union{InlineString, String}
-CSV._lazyeltype(::Type{InlineString}) = Union{Missing, InlineString, String}
+_rowtype(::Type{InlineString}) = Union{InlineString, String}
+_rowtype(::Type{T}) where {T <: InlineString} = T
 
-# Rows(stringtype=InlineString): per-cell, smallest fitting width (String past
-# the auto ceiling)
-function CSV._rowstring(::Type{InlineString}, x::CSV.DataString)
-    n = ncodeunits(x)
-    return n <= _AUTO_MAX_WIDTH ? _inl(_fitwidth(n), x) : String(x)
-end
-
-CSV._rowstring(::Type{T}, x::CSV.DataString) where {T <: InlineString} = _inl(T, x)
-
-function CSV._levelvector(::Type{InlineString}, levels::CSV.DataStringVector, n::Int)
-    W = _widthfor(levels)
-    return W === nothing ? CSV._levelvector(String, levels, n) : CSV._levelvector(W, levels, n)
-end
-
-CSV._levelvector(::Type{T}, levels::CSV.DataStringVector, n::Int) where {T <: InlineString} =
-    T[_inl(T, levels[i]) for i in 1:n]
-
-# forks: the reads with an inline string type, compiled in this extension's image (the reader's
-# worker per string type, CSV.ColumnParsers.readfile, and the conversion it reaches)
-using PrecompileTools: @compile_workload
-@compile_workload begin
-    mktemp() do path, io
-        Base.write(io, "a,s,t\n1,ab,x\n2,cd,\n"); close(io)
-        CSV.File(path; stringtype = String15)
-        CSV.File(path; stringtype = InlineString)
+# the conformances: `Vector{S}` and `Vector{Union{S, Missing}}` for each InlineString type `S`
+# and for the auto width `InlineString`
+for S in (_WIDTHS..., InlineString), V in (Vector{S}, Vector{Union{S, Missing}})
+    @eval @implement TextColumn $V begin
+        textcolumn(c, maxlen, n, withmissing) = _newcolumn(_settled($S, maxlen), n, withmissing)
+        settext!(c, i, x) = (@inbounds c[i] = x === missing ? missing : _inl($S, x); nothing)
+        rowtexttype(c) = _rowtype($S)
+        rowtext(c, x) = _rowcell($S, x)
     end
 end
 
 end # module
-
-
-

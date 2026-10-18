@@ -2525,16 +2525,7 @@ end
 
 UnionColumn{T}(n::Int) where {T} = UnionColumn{T}(Vector{Union{T, Missing}}(undef, n))
 
-function _storevalue!(col::TypedColumn{T}, i::Int, v::T) where {T}
-    @inbounds col.values[i] = v
-    @inbounds col.present[i] = true
-    return
-end
-
-function _storevalue!(col::UnionColumn{T}, i::Int, v::T) where {T}
-    @inbounds col.uvalues[i] = v
-    return
-end
+# forks: a cell is stored by `ColumnParsers.parsecell!`, an operation of `CSVColumn`
 
 # --- strings ------------------------------------------------------------------
 # The DataString type family (payload, accessors, AbstractString interface,
@@ -2775,55 +2766,21 @@ _unescape(buf::Vector{UInt8}, pos::Int64, len::Int32, e::UInt8, cq::UInt8) =
 # and reads only this column again.
 
 # Returns 0 on success, or the local row of the first conflicting value.
-function parsecolchunk!(col::Union{TypedColumn{T}, UnionColumn{T}}, buf::Vector{UInt8},
-                        ci::ChunkIndex,
-                        j::Int, rowbase::Int, opts::ValueOpts,
-                        userprovided::Bool, problems,
-                        problemrowbase::Int=rowbase,
-                        mask::Union{Nothing, Vector{Bool}}=nothing, maskbase::Int=0,
-                        reportlimit::Int=typemax(Int)) where {T}
-    scratch = _scratchfor(opts)
-    tape, rowfirst, rowstartrel, ext = ci.tape, ci.rowfirst, ci.rowstartrel, ci.ext
-    start, skip, fdr, total = ci.start, ci.delimskip, ci.firstdatarow, totalrows(ci)
-    @inbounds first = fdr <= total ? Int(rowfirst[fdr]) : 0
-    @inbounds for lr in fdr:total
-        rowlo = first
-        nextr = Int(rowfirst[lr + 1])
-        first = nextr
-        localrow = lr - fdr + 1
-        out = rowbase + localrow
-        mask !== nothing && !mask[maskbase + out] && continue   # excluded row: cell never parsed
-        localrow > reportlimit && continue
-        sp = _span(start, tape, rowstartrel, ext, skip, rowlo, nextr, lr, j)
-        sp === nothing && continue                      # short row ⇒ missing (reported once per row by the driver)
-        pos, len = sp
-        len == 0 && continue                            # empty ⇒ missing
-        cpos, clen, esc, st = cellcontent(buf, pos, len, opts)
-        st == CELL_MISSING && continue                  # sentinel / stripped-to-empty
-        if st == CELL_VALUE && clen > 0
-            v, ok = _parsecontent(T, buf, cpos, clen, esc, opts, scratch)
-            if ok
-                _storevalue!(col, out, v)
-                continue
-            end
-        end
-        # invalid for T (also: malformed quoting or quoted-empty)
-        if userprovided
-            problemrow = problemrowbase + localrow
-            if st == CELL_BADQUOTE
-                pushcellproblem!(problems, problemrow, j, pos, len, :invalid_quoted_field,
-                                 "malformed quoting in ", buf)
-            else
-                pushcellproblem!(problems, problemrow, j, pos, len, :invalid_value,
-                                 "cannot parse $(T) from ", buf)
-            end
-            # value stays missing under strict=false semantics
-        else
-            return lr                                   # inference conflict ⇒ promote & re-parse column
-        end
-    end
-    return 0
-end
+# forks: the loop is `ColumnParsers.parsecells!`, a worker per key bounded by the trait
+# `CSVColumn`; the column the cells are parsed into is the builder's vector (`values`, with
+# `present` marking the cells parsed, or `uvalues`)
+parsecolchunk!(col::TypedColumn, buf::Vector{UInt8}, ci::ChunkIndex, j::Int, rowbase::Int,
+               opts::ValueOpts, userprovided::Bool, problems, problemrowbase::Int=rowbase,
+               mask::Union{Nothing, Vector{Bool}}=nothing, maskbase::Int=0,
+               reportlimit::Int=typemax(Int)) =
+    ColumnParsers.parsecells!(col.values, col.present, buf, ci, j, rowbase, opts, userprovided,
+                              problems, problemrowbase, mask, maskbase, reportlimit)
+parsecolchunk!(col::UnionColumn, buf::Vector{UInt8}, ci::ChunkIndex, j::Int, rowbase::Int,
+               opts::ValueOpts, userprovided::Bool, problems, problemrowbase::Int=rowbase,
+               mask::Union{Nothing, Vector{Bool}}=nothing, maskbase::Int=0,
+               reportlimit::Int=typemax(Int)) =
+    ColumnParsers.parsecells!(col.uvalues, nothing, buf, ci, j, rowbase, opts, userprovided,
+                              problems, problemrowbase, mask, maskbase, reportlimit)
 
 # The string loop writes into a column that is PRIVATE to this call (a chunk
 # segment, a batch, or a re-parse column), so owning bytes needs no lock.

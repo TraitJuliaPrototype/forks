@@ -2198,15 +2198,32 @@ end
 
 # --- the string-output hook -------------------------------------------------
 # `stringtype` names the element type string columns come out as. The core
-# knows DataString (the default; the parsed column as it is) and String (bulk
-# materialization). Extensions register more by adding methods to
-# `_stringsink` (validation) and `_materializecolumn` / `_levelvector`
-# (conversion): CSVInlineStringsExt registers InlineString (auto-width per
-# column) and the fixed String1..String255.
+# knows DataString (the default; the parsed column as it is), String (bulk
+# materialization) and Symbol. forks: any other string type `S` is one whose
+# `Vector{S}` conforms to the trait `ColumnParsers.TextColumn`; the conversion
+# runs through the conformance's operations. CSVInlineStringsExt declares the
+# conformances for InlineString (auto-width per column) and the fixed
+# String1..String255. Upstream's extension added methods to seven internal
+# functions here instead.
 _stringsink(::Type{DataString}) = true
 _stringsink(::Type{String}) = true
 _stringsink(::Type{Symbol}) = true   # `types=Symbol`: text converted once after parsing
-_stringsink(::Type) = false
+_stringsink(T::Type) = _istextsink(T)
+"Whether `S` is a string type and `Vector{S}` conforms to `ColumnParsers.TextColumn`: a string type an extension provides. (`S <: AbstractString` decides at compile time for every other type.)"
+_istextsink(S::Type) = S <: AbstractString && !(S isa Union) && S !== Union{} && conforms(Vector{S}, ColumnParsers.TextColumn)
+_istextsink(S) = false
+"An empty `Vector{S}`, the value that stands for string type `S` at the trait's operations."
+_textsink(::Type{S}) where {S} = S[]
+"The length in bytes of the longest text value of `col` (0 if there is none)."
+function _maxtextlen(col::DataStringVector)
+    m = 0
+    @inbounds for i in eachindex(col)
+        x = col[i]
+        x === missing && continue
+        m = max(m, ncodeunits(x))
+    end
+    return m
+end
 _checkstringtype(T) =
     (T isa Type && T !== Symbol && _stringsink(T)) ||
         throw(ArgumentError("stringtype must be DataStrings.DataString, String, or a " *
@@ -2217,8 +2234,15 @@ _checkstringtype(T) =
 # through materialize's bulk path — one shared scratch, word-store inline
 # reconstruction, unsafe_string per cell (a per-cell String() broadcast would
 # take the generic AbstractString path).
-_materializecolumn(::Type{S}, col::DataStringVector, tasklimit::Int) where {S} =
-    _materializecolumn(S, col)
+function _materializecolumn(::Type{S}, col::DataStringVector, tasklimit::Int) where {S}
+    _istextsink(S) || return _materializecolumn(S, col)
+    # forks: a string type from a conformance: the column it settles to, filled cell by cell
+    n = length(col)
+    out = ColumnParsers.textcolumn(_textsink(S), _maxtextlen(col), n, Missing <: eltype(col))
+    out isa AbstractVector{<:Union{String, Missing}} && return _materializecolumn(String, col, tasklimit)
+    ColumnParsers.filltext!(out, col, n)
+    return out
+end
 _materializecolumn(::Type{String}, col::DataStringVector) = materialize(col)
 # String allocation scales across tasks: a string-heavy file otherwise spent
 # several times its parse time materializing on one task.
@@ -2249,6 +2273,13 @@ _levelvector(::Type{String}, levels::DataStringVector, n::Int) =
     String[String(levels[i]) for i in 1:n]
 _levelvector(::Type{Symbol}, levels::DataStringVector, n::Int) =
     Symbol[Symbol(levels[i]) for i in 1:n]
+# forks: a string type from a conformance (`TextColumn`), its width settled by the levels
+function _levelvector(::Type{S}, levels::DataStringVector, n::Int) where {S}
+    out = ColumnParsers.textcolumn(_textsink(S), _maxtextlen(levels), n, false)
+    out isa Vector{String} && return _levelvector(String, levels, n)
+    ColumnParsers.filltext!(out, levels, n)
+    return out
+end
 
 # --- Tables.jl + row access -------------------------------------------------
 
@@ -2353,7 +2384,7 @@ function lazy(source; types=nothing, stringtype::Type=DataString,
 end
 
 _lazyeltype(::Type{DataString}) = Union{DataString, Missing}
-_lazyeltype(::Type{S}) where {S} = Union{S, Missing}
+_lazyeltype(::Type{S}) where {S} = Union{_rowstringtype(S), Missing}
 
 # Internal lazy-vector implementation. Public callers interact with it through
 # `CSV.LazyFile` and the AbstractVector/Tables.jl interfaces.
@@ -2585,7 +2616,7 @@ Tables.rows(r::Rows) = r
 Tables.columnnames(r::Rows) = names(r)
 Tables.schema(::Rows{NT}) where {NT} =
     Tables.Schema(fieldnames(NT), Tuple{map(_roweltype, fieldtypes(NT))...})
-_rowstringtype(T) = T === DataString ? DataString : T
+_rowstringtype(T) = _istextsink(T) ? ColumnParsers.rowtexttype(_textsink(T)) : T   # forks: a conformance's row type
 
 struct Row{NT <: NamedTuple, E} <: Tables.AbstractRow
     view::_IndexedRow
@@ -2668,6 +2699,7 @@ _rowcell(::Type{T}, v::_IndexedRow, j::Int, ::Val) where {T} = _typedvalue(T, v,
 _rowstring(::Type{String}, x::DataString) = String(x)
 _rowstring(::Type{DataString}, x::DataString) = x
 _rowstring(::Type{Symbol}, x::DataString) = Symbol(x)
+_rowstring(::Type{S}, x::DataString) where {S} = ColumnParsers.rowtext(_textsink(S), x)   # forks: a conformance's cell
 # Inline the access wrappers so a literal column name or index reaches the
 # typed lookup above. This avoids dynamic dispatch and boxing on cell access.
 @inline function Tables.getcolumn(row::Row{NT}, nm::Symbol) where {NT}
@@ -2973,7 +3005,9 @@ end
 # One output string type per text column for the whole row window: an
 # auto-width request (InlineString) settles on the longest value the schema
 # pass saw, so every batch has the same element type. Extensions add methods.
-_settledstringtype(::Type{S}, maxlen::Int) where {S} = S
+# forks: a string type from a conformance settles to the cell type of the column it gives
+_settledstringtype(::Type{S}, maxlen::Int) where {S} =
+    _istextsink(S) ? nonmissingtype(eltype(ColumnParsers.textcolumn(_textsink(S), maxlen, 0, false))) : S
 function _settlestringrequests(plan::ColumnPlan, seedtypes::Vector{Type},
                                maxlens::Vector{Int}, stringtype::Type)
     requests = _requestedstrings(plan)

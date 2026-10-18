@@ -1,0 +1,117 @@
+     Testing Tables
+      Status `/tmp/claude-1000/jl_EqSpX1/Project.toml`
+  [9a962f9c] DataAPI v1.16.0
+  [e2d170a0] DataValueInterfaces v1.0.0
+  [e7dc6d0d] DataValues v0.4.13
+  [82899510] IteratorInterfaceExtensions v1.0.0
+  [bac558e1] OrderedCollections v2.0.3
+  [2aef5ad7] QueryOperators v1.2.0
+  [3783bdb8] TableTraits v1.0.1
+  [bd369af6] Tables v1.14.0 `~/Repos/julia-trait-bound/forks/Tables`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [2f01184e] SparseArrays v1.13.0
+  [8dfed614] Test v1.11.0
+      Status `/tmp/claude-1000/jl_EqSpX1/Manifest.toml`
+  [9a962f9c] DataAPI v1.16.0
+  [864edb3b] DataStructures v0.19.6
+  [e2d170a0] DataValueInterfaces v1.0.0
+  [e7dc6d0d] DataValues v0.4.13
+  [82899510] IteratorInterfaceExtensions v1.0.0
+  [682c06a0] JSON v1.11.0
+  [bac558e1] OrderedCollections v2.0.3
+  [69de0a69] Parsers v3.0.0
+  [aea7be01] PrecompileTools v1.3.4
+⌃ [21216c6a] Preferences v1.6.0
+  [2aef5ad7] QueryOperators v1.2.0
+  [ec057cc2] StructUtils v2.10.0
+  [5e66a065] TableShowUtils v1.0.0
+  [3783bdb8] TableTraits v1.0.1
+  [bd369af6] Tables v1.14.0 `~/Repos/julia-trait-bound/forks/Tables`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [56f22d72] Artifacts v1.11.0
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [8f399da3] Libdl v1.11.0
+  [37e2e46d] LinearAlgebra v1.13.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [2f01184e] SparseArrays v1.13.0
+  [f489334b] StyledStrings v1.11.0
+  [fa267f1f] TOML v1.0.3
+  [8dfed614] Test v1.11.0
+  [cf7118a7] UUIDs v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+  [e66e0078] CompilerSupportLibraries_jll v1.5.5+2
+  [4536629a] OpenBLAS_jll v0.3.30+0
+  [bea87d4a] SuiteSparse_jll v7.10.1+0
+  [8e850b90] libblastrampoline_jll v5.15.0+0
+        Info Packages marked with ⌃ have new versions available and may be upgradable.
+Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
+   0.7 s  ✓ DataValues
+   1.0 s  ✓ StructUtils
+   0.7 s  ✓ StructUtils → StructUtilsTablesExt
+   5.8 s  ✓ JSON
+   0.5 s  ✓ TableShowUtils
+   1.0 s  ✓ QueryOperators
+  6 dependencies successfully precompiled in 8 seconds. 27 already precompiled.
+     Testing Running tests...
+┌ Warning: All(args...) is deprecated, use Cols(args...) instead
+│   caller = macro expansion at scan.jl:326 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/Tables/test/scan.jl:326
+┌ Warning: All(args...) is deprecated, use Cols(args...) instead
+│   caller = macro expansion at scan.jl:327 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/Tables/test/scan.jl:327
+Test Summary: | Pass  Total  Time
+utils.jl      |   65     65  2.9s
+Test Summary:  | Pass  Total  Time
+namedtuples.jl |   54     54  6.2s
+Test Summary: | Pass  Total  Time
+Materializer  |    8      8  0.4s
+Test Summary:      | Pass  Total  Time
+Matrix integration |   53     53  3.2s
+Tables.Schema:
+ :a  Int64
+ :b  Float64Test Summary:       | Pass  Total  Time
+Tables.jl interface |   26     26  2.1s
+Test Summary: | Pass  Total  Time
+isless        |    6      6  0.2s
+Test Summary:           | Pass  Total  Time
+TableTraits integration |   18     18  1.7s
+Test Summary: | Pass  Total  Time
+AbstractDict  |   25     25  3.5s
+Row:
+ :a  1
+ :b   missing
+ :c   "hey"Test Summary: | Pass  Total  Time
+AbstractRow   |   26     26  1.3s
+TestColumns with 2 rows, 3 columns, and an unknown schema.Test Summary:   | Pass  Total  Time
+AbstractColumns |   25     25  0.4s
+Test Summary:  | Pass  Total  Time
+Tables.Columns |    9      9  0.2s
+Test Summary:     | Pass  Total  Time
+Tables.isrowtable |    4      4  0.3s
+Test Summary:     | Pass  Total  Time
+Tables.partitions |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+Dict tables   |   36     36  3.1s
+Test Summary: |   Pass   Total  Time
+wide tables   | 465762  465762  8.2s
+Test Summary: | Pass  Total  Time
+ByRow         |   15     15  1.6s
+Test Summary:           | Pass  Total  Time
+istable on dictionaries |   25     25  0.7s
+Test Summary:      | Pass  Total  Time
+test nrow and ncol |   36     36  0.2s
+Test Summary: | Pass  Total  Time
+#357          |    3      3  1.0s
+Test Summary: | Pass  Total  Time
+Issue #361    |    2      2  0.5s
+Test Summary: | Pass  Total   Time
+scan.jl       |  162    162  11.4s
+     Testing Tables tests passed 

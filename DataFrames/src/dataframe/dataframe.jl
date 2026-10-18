@@ -610,8 +610,8 @@ function _threaded_getindex(selected_rows::AbstractVector,
         end
         return DataFrame(new_columns, idx, copycols=false)
     elseif df_columns isa ColumnVectors && selected_rows isa AbstractVector{Int}
-        # a worker per column type (ColumnKernels.takerows)
-        return DataFrame(AbstractVector[takerows(df_columns.cols[i], selected_rows) for i in selected_columns],
+        # the column's own row selection, an operation of `Column` (Tables.ColumnCore.take)
+        return DataFrame(AbstractVector[Tables.ColumnCore.take(df_columns.cols[i], selected_rows) for i in selected_columns],
                          idx, copycols=false)
     else
         return DataFrame(AbstractVector[df_columns[i][selected_rows] for i in selected_columns],

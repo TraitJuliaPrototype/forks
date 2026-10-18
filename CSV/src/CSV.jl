@@ -22,8 +22,8 @@ include("tables.jl")     # Tables.jl support and row access
 include("api.jl")        # File, read, Rows, Chunks, and option handling
 include("write.jl")      # write and RowWriter
 include("scan.jl")       # Tables.Scan support
-# forks: the trait module (CSVSource; the reader as a worker per source type)
-using TraitWorld: @trait_module
+# forks: the trait module (CSVSource, CSVColumn, TextColumn; CSV.File as a TableSource)
+using TraitWorld: TraitWorld, @trait_module, @implement, conforms
 include("ColumnParsers.jl")
 
 # These are namespace APIs, not exports. Their public docs stay here so the

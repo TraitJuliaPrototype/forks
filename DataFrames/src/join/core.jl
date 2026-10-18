@@ -821,6 +821,10 @@ end
 
 function find_semi_rows(joiner::DataFrameJoiner)
     left_col, right_col, right_shorter, disallow_sorted = preprocess_columns(joiner)
+    # forks: one join column on each side: a worker per pair of column types (ColumnKernels.semirows)
+    if !(left_col isa OnCol) && !(right_col isa OnCol)
+        return semirows(tocolumn(left_col), tocolumn(right_col), right_shorter, disallow_sorted)
+    end
 
     seen_rows = falses(length(left_col))
 
