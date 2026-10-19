@@ -34,6 +34,7 @@ CSVDataFramesExt = "DataFrames"
 CSVDataDecimalsExt = "DataDecimals"
 CSVFilePathsBaseExt = "FilePathsBase"
 CSVInlineStringsExt = "InlineStrings"
+CSVDataFramesInlineStringsExt = ["DataFrames", "InlineStrings"]
 
 [compat]
 DataFrames = "1"
