@@ -740,7 +740,7 @@ function _describe(df::AbstractDataFrame, stats::AbstractVector)
     # An array of Dicts for summary statistics
     # one worker per column type (ColumnKernels.colstats); custom statistics are user
     # functions, called as upstream does
-    dcols = df isa DataFrame ? _dcolumns(df) : Dynamic{Column}[tocolumn(col) for col in eachcol(df)]
+    dcols = _dcolumns(df)
     col_stats_dicts = map(eachindex(dcols)) do i
         d = colstats(dcols[i], predefined_funs_local)
         if !isempty(custom_funs)

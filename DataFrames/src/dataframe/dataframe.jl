@@ -443,6 +443,8 @@ index(df::DataFrame) = getfield(df, :colindex)
 _columns(df::DataFrame) = ColumnVectors(getfield(df, :columns))
 "The columns of `df` as dynamic values of `Column`, for code bounded by `Column`."
 _dcolumns(df::DataFrame) = getfield(df, :columns)
+# forks: any other data frame (a SubDataFrame's selected columns, views): its columns as dynamic values
+_dcolumns(df::AbstractDataFrame) = Dynamic{Column}[tocolumn(col) for col in eachcol(df)]
 "Column `i` of a data frame as a dynamic value of `Column`."
 _dcolumn(df::DataFrame, i::Int) = getfield(df, :columns)[i]
 _dcolumn(df::AbstractDataFrame, i::Int) = tocolumn(df[!, i])::Dynamic{Column}

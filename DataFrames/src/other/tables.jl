@@ -56,7 +56,7 @@ function DataFrame(x; copycols::Union{Nothing, Bool}=nothing)
     elseif (src = x isa Tables.CopiedColumns ? Tables.source(x) : x; conforms(typeof(src), TableSource))
         # forks: a table conforming to `TableSource` (a `CSV.File`, a column table) is read
         # through the trait: its columns as `Dynamic{Column}` values, no schema type
-        df = fromsource(src, something(copycols, !(x isa Tables.CopiedColumns)))
+        df = fromsource(src, something(copycols, !(x isa Tables.CopiedColumns)))::DataFrame   # (an entry at a type that may not conform: its result is not inferred)
     else
         cols = Tables.columns(x)
         names = collect(Symbol, Tables.columnnames(cols))

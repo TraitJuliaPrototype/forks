@@ -19,4 +19,6 @@ else
 fi
 flock "$LOCK" nice -n 19 timeout 1800 script -qec "$J -i --banner=no --startup-file=no --project=env_forks" /dev/null \
     < scripts/session.jl > "$OUT/repl.txt" 2>&1
-echo "repl exit $?; marks $(grep -ac '^T ' "$OUT/repl.txt"); errors $(grep -ac 'ERROR' "$OUT/repl.txt")"
+rc=$?
+clean() { tr -d '\r' < "$OUT/repl.txt" | sed 's/\x1b\[[0-9;?]*[a-zA-Z]//g'; }   # a terminal transcript: carriage returns, escapes
+echo "repl exit $rc; marks $(clean | grep -ac '^T '); errors $(clean | grep -ac '^ERROR')"
