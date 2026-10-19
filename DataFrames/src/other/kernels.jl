@@ -150,7 +150,7 @@ Upstream's fast grouping path for one column (`row_group_slots!` with reference 
 groupeddataframe/utils.jl): `nothing` if the column has no usable reference pool; otherwise
 the 0-based code of each row (-1 for a skipped `missing`), the number of codes, and whether
 the codes follow the sorted order of the values. A column has a reference pool if the
-`Column` conformance gives it levels (pooled and categorical columns), or, as upstream's
+`Column` implementation gives it levels (pooled and categorical columns), or, as upstream's
 `refpool_and_array` decides, if its cells are integers in a narrow range. With `sort`, codes
 follow the sorted order of the pool. A worker per column type.
 """

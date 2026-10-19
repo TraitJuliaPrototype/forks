@@ -33,7 +33,7 @@ Test lines that reach the column storage (`DataFrames._columns`), to be checked 
 
 ## M2–M6: the port (session 29, rebuilt on the declared operations)
 
-Sessions 27–28 built M2–M5 with kernels that unwrapped each column (`vector(c)`) and ran upstream's code on it, and with `CSVSource` as CSV's only trait. The implementation review (2026-10-18, P7) found that this validates a function barrier, not keys. Session 29 rebuilt the port so that kernels read columns through the traits' operations, and the reader's columns and string types are conformances.
+Sessions 27–28 built M2–M5 with kernels that unwrapped each column (`vector(c)`) and ran upstream's code on it, and with `CSVSource` as CSV's only trait. The implementation review (2026-10-18, P7) found that this validates a function barrier, not keys. Session 29 rebuilt the port so that kernels read columns through the traits' operations, and the reader's columns and string types are declared implementations.
 
 ### The traits
 
@@ -64,7 +64,7 @@ Kept plain: the index, metadata, the `=>` mini-language, reshape, broadcasting, 
 
 Not done (M6–M9 of the plan): user functions as `Callable`s (`ByRow`, `subset`), multi-column join keys (`OnCol` stays upstream's), the writer per key (M7), workloads and the measurement (M8–M9, wait for part D).
 
-The workloads of session 27 stay as they were (DataFrames' `other/precompile.jl`, `CSV/ext/CSVDataFramesExt.jl`); they are plain-Julia remedies and count as such. The InlineStrings extension's workload is gone: the extension is conformances only. *Later in session 29:* a new extension over CSV, DataFrames and InlineStrings, `CSV/ext/CSVDataFramesInlineStringsExt.jl`, carries the `String15` workload (forks 9d512a1). It is a plain-Julia remedy too. The performance review calls it a workaround; the design's answer is AOT from declared targets (`../writeup/design.md` §4.8), not built.
+The workloads of session 27 stay as they were (DataFrames' `other/precompile.jl`, `CSV/ext/CSVDataFramesExt.jl`); they are plain-Julia remedies and count as such. The InlineStrings extension's workload is gone: the extension is implementations only. *Later in session 29:* a new extension over CSV, DataFrames and InlineStrings, `CSV/ext/CSVDataFramesInlineStringsExt.jl`, carries the `String15` workload (forks 9d512a1). It is a plain-Julia remedy too. The performance review calls it a workaround; the design's answer is AOT from declared targets (`../writeup/design.md` §4.8), not built.
 
 ## Test status (session 29): what ran, what did not
 
@@ -86,7 +86,7 @@ Not run at all:
 To run, in this order (one job at a time; `scripts/testsuites.sh` takes the lock):
 1. `scripts/testsuites.sh ../julia-1.13/julia "CSV DataFrames" M6`: both suites green, the counts as at M1 (CSV 330,549; DataFrames 16,515,336).
 2. `scripts/check_session.sh`: "digests equal", the REPL session with 20 marks and 0 errors.
-3. Tables again only if TraitWorld changes the conformance machinery.
+3. Tables again only if TraitWorld changes the `@implement` machinery.
 
 ## Measured in session 29
 
@@ -120,8 +120,8 @@ The forks' first `String15` read alone (a script) took 1.74 s before and 0.04 s 
 
 ## TraitWorld issues found (session 29)
 
-- **Family registries collide across packages.** A family conformance defines `TraitWorld._family_registry(::Val{name})` with `name = gensym(:family_builders)` (`TraitWorld/src/implement.jl:630–633`). Gensym counters start alike in each precompilation process, so CSV's registry got the name of one of Tables' (`##family_builders#156`), and precompiling CSV failed: "Method overwriting is not permitted during Module precompilation". Workaround in `CSV/src/ColumnParsers.jl` (advance the gensym counter). Fix: key the registry by module as well (for example `_family_registry(::Val{name}, ::Val{modulename-and-uuid})`, or a registry constant reached through the conformance method itself).
-- **Result types: a family member is not checked like a single type.** `rowtext` with an `Any` result passed as part of a family conformance (`A where {A <: Vector{<:Union{Missing, InlineString}}}`), and was refused as a single-type conformance (`Vector{InlineString}`): "returns `Any`, declared `AbstractString`". The check should be the same, at the member's first use at the latest.
+- **Family registries collide across packages.** A family implementation defines `TraitWorld._family_registry(::Val{name})` with `name = gensym(:family_builders)` (`TraitWorld/src/implement.jl:630–633`). Gensym counters start alike in each precompilation process, so CSV's registry got the name of one of Tables' (`##family_builders#156`), and precompiling CSV failed: "Method overwriting is not permitted during Module precompilation". Workaround in `CSV/src/ColumnParsers.jl` (advance the gensym counter). Fix: key the registry by module as well (for example `_family_registry(::Val{name}, ::Val{modulename-and-uuid})`, or a registry constant reached through the `conformance` method itself).
+- **Result types: a family member is not checked like a single type.** `rowtext` with an `Any` result passed as part of a family implementation (`A where {A <: Vector{<:Union{Missing, InlineString}}}`), and was refused as a single-type implementation (`Vector{InlineString}`): "returns `Any`, declared `AbstractString`". The check should be the same, at the member's first use at the latest.
 - **No `where` on bounded arguments.** `f(c::Column{T}) where {T}` gives `MethodError: no method matching f(::Dynamic{Column})`. The port names `T` through an operation (`emptycells(c, n)::Vector{T}`).
 - **`@concrete_only` and missing values** (not tried; from the design text): "concrete all the way down" would refuse `Vector{Union{Missing, Int}}`, the standard column with missing values, although it is a concrete type. `CSVColumn` therefore declares no concreteness level; the plan had asked for `@concrete_only`.
 

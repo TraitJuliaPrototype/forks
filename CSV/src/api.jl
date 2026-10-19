@@ -2201,8 +2201,8 @@ end
 # knows DataString (the default; the parsed column as it is), String (bulk
 # materialization) and Symbol. forks: any other string type `S` is one whose
 # `Vector{S}` conforms to the trait `ColumnParsers.TextColumn`; the conversion
-# runs through the conformance's operations. CSVInlineStringsExt declares the
-# conformances for InlineString (auto-width per column) and the fixed
+# runs through the implementation's operations. CSVInlineStringsExt declares the
+# implementations for InlineString (auto-width per column) and the fixed
 # String1..String255. Upstream's extension added methods to seven internal
 # functions here instead.
 _stringsink(::Type{DataString}) = true
@@ -2236,7 +2236,7 @@ _checkstringtype(T) =
 # take the generic AbstractString path).
 function _materializecolumn(::Type{S}, col::DataStringVector, tasklimit::Int) where {S}
     _istextsink(S) || return _materializecolumn(S, col)
-    # forks: a string type from a conformance: the column it settles to, filled cell by cell
+    # forks: a string type from an implementation: the column it settles to, filled cell by cell
     n = length(col)
     out = ColumnParsers.textcolumn(_textsink(S), _maxtextlen(col), n, Missing <: eltype(col))
     out isa AbstractVector{<:Union{String, Missing}} && return _materializecolumn(String, col, tasklimit)
@@ -2273,7 +2273,7 @@ _levelvector(::Type{String}, levels::DataStringVector, n::Int) =
     String[String(levels[i]) for i in 1:n]
 _levelvector(::Type{Symbol}, levels::DataStringVector, n::Int) =
     Symbol[Symbol(levels[i]) for i in 1:n]
-# forks: a string type from a conformance (`TextColumn`), its width settled by the levels
+# forks: a string type from an implementation (`TextColumn`), its width settled by the levels
 function _levelvector(::Type{S}, levels::DataStringVector, n::Int) where {S}
     out = ColumnParsers.textcolumn(_textsink(S), _maxtextlen(levels), n, false)
     out isa Vector{String} && return _levelvector(String, levels, n)
@@ -2616,7 +2616,7 @@ Tables.rows(r::Rows) = r
 Tables.columnnames(r::Rows) = names(r)
 Tables.schema(::Rows{NT}) where {NT} =
     Tables.Schema(fieldnames(NT), Tuple{map(_roweltype, fieldtypes(NT))...})
-_rowstringtype(T) = _istextsink(T) ? ColumnParsers.rowtexttype(_textsink(T)) : T   # forks: a conformance's row type
+_rowstringtype(T) = _istextsink(T) ? ColumnParsers.rowtexttype(_textsink(T)) : T   # forks: an implementation's row type
 
 struct Row{NT <: NamedTuple, E} <: Tables.AbstractRow
     view::_IndexedRow
@@ -2699,7 +2699,7 @@ _rowcell(::Type{T}, v::_IndexedRow, j::Int, ::Val) where {T} = _typedvalue(T, v,
 _rowstring(::Type{String}, x::DataString) = String(x)
 _rowstring(::Type{DataString}, x::DataString) = x
 _rowstring(::Type{Symbol}, x::DataString) = Symbol(x)
-_rowstring(::Type{S}, x::DataString) where {S} = ColumnParsers.rowtext(_textsink(S), x)   # forks: a conformance's cell
+_rowstring(::Type{S}, x::DataString) where {S} = ColumnParsers.rowtext(_textsink(S), x)   # forks: an implementation's cell
 # Inline the access wrappers so a literal column name or index reaches the
 # typed lookup above. This avoids dynamic dispatch and boxing on cell access.
 @inline function Tables.getcolumn(row::Row{NT}, nm::Symbol) where {NT}
@@ -3005,7 +3005,7 @@ end
 # One output string type per text column for the whole row window: an
 # auto-width request (InlineString) settles on the longest value the schema
 # pass saw, so every batch has the same element type. Extensions add methods.
-# forks: a string type from a conformance settles to the cell type of the column it gives
+# forks: a string type from an implementation settles to the cell type of the column it gives
 _settledstringtype(::Type{S}, maxlen::Int) where {S} =
     _istextsink(S) ? nonmissingtype(eltype(ColumnParsers.textcolumn(_textsink(S), maxlen, 0, false))) : S
 function _settlestringrequests(plan::ColumnPlan, seedtypes::Vector{Type},

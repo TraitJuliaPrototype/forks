@@ -1,5 +1,5 @@
 # forks: columns of InlineStrings (`stringtype = String15`, or `InlineString` for the narrowest
-# width) meet DataFrames' workers. The reader's conformances for them are CSVInlineStringsExt's;
+# width) meet DataFrames' workers. The reader's implementations for them are CSVInlineStringsExt's;
 # the code for reading such a table, showing it and the usual kernels over it is compiled in this
 # extension's workload and kept in its image, which exists exactly when CSV, DataFrames and
 # InlineStrings are loaded (as CSVDataFramesExt does for CSV's own column types). Without it the

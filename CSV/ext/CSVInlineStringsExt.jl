@@ -10,11 +10,11 @@
 # rebuild from the payload words, views copy out of the retained buffer — one
 # pass, no intermediate Vector{String}.
 #
-# forks: the extension is a set of conformances. `Vector{S}`, for an InlineString
+# forks: the extension is a set of implementations. `Vector{S}`, for an InlineString
 # type `S` (with or without `Missing`, and the auto-width `InlineString` itself),
 # conforms to CSV's trait `ColumnParsers.TextColumn`, whose operations the
-# reader calls for any string type it does not know. Declaring a conformance
-# adds a method to the conformance registry and no method to CSV's internal
+# reader calls for any string type it does not know. Declaring an implementation
+# adds a method to the implementation registry and no method to CSV's internal
 # functions, so loading InlineStrings invalidates none of the reader's compiled
 # code. Upstream's extension added methods to `_stringsink`,
 # `_settledstringtype`, `_materializecolumn`, `_rowstringtype`, `_lazyeltype`,
@@ -81,7 +81,7 @@ _rowcell(::Type{T}, x::CSV.DataString) where {T <: InlineString} = _inl(T, x)
 _rowtype(::Type{InlineString}) = Union{InlineString, String}
 _rowtype(::Type{T}) where {T <: InlineString} = T
 
-# the conformances: `Vector{S}` and `Vector{Union{S, Missing}}` for each InlineString type `S`
+# the implementations: `Vector{S}` and `Vector{Union{S, Missing}}` for each InlineString type `S`
 # and for the auto width `InlineString`
 for S in (_WIDTHS..., InlineString), V in (Vector{S}, Vector{Union{S, Missing}})
     @eval @implement TextColumn $V begin

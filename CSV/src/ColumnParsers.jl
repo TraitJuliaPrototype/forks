@@ -8,7 +8,7 @@
 #   - `TextColumn{T}`: a column text cells are converted into after the parse, for a string
 #     type other than CSV's own (`DataString`, `String`, `Symbol`). `Vector{S}` conforms
 #     for each such string type `S`; InlineStrings' types conform in `CSVInlineStringsExt`.
-#     A conformance is a method of the conformance registry: declaring one adds no method
+#     An implementation is a method of the implementation registry: declaring one adds no method
 #     to CSV's internal functions, so it invalidates none of the reader's compiled code.
 #     CSV.jl's extension added methods to seven internal functions instead.
 # The reader's entry is bounded by `CSVSource`, what it reads from, so the read runs in a
@@ -17,7 +17,7 @@
 using TraitWorld
 using Tables.ColumnCore: Column, nrows, cell, emptycells, TableSource
 const _CSV = parentmodule(@__MODULE__)
-# WORKAROUND (TraitWorld issue, reported): a family conformance names its builder registry
+# WORKAROUND (TraitWorld issue, reported): a family implementation names its builder registry
 # `gensym(:family_builders)` and defines `TraitWorld._family_registry(::Val{name})`. Gensym
 # counters start alike in every precompilation process, so CSV's first family registry got the
 # name of one of Tables' (`##family_builders#156`) and precompiling CSV failed with "Method
