@@ -1,0 +1,1398 @@
+     Testing DataFrames
+      Status `/tmp/claude-1000/jl_xOpfh1/Project.toml`
+  [324d7699] CategoricalArrays v1.1.1
+  [861a8166] Combinatorics v1.1.0
+  [34da2185] Compat v4.18.1
+  [9a962f9c] DataAPI v1.16.0
+  [a93c6f00] DataFrames v1.8.2 `~/Repos/julia-trait-bound/forks/DataFrames`
+  [864edb3b] DataStructures v0.19.6
+  [e7dc6d0d] DataValues v0.4.13
+⌅ [842dd82b] InlineStrings v1.4.6
+  [41ab1584] InvertedIndices v1.3.1
+  [82899510] IteratorInterfaceExtensions v1.0.0
+  [e1d29d7a] Missings v1.2.0
+  [6fe1bfb0] OffsetArrays v1.17.0
+  [2dfb63ee] PooledArrays v1.4.3
+  [aea7be01] PrecompileTools v1.3.4
+  [08abe8d2] PrettyTables v3.5.0
+  [189a3867] Reexport v1.2.2
+  [91c51154] SentinelArrays v1.4.10
+  [1277b4bf] ShiftedArrays v2.0.0
+  [a2af1166] SortingAlgorithms v1.2.3
+  [860ef19b] StableRNGs v1.1.0
+  [10745b16] Statistics v1.11.5
+  [3783bdb8] TableTraits v1.0.1
+  [bd369af6] Tables v1.14.0 `~/Repos/julia-trait-bound/forks/Tables`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [1986cc42] Unitful v1.29.0
+  [ade2ca70] Dates v1.11.0
+  [9fa8497b] Future v1.11.0
+  [37e2e46d] LinearAlgebra v1.13.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [2f01184e] SparseArrays v1.13.0
+  [8dfed614] Test v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+      Status `/tmp/claude-1000/jl_xOpfh1/Manifest.toml`
+  [324d7699] CategoricalArrays v1.1.1
+  [861a8166] Combinatorics v1.1.0
+  [34da2185] Compat v4.18.1
+  [a8cc5b0e] Crayons v4.2.0
+  [9a962f9c] DataAPI v1.16.0
+  [a93c6f00] DataFrames v1.8.2 `~/Repos/julia-trait-bound/forks/DataFrames`
+  [864edb3b] DataStructures v0.19.6
+  [e2d170a0] DataValueInterfaces v1.0.0
+  [e7dc6d0d] DataValues v0.4.13
+⌅ [842dd82b] InlineStrings v1.4.6
+  [41ab1584] InvertedIndices v1.3.1
+  [82899510] IteratorInterfaceExtensions v1.0.0
+  [b964fa9f] LaTeXStrings v1.4.1
+  [e1d29d7a] Missings v1.2.0
+  [6fe1bfb0] OffsetArrays v1.17.0
+  [bac558e1] OrderedCollections v2.0.3
+  [2dfb63ee] PooledArrays v1.4.3
+  [aea7be01] PrecompileTools v1.3.4
+⌃ [21216c6a] Preferences v1.6.0
+  [08abe8d2] PrettyTables v3.5.0
+  [189a3867] Reexport v1.2.2
+  [ae029012] Requires v1.3.1
+  [91c51154] SentinelArrays v1.4.10
+  [1277b4bf] ShiftedArrays v2.0.0
+  [a2af1166] SortingAlgorithms v1.2.3
+  [860ef19b] StableRNGs v1.1.0
+  [10745b16] Statistics v1.11.5
+  [892a3eda] StringManipulation v0.6.1
+  [3783bdb8] TableTraits v1.0.1
+  [bd369af6] Tables v1.14.0 `~/Repos/julia-trait-bound/forks/Tables`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [1986cc42] Unitful v1.29.0
+  [56f22d72] Artifacts v1.11.0
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [7b1f6079] FileWatching v1.11.0
+  [9fa8497b] Future v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [8f399da3] Libdl v1.11.0
+  [37e2e46d] LinearAlgebra v1.13.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [3fa0cd96] REPL v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [6462fe0b] Sockets v1.11.0
+  [2f01184e] SparseArrays v1.13.0
+  [f489334b] StyledStrings v1.11.0
+  [fa267f1f] TOML v1.0.3
+  [8dfed614] Test v1.11.0
+  [cf7118a7] UUIDs v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+  [e66e0078] CompilerSupportLibraries_jll v1.5.5+2
+  [4536629a] OpenBLAS_jll v0.3.30+0
+  [bea87d4a] SuiteSparse_jll v7.10.1+0
+  [8e850b90] libblastrampoline_jll v5.15.0+0
+        Info Packages marked with ⌃ and ⌅ have new versions available. Those with ⌃ may be upgradable, but those with ⌅ are restricted by compatibility constraints from upgrading.
+Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
+   2.9 s  ✓ Tables
+  15.9 s  ✓ PrettyTables
+  58.7 s  ✓ DataFrames
+  3 dependencies successfully precompiled in 78 seconds. 51 already precompiled.
+     Testing Running tests...
+Running tests:
+Test Summary: | Pass  Total  Time
+make_unique   |    3      3  0.2s
+Test Summary: | Pass  Total  Time
+repeat count  |    5      5  0.3s
+Test Summary:      | Pass  Total  Time
+repeat inner_outer |    8      8  0.2s
+Test Summary: | Pass  Total  Time
+repeat! count |    8      8  0.1s
+Test Summary:       | Pass  Total  Time
+repeat! inner_outer |   11     11  0.1s
+Test Summary: | Pass  Total  Time
+funname       |    1      1  0.0s
+Test Summary:          |     Pass     Total   Time
+_findall(B::BitVector) | 14663328  14663328  22.1s
+Test Summary:                                       | Pass  Total  Time
+SubDataFrame copycols=false rejects transformations |    2      2  0.3s
+Test Summary:                                | Pass  Total  Time
+SubDataFrame copycols=false column selection |    6      6  0.3s
+	[1m[32mPASSED[0m: utils.jl
+Test Summary: | Pass  Total  Time
+hcat          |   10     10  0.6s
+Test Summary: | Pass  Total  Time
+hcat: copying |   20     20  0.0s
+Test Summary:            | Pass  Total  Time
+hcat ::AbstractDataFrame |    4      4  2.9s
+Test Summary:  | Pass  Total  Time
+hcat: copycols |   32     32  0.3s
+Test Summary: | Pass  Total  Time
+vcat          |   21     21  1.9s
+Test Summary: | Pass  Total  Time
+vcat copy     |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+vcat >2 args  |    4      4  0.3s
+Test Summary:       | Pass  Total  Time
+vcat mixed coltypes |   19     19  4.9s
+Test Summary:     | Pass  Total  Time
+vcat out of order |   21     21  0.5s
+Test Summary:         | Pass  Total  Time
+vcat with cols=:union |    6      6  0.3s
+Test Summary:             | Pass  Total  Time
+vcat with cols=:intersect |    6      6  0.0s
+Test Summary:          | Pass  Total  Time
+vcat with cols::Vector |   30     30  1.1s
+Test Summary:          | Pass  Total  Time
+vcat thrown exceptions |   33     33  0.4s
+Test Summary:  | Pass  Total  Time
+vcat with view |    1      1  0.3s
+Test Summary:            | Pass  Total  Time
+reduce vcat corner cases |   19     19  1.2s
+Test Summary:    | Pass  Total  Time
+vcat type piracy |    5      5  0.2s
+	[1m[32mPASSED[0m: cat.jl
+Test Summary: | Pass  Total  Time
+constructors  |   40     40  3.4s
+Test Summary:                 | Pass  Total  Time
+completecases and dropmissing |  278    278  5.6s
+Test Summary:                                                          | Pass  Total  Time
+deleteat! https://github.com/JuliaLang/julia/pull/41646 bug workaround |    2      2  0.4s
+Test Summary:                          | Pass  Total  Time
+dropmissing and unique view kwarg test |   17     17  1.6s
+Test Summary:          | Pass  Total  Time
+filter() and filter!() |   46     46  4.1s
+Test Summary:          | Pass  Total  Time
+filter view kwarg test |   56     56  3.5s
+Test Summary:                        | Pass  Total  Time
+filter and filter! with SubDataFrame |    4      4  0.3s
+Test Summary:                   | Pass  Total  Time
+filter and filter! with AsTable |    4      4  0.4s
+Test Summary:                   | Pass  Total  Time
+empty arg to filter and filter! |   24     24  1.1s
+Test Summary:   | Pass  Total  Time
+names with cols |   25     25  1.3s
+Test Summary:    | Pass  Total  Time
+empty and empty! |   10     10  0.0s
+Test Summary: | Pass  Total  Time
+isapprox      |    7      7  1.1s
+Test Summary:    | Pass  Total   Time
+fillcombinations |  177    177  15.9s
+Test Summary:   | Pass  Total  Time
+allcombinations |   32     32  1.7s
+	[1m[32mPASSED[0m: data.jl
+Test Summary:  | Pass  Total  Time
+Index indexing |   60     60  0.6s
+Test Summary: | Pass  Total  Time
+rename!       |   15     15  0.4s
+Test Summary: | Pass  Total  Time
+SubIndex      |   78     78  0.3s
+Test Summary:     | Pass  Total  Time
+selector mutation |   16     16  0.1s
+Test Summary:  | Pass  Total  Time
+fuzzy matching |   12     12  0.0s
+Test Summary:  | Pass  Total  Time
+Regex indexing |   52     52  0.3s
+Test Summary: | Pass  Total  Time
+Not indexing  |   38     38  0.1s
+Test Summary:    | Pass  Total  Time
+Between indexing |   36     36  0.2s
+Test Summary: | Pass  Total  Time
+All indexing  |    4      4  0.5s
+Test Summary: | Pass  Total  Time
+Cols indexing |  105    105  1.6s
+Test Summary: | Pass  Total  Time
+views         |   11     11  0.3s
+Test Summary: | Pass  Total  Time
+merge         |   19     19  1.2s
+Test Summary:       | Pass  Total  Time
+AsTable constructor |   32     32  0.6s
+	[1m[32mPASSED[0m: index.jl
+Test Summary:                | Pass  Total  Time
+randomized tests for rename! | 6995   6995  0.4s
+Test Summary:            | Pass  Total  Time
+additional rename! tests | 6643   6643  0.4s
+Test Summary:              | Pass  Total  Time
+rename with integer source |   29     29  0.8s
+Test Summary: | Pass  Total  Time
+equality      |    9      9  0.1s
+Test Summary: | Pass  Total  Time
+copying       |   24     24  0.6s
+Test Summary:      | Pass  Total  Time
+similar / missings |    2      2  0.2s
+Test Summary: | Pass  Total  Time
+hasproperty   |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+insertcols!   |   96     96  0.8s
+Test Summary:         | Pass  Total  Time
+insertcols! old tests |    6      6  0.1s
+Test Summary:            | Pass  Total  Time
+insertcols! with no cols |   12     12  0.0s
+Test Summary:     | Pass  Total  Time
+insertcols! after |   11     11  0.2s
+Test Summary:          | Pass  Total  Time
+DataFrame constructors |   11     11  0.7s
+Test Summary: | Pass  Total  Time
+deleteat!     |   68     68  1.2s
+Test Summary: | Pass  Total  Time
+describe      |   16     16  3.5s
+Test Summary: | Pass  Total  Time
+append!       |   35     35  0.9s
+Test Summary: | Pass  Total  Time
+prepend!      |   35     35  0.1s
+Test Summary:           | Pass  Total  Time
+append! default options |   11     11  0.3s
+Test Summary:            | Pass  Total  Time
+prepend! default options |   11     11  0.2s
+Test Summary:            | Pass  Total  Time
+append! advanced options |  184    184  0.4s
+Test Summary:             | Pass  Total  Time
+prepend! advanced options |  184    184  0.1s
+Test Summary: | Pass  Total  Time
+rename        |  131    131  1.6s
+Test Summary:             | Pass  Total  Time
+flexible rename arguments |   30     30  0.6s
+Test Summary: | Pass  Total  Time
+size          |    5      5  0.0s
+Test Summary:        | Pass  Total  Time
+first, last and only |   29     29  0.1s
+Test Summary:      | Pass  Total  Time
+column conversions |  172    172  0.8s
+Test Summary:        | Pass  Total  Time
+test disallowmissing |  730    730  1.2s
+Test Summary:     | Pass  Total  Time
+test allowmissing |  360    360  0.7s
+Test Summary: | Pass  Total  Time
+similar       |    8      8  0.0s
+Test Summary:                | Pass  Total  Time
+passing range to a DataFrame |    1      1  0.1s
+Test Summary:                | Pass  Total  Time
+test getindex using ! syntax |   15     15  0.0s
+Test Summary:                | Pass  Total  Time
+test corner case of getindex |    2      2  0.0s
+Test Summary:             | Pass  Total  Time
+empty data frame getindex |    9      9  0.1s
+Test Summary:               | Pass  Total  Time
+handling of end in indexing |   22     22  0.7s
+Test Summary:        | Pass  Total  Time
+aliasing in indexing |    5      5  0.2s
+Test Summary:                               | Pass  Total  Time
+getproperty, setproperty! and propertynames |   10     10  0.1s
+Test Summary:          | Pass  Total  Time
+duplicate column names |    1      1  0.1s
+Test Summary:         | Pass  Total  Time
+parent, size and axes |   11     11  0.0s
+Test Summary:                | Pass  Total  Time
+0-row DataFrame corner cases |    4      4  0.0s
+Test Summary:         | Pass  Total  Time
+All and Between tests |    1      1  3.3s
+Test Summary:         | Pass  Total  Time
+vcat with :orderequal |    5      5  0.1s
+Test Summary:                          | Pass  Total  Time
+vcat with source and reduce(vcat, ...) |   31     31  1.2s
+Test Summary: | Pass  Total  Time
+vcat init     |    5      5  1.0s
+Test Summary:                | Pass  Total  Time
+vcat ChainedVector ambiguity |    2      2  0.2s
+Test Summary:                                      | Pass  Total  Time
+names for Type, predicate + standard tests of cols |  153    153  3.3s
+Test Summary:     | Pass  Total  Time
+reverse DataFrame |    6      6  0.4s
+Test Summary:      | Pass  Total  Time
+reverse! DataFrame |    8      8  0.2s
+Test Summary:         | Pass  Total  Time
+reverse! SubDataFrame |   11     11  0.2s
+Test Summary:         | Pass  Total  Time
+permute!, invpermute! |   23     23  0.2s
+Test Summary:                    |  Pass  Total  Time
+exhaustive permute!, invpermute! | 97676  97676  4.0s
+Test Summary:     | Pass  Total  Time
+shuffle, shuffle! |   13     13  0.3s
+Test Summary: | Pass  Total  Time
+keepat!       |   58     58  0.8s
+Test Summary: | Pass  Total  Time
+resize!       |   17     17  0.0s
+Test Summary:           | Pass  Total  Time
+pop!, popfirst!, popat! |   21     21  0.1s
+Test Summary: | Pass  Total  Time
+isempty       |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+allunique     |   16     16  2.7s
+Test Summary:                                               | Pass  Total  Time
+extra tests describe, nonunique, allunique for SubDataFrame |    7      7  2.2s
+Test Summary:       | Pass  Total  Time
+Iterators.partition |   50     50  1.0s
+	[1m[32mPASSED[0m: dataframe.jl
+Test Summary:  | Pass  Total  Time
+push!(df, row) |   69     69  3.8s
+Test Summary:       | Pass  Total  Time
+pushfirst!(df, row) |   69     69  2.4s
+Test Summary:         | Pass  Total  Time
+insert!(df, idx, row) |   85     85  2.5s
+Test Summary:     | Pass  Total  Time
+extra push! tests |   23     23  0.7s
+Test Summary:          | Pass  Total  Time
+extra pushfirst! tests |   23     23  0.4s
+Test Summary:       | Pass  Total  Time
+extra insert! tests |   23     23  0.5s
+Test Summary:                             | Pass  Total  Time
+push!/pushfirst!/insert! with :orderequal |   37     37  1.3s
+Test Summary:                         | Pass  Total  Time
+push!/pushfirst!/insert! with :subset |   54     54  0.6s
+Test Summary:                            | Pass  Total  Time
+push!/pushfirst!/insert! with :intersect |   28     28  0.9s
+Test Summary:     | Pass  Total  Time
+push! with :union |   56     56  1.4s
+Test Summary:          | Pass  Total  Time
+pushfirst! with :union |   56     56  1.1s
+Test Summary:       | Pass  Total  Time
+insert! with :union |   56     56  1.1s
+Test Summary:                                 | Pass  Total  Time
+push!/pushfirst!/insert! with promote options |   66     66  0.5s
+Test Summary:                                                       | Pass  Total  Time
+push!/pushfirst!/insert! with :setequal and wrong number of entries |    6      6  0.0s
+Test Summary:                      | Pass  Total  Time
+push!/pushfirst!/insert! with self |    7      7  0.0s
+Test Summary:        | Pass  Total  Time
+multicolumn aliasing |   18     18  0.7s
+Test Summary:                | Pass  Total  Time
+Tables.AbstractRow insertion |   34     34  3.8s
+Test Summary:           | Pass  Total  Time
+PooledArray error #3356 |   10     10  1.1s
+Test Summary:                                   | Pass  Total  Time
+multi element append!/prepend!/push!/pushfirst! |  490    490  4.2s
+	[1m[32mPASSED[0m: insertion.jl
+Test Summary: | Pass  Total  Time
+select! Not   |   13     13  0.1s
+Test Summary: | Pass  Total  Time
+select Not    |   58     58  0.0s
+Test Summary:              | Pass  Total  Time
+select Not on SubDataFrame |   70     70  0.5s
+Test Summary: | Pass  Total  Time
+select!       |   35     35  0.2s
+Test Summary: | Pass  Total  Time
+select        |   68     68  0.3s
+Test Summary:          | Pass  Total  Time
+select on SubDataFrame |   78     78  0.2s
+Test Summary:          | Pass  Total  Time
+select! on all columns |   21     21  0.1s
+Test Summary:                                     | Pass  Total  Time
+select and select! with multiple selectors passed |   22     22  0.5s
+Test Summary:               | Pass  Total  Time
+select and select! renaming |   26     26  0.2s
+Test Summary:                          | Pass  Total  Time
+select and select! many columns naming |   24     24  0.8s
+Test Summary:                                | Pass  Total  Time
+select and select! many different transforms |   27     27  0.9s
+Test Summary:  | Pass  Total  Time
+nrow in select |   24     24  2.1s
+Test Summary:                             | Pass  Total  Time
+select and select! reserved return values |   47     47  4.8s
+Test Summary:                      | Pass  Total  Time
+select and select! empty selection |   16     16  0.4s
+Test Summary:            | Pass  Total  Time
+wrong selection patterns |    4      4  0.1s
+Test Summary:                 | Pass  Total  Time
+select and select! duplicates |   15     15  0.1s
+Test Summary:          | Pass  Total  Time
+SubDataFrame selection |   18     18  1.7s
+Test Summary:       | Pass  Total  Time
+pseudo-broadcasting |  140    140  4.1s
+Test Summary:          | Pass  Total  Time
+copycols special cases |   19     19  0.4s
+Test Summary: | Pass  Total  Time
+empty select  |    5      5  0.0s
+Test Summary:            | Pass  Total  Time
+transform and transform! |   34     34  0.4s
+Test Summary:    | Pass  Total  Time
+vectors of pairs |   18     18  1.8s
+Test Summary: | Pass  Total  Time
+AsTable tests |   18     18  3.6s
+Test Summary:                      | Pass  Total  Time
+make sure select! is safe on error |    3      3  0.0s
+Test Summary:             | Pass  Total  Time
+combine AbstractDataFrame |   23     23  2.3s
+Test Summary:                          | Pass  Total  Time
+select and transform AbstractDataFrame |   30     30  0.8s
+Test Summary:                            | Pass  Total  Time
+select! and transform! AbstractDataFrame |   15     15  0.3s
+Test Summary:          | Pass  Total  Time
+renamecols=false tests |   13     13  0.4s
+Test Summary:                                             | Pass  Total  Time
+transformation function with a function as first argument |  155    155  1.3s
+Test Summary:                                                | Pass  Total  Time
+transformation function with multiple columns as destination |  156    156  4.8s
+Test Summary:                               | Pass  Total  Time
+check correctness of duplicate column names |   14     14  0.3s
+Test Summary: | Pass  Total  Time
+empty ByRow   |   54     54  4.1s
+Test Summary:           | Pass  Total  Time
+selection special cases |   11     11  0.2s
+Test Summary:                                       | Pass  Total  Time
+test resizing via a vector of columns after scalars |    4      4  0.1s
+Test Summary:       | Pass  Total  Time
+normalize_selection |    3      3  0.0s
+Test Summary:                      | Pass  Total  Time
+copying in transform when renaming |   72     72  0.0s
+Test Summary:                    | Pass  Total  Time
+:col => AsTable and :col => cols |   12     12  1.7s
+Test Summary:                                     | Pass  Total  Time
+ByRow on PooledArray calls function on each entry |    1      1  0.4s
+Test Summary:   | Pass  Total  Time
+wide reductions |   26     26  5.2s
+Test Summary:                                        | Pass  Total  Time
+vectors of pairs with non-specific type are accepted |    8      8  0.6s
+Test Summary:                           | Pass  Total  Time
+fast reductions positional: cols => ... |   19     19  4.0s
+Test Summary:                                                        | Pass  Total   Time
+fast reductions: AsTable(cols)=>sum, mean, minimum, maximum variants |   86     86  12.6s
+Test Summary:                                   | Pass  Total  Time
+fast reductions: AsTable(cols)=>length variants |    5      5  0.2s
+Test Summary:                                       | Pass  Total  Time
+pathological cases that get custom eltype promotion |    4      4  0.9s
+Test Summary:                             | Pass  Total  Time
+tests of reductions over empty selections |   42     42  2.3s
+Test Summary:                                           | Pass  Total     Time
+test AsTable(...) => fun∘collect and ByRow(fun∘collect) |  221    221  1m53.5s
+Test Summary:                             | Pass  Total  Time
+function as target column names specifier |   32     32  2.6s
+Test Summary:                                          | Pass  Total   Time
+broadcasting column selectors: All, Cols, Between, Not | 1204   1204  27.8s
+Test Summary:               | Pass  Total  Time
+correct handling of copying |  278    278  0.8s
+Test Summary:                | Pass  Total  Time
+correct handling of functors |    2      2  0.1s
+Test Summary:       | Pass  Total  Time
+map on sparse array |    1      1  0.5s
+Test Summary:                                                                     | Pass  Total  Time
+improved error message when numbers requested and returned columns does not match |    6      6  0.1s
+Test Summary:                                             | Pass  Total  Time
+handling of operation specification in select!/transform! |   11     11  2.9s
+Test Summary:                       | Pass  Total  Time
+selection on a view without copying |    4      4  0.1s
+Test Summary:                     | Pass  Total   Time
+corner cases of fast aggregations |  582    582  52.3s
+Test Summary:                | Pass  Total   Time
+Tables.AbstractRow interface |  284    284  26.8s
+Test Summary: | Pass  Total  Time
+empty vector  |   11     11  0.4s
+	[1m[32mPASSED[0m: select.jl
+Test Summary:         | Pass  Total  Time
+the output of unstack |   27     27  3.7s
+Test Summary:                               | Pass  Total  Time
+unstack promotion to support missing values |    8      8  2.3s
+Test Summary:                         | Pass  Total  Time
+duplicate entries in unstack warnings |    9      9  0.6s
+Test Summary:            | Pass  Total  Time
+missing values in colkey |   10     10  0.6s
+Test Summary:             | Pass  Total  Time
+stack-unstack correctness |    4      4  1.6s
+Test Summary: | Pass  Total  Time
+reshape       |   78     78  4.6s
+Test Summary:           | Pass  Total  Time
+column names duplicates |    5      5  0.5s
+Test Summary:         | Pass  Total  Time
+flatten single column |   19     19  1.6s
+Test Summary:            | Pass  Total  Time
+flatten multiple columns |   18     18  0.7s
+Test Summary:       | Pass  Total  Time
+flatten with scalar |   20     20  4.3s
+Test Summary:          | Pass  Total  Time
+stack categorical test |   31     31  2.6s
+Test Summary:     | Pass  Total  Time
+test stack eltype |    8      8  0.0s
+Test Summary:            | Pass  Total  Time
+additional unstack tests |  205    205  2.3s
+Test Summary:                         | Pass  Total  Time
+additional unstack tests not sortable |    2      2  0.7s
+Test Summary: | Pass  Total  Time
+permutedims   |   44     44  1.9s
+Test Summary:                    | Pass  Total  Time
+stack view=true additional tests |    2      2  0.2s
+Test Summary:     | Pass  Total  Time
+unstack with fill |   67     67  5.5s
+Test Summary: | Pass  Total  Time
+empty unstack |    3      3  0.1s
+Test Summary:     | Pass  Total  Time
+no rowkey unstack |    7      7  0.8s
+Test Summary: | Pass  Total  Time
+combine kwarg |  134    134  2.3s
+Test Summary:                  | Pass  Total  Time
+variable_eltype in stack tests |    9      9  0.8s
+Test Summary:      | Pass  Total  Time
+unstack hard cases | 1706   1706  6.3s
+Test Summary:         | Pass  Total  Time
+better unstack errors |    7      7  0.5s
+Test Summary:       | Pass  Total  Time
+better stack errors |    6      6  0.1s
+	[1m[32mPASSED[0m: reshape.jl
+Test Summary: | Pass  Total  Time
+constructors  |   38     38  1.4s
+Test Summary:          | Pass  Total  Time
+getindex and setindex! |   53     53  0.6s
+Test Summary: | Pass  Total  Time
+equality      |   19     19  0.1s
+Test Summary: | Pass  Total  Time
+isless        |   15     15  0.2s
+Test Summary:                        | Pass  Total  Time
+hashing of DataFrameRow and GroupKey |   71     71  0.2s
+Test Summary:                               | Pass  Total  Time
+getproperty, setproperty! and propertynames |    6      6  0.0s
+Test Summary:                    | Pass  Total  Time
+keys, values and iteration, size |   31     31  0.9s
+Test Summary:           | Pass  Total  Time
+convert, copy and merge |   19     19  0.4s
+Test Summary:            | Pass  Total  Time
+parent and parentindices |   34     34  0.1s
+Test Summary:         | Pass  Total  Time
+iteration and collect |   10     10  0.3s
+Test Summary:    | Pass  Total  Time
+duplicate column |    2      2  0.0s
+Test Summary:        | Pass  Total  Time
+conversion and push! |   16     16  0.7s
+Test Summary: | Pass  Total  Time
+show          |   13     13  3.2s
+Test Summary:     | Pass  Total  Time
+check Vector type |    1      1  0.0s
+Test Summary: | Pass  Total  Time
+DataFrameRow  |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+rownumber     |   39     39  0.1s
+Test Summary: | Pass  Total  Time
+broadcasting  |    1      1  0.0s
+Test Summary:                                           | Pass  Total  Time
+comparison tests: DataFrameRow, NamedTuple and GroupKey |  421    421  2.8s
+	[1m[32mPASSED[0m: dataframerow.jl
+Test Summary: | Pass  Total  Time
+LaTeX export  |    4      4  0.5s
+Test Summary:     | Pass  Total  Time
+Huge LaTeX export |    2      2  0.2s
+Test Summary: | Pass  Total  Time
+HTML output   |   27     27  0.9s
+Test Summary:   | Pass  Total  Time
+limit attribute |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+printtable    |    1      1  0.1s
+Test Summary:  | Pass  Total  Time
+csv/tsv output |    6      6  0.0s
+Test Summary:                          | Pass  Total  Time
+Markdown as text/plain and as text/csv |    2      2  1.3s
+Test Summary:    | Pass  Total  Time
+Markdown as HTML |    1      1  0.0s
+Test Summary:                     | Pass  Total  Time
+empty data frame and DataFrameRow |   12     12  0.3s
+Test Summary: | Pass  Total  Time
+consistency   |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+summary tests |   16     16  0.2s
+Test Summary: | Pass  Total  Time
+eltypes tests |   18     18  0.2s
+Test Summary:                      | Pass  Total  Time
+improved printing of special types |    8      8  0.6s
+Test Summary:                              | Pass  Total  Time
+check keywords that limit the column width |   10     10  0.0s
+	[1m[32mPASSED[0m: io.jl
+Test Summary: | Pass  Total  Time
+constructors  |   54     54  1.3s
+Test Summary:                          | Pass  Total  Time
+DataFrame keyword argument constructor |   21     21  0.0s
+Test Summary:         | Pass  Total  Time
+DataFrame constructor |   18     18  0.1s
+Test Summary:    | Pass  Total  Time
+pair constructor |   20     20  0.6s
+Test Summary: | Pass  Total  Time
+associative   |   14     14  0.9s
+Test Summary:       | Pass  Total  Time
+vector constructors |   43     43  0.0s
+Test Summary: | Pass  Total  Time
+recyclers     |    4      4  0.1s
+Test Summary:                 | Pass  Total  Time
+constructor thrown exceptions |   16     16  0.2s
+Test Summary: | Pass  Total  Time
+column types  |    3      3  0.1s
+Test Summary:                             | Pass  Total  Time
+expansion of Ref and 0-dimensional arrays |    2      2  0.1s
+Test Summary:            | Pass  Total  Time
+broadcasting into 0 rows |    6      6  0.0s
+Test Summary:                | Pass  Total  Time
+Dict constructor corner case |    5      5  1.4s
+Test Summary:        | Pass  Total  Time
+removed constructors |    8      8  0.0s
+Test Summary:               | Pass  Total  Time
+threading correctness tests |    8      8  0.7s
+Test Summary:                       | Pass  Total  Time
+non-specific vector of column names |   35     35  0.1s
+Test Summary:                               | Pass  Total  Time
+DataFrame matrix constructor copycols kwarg |   55     55  0.1s
+Test Summary:                                      | Pass  Total  Time
+constructor with names passed as a second argument |  129    129  1.8s
+	[1m[32mPASSED[0m: constructors.jl
+Test Summary:              | Pass  Total  Time
+Constructors to Base types |   50     50  2.1s
+Test Summary:    | Pass  Total  Time
+conversion tests |   12     12  0.1s
+	[1m[32mPASSED[0m: conversions.jl
+Test Summary:  | Pass  Total  Time
+standard tests |  194    194  4.7s
+Test Summary:                      | Pass  Total  Time
+correctness of checkunique keyword |   65     65  3.0s
+Test Summary:          | Pass  Total  Time
+non standard selectors |    4      4  0.7s
+Test Summary:   | Pass  Total  Time
+view kwarg test |    8      8  1.1s
+Test Summary:                          | Pass  Total  Time
+hard tests of different sorting orders |  116    116  9.7s
+Test Summary: | Pass  Broken  Total  Time
+sort! tests   |   10      10     20  1.7s
+Test Summary:                            | Pass  Total  Time
+check sorting kwarg argument correctness |  210    210  1.2s
+Test Summary:              | Pass  Total  Time
+correct aliasing detection |   11     11  1.4s
+Test Summary:                                                                 | Pass  Total  Time
+issue #3340, mostly downstream testing for SortingAlgorithms.jl and Base.Sort |   50     50  1.6s
+	[1m[32mPASSED[0m: sort.jl
+Test Summary: | Pass  Total  Time
+parent        |    3      3  1.0s
+Test Summary: | Pass  Total  Time
+consistency   |    2      2  0.0s
+Test Summary:    | Pass  Total  Time
+accepted columns |   14     14  0.2s
+Test Summary:                                       | Pass  Total   Time
+groupby and combine(::Function, ::GroupedDataFrame) | 1552   1552  23.8s
+Test Summary:          | Pass  Total  Time
+grouping with missings | 1381   1381  5.3s
+Test Summary:                                       | Pass  Total  Time
+grouping arrays that allow missing without missings | 5488   5488  2.7s
+Test Summary:                   | Pass  Total  Time
+grouping refarray with fallback |    8      8  2.1s
+Test Summary:               | Pass  Total  Time
+grouping on integer columns |  723    723  5.6s
+Test Summary:            | Pass  Total  Time
+grouping with three keys | 2744   2744  2.3s
+Test Summary:                 | Pass  Total   Time
+grouping with hash collisions |    2      2  10.4s
+Test Summary:               | Pass  Total   Time
+combine with pair interface |  133    133  12.5s
+Test Summary:                                                                     | Pass  Total   Time
+combine with aggregation functions (skipmissing=false, sort=false, indices=false) |  511    511  33.9s
+Test Summary:                                                                    | Pass  Total  Time
+combine with aggregation functions (skipmissing=false, sort=false, indices=true) |  651    651  0.0s
+Test Summary:                                                                    | Pass  Total  Time
+combine with aggregation functions (skipmissing=false, sort=true, indices=false) |  511    511  0.0s
+Test Summary:                                                                   | Pass  Total  Time
+combine with aggregation functions (skipmissing=false, sort=true, indices=true) |  651    651  0.0s
+Test Summary:                                                                    | Pass  Total  Time
+combine with aggregation functions (skipmissing=true, sort=false, indices=false) |  511    511  0.0s
+Test Summary:                                                                   | Pass  Total  Time
+combine with aggregation functions (skipmissing=true, sort=false, indices=true) |  651    651  0.0s
+Test Summary:                                                                   | Pass  Total  Time
+combine with aggregation functions (skipmissing=true, sort=true, indices=false) |  511    511  0.0s
+Test Summary:                                                                  | Pass  Total  Time
+combine with aggregation functions (skipmissing=true, sort=true, indices=true) |  651    651  0.0s
+Test Summary:                                 | Pass  Total  Time
+combine with columns named like grouping keys |   17     17  1.1s
+Test Summary:      | Pass  Total  Time
+iteration protocol |    6      6  0.2s
+Test Summary:                  | Pass  Total  Time
+type stability of index fields |    1      1  0.0s
+Test Summary:       | Pass  Total  Time
+Array-like getindex |   49     49  0.3s
+Test Summary:  | Pass  Total  Time
+== and isequal |   19     19  0.1s
+Test Summary: | Pass  Total  Time
+show          |   16     16  2.5s
+Test Summary: | Pass  Total  Time
+DataFrame     |   22     22  2.8s
+Test Summary:                          | Pass  Total  Time
+groupindices, groupcols, and valuecols |   28     28  0.2s
+Test Summary:               | Pass  Total  Time
+non standard cols arguments |   35     35  0.2s
+Test Summary:                         | Pass  Total  Time
+GroupedDataFrame dictionary interface |   80     80  5.6s
+Test Summary:          | Pass  Total  Time
+GroupKey and GroupKeys |  230    230  1.1s
+Test Summary:                                | Pass  Total  Time
+GroupedDataFrame indexing with array of keys |  468    468  3.4s
+Test Summary:                       | Pass  Total  Time
+InvertedIndex with GroupedDataFrame |   33     33  0.7s
+Test Summary:                            | Pass  Total  Time
+GroupedDataFrame array index homogeneity |   49     49  0.7s
+Test Summary:                  | Pass  Total  Time
+Parent DataFrame names changed |   13     13  0.2s
+Test Summary:       | Pass  Total  Time
+haskey for GroupKey |   26     26  0.1s
+Test Summary:                                            | Pass  Total  Time
+Check aggregation of DataFrameRow and Tables.AbstractRow |    6      6  1.0s
+Test Summary:                                             | Pass  Total  Time
+Allow returning DataFrame() or NamedTuple() to drop group | 3026   3026  5.9s
+Test Summary:                              | Pass  Total  Time
+auto-splatting, ByRow, and column renaming |    9      9  0.7s
+Test Summary:                   | Pass  Total  Time
+hard tabular return value cases |   26     26  1.9s
+Test Summary:                                   | Pass  Total  Time
+last Pair interface with multiple return values |    9      9  0.5s
+Test Summary: | Pass  Total  Time
+keepkeys      |    3      3  0.1s
+Test Summary:            | Pass  Total  Time
+additional do_call tests |   13     13  2.1s
+Test Summary:                                              | Pass  Total  Time
+mixing of different return lengths and pseudo-broadcasting |  143    143  1.9s
+Test Summary:   | Pass  Total  Time
+passing columns |   29     29  1.0s
+Test Summary:              | Pass  Total  Time
+correct dropping of groups |    6      6  0.1s
+Test Summary: | Pass  Total  Time
+AsTable tests |   15     15  4.5s
+Test Summary:                  | Pass  Total  Time
+test correctness of ungrouping |    5      5  0.1s
+Test Summary:            | Pass  Total  Time
+combine GroupedDataFrame |  120    120  1.9s
+Test Summary:                         | Pass  Total  Time
+select and transform GroupedDataFrame |  480    480  1.4s
+Test Summary:                           | Pass  Total  Time
+select! and transform! GroupedDataFrame |  216    216  1.2s
+Test Summary:                         | Pass  Total  Time
+group ordering after select/transform |   16     16  0.0s
+Test Summary:                                     | Pass  Total  Time
+handling empty data frame / selectors / groupcols |   99     99  0.5s
+Test Summary:                          | Pass  Total  Time
+groupcols order after select/transform |    8      8  0.1s
+Test Summary:                | Pass  Total  Time
+corner cases of group_reduce |   72     72  7.6s
+Test Summary: | Pass  Total  Time
+filter        |  416    416  5.6s
+Test Summary:                 | Pass  Total  Time
+select/transform column order |   58     58  0.2s
+Test Summary:               | Pass  Total  Time
+combine on empty data frame |    7      7  0.1s
+Test Summary:                    | Pass  Total  Time
+disallowed tuple column selector |    2      2  0.0s
+Test Summary:                                            | Pass  Total     Time
+check isagg correctly uses fast path only when it should | 1191   1191  1m01.3s
+Test Summary:          | Pass  Total  Time
+renamecols=false tests |   14     14  0.5s
+Test Summary: | Pass  Total  Time
+empty ByRow   |   13     13  1.2s
+Test Summary:                   | Pass  Total  Time
+aggregation of reordered groups |   36     36  1.8s
+Test Summary:                                         | Pass  Total  Time
+basic tests of advanced rules with multicolumn output |   30     30  4.1s
+Test Summary:                                   | Pass  Total  Time
+tests of invariants of transformation functions |    4      4  2.6s
+Test Summary:                            | Pass  Total  Time
+extra CategoricalArray aggregation tests |   44     44  0.3s
+┌ Warning: Running tests with only one thread: correctness of parallel operations is not checked
+└ @ Main ~/Repos/julia-trait-bound/forks/DataFrames/test/runtests.jl:12
+┌ Warning: All(args...) is deprecated, use Cols(args...) instead
+│   caller = top-level scope at index.jl:423
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/index.jl:423
+┌ Warning: All(args...) is deprecated, use Cols(args...) instead
+│   caller = top-level scope at index.jl:423
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/index.jl:423
+┌ Warning: All(args...) is deprecated, use Cols(args...) instead
+│   caller = top-level scope at dataframe.jl:1698
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/dataframe.jl:1698
+┌ Warning: Using ErrorException to test field access is deprecated; use FieldError instead.
+│   caller = do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any) at Test.jl:915
+└ @ Core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:915
+┌ Warning: `indicator` keyword argument is deprecated and will be removed in 2.0 release of DataFrames.jl. Use `source` keyword argument instead.
+│   caller = top-level scope at deprecated.jl:8
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:8
+┌ Warning: `indicator` keyword argument is deprecated and will be removed in 2.0 release of DataFrames.jl. Use `source` keyword argument instead.
+│   caller = top-level scope at deprecated.jl:8
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:8
+┌ Warning: `indicator` keyword argument is deprecated and will be removed in 2.0 release of DataFrames.jl. Use `source` keyword argument instead.
+│   caller = top-level scope at deprecated.jl:8
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:8
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = #hcat#133 at abstractdataframe.jl:1621 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/abstractdataframe.jl:1621
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = #hcat#134 at abstractdataframe.jl:1623 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/abstractdataframe.jl:1623
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = top-level scope at deprecated.jl:27
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:27
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = top-level scope at deprecated.jl:27
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:27
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = top-level scope at deprecated.jl:27
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:27
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = #hcat#134 at abstractdataframe.jl:1623 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/abstractdataframe.jl:1623
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = #hcat#134 at abstractdataframe.jl:1623 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/abstractdataframe.jl:1623
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = #hcat#133 at abstractdataframe.jl:1621 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/abstractdataframe.jl:1621
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = #hcat#134 at abstractdataframe.jl:1623 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/abstractdataframe.jl:1623
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = #hcat#133 at abstractdataframe.jl:1621 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/abstractdataframe.jl:1621
+┌ Warning: horizontal concatenation of data frame with a vector is deprecated. Pass DataFrame(x1=x) instead.
+│   caller = #hcat#133 at abstractdataframe.jl:1621 [inlined]
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/abstractdataframe.jl:1621
+┌ Warning: `delete!(df::DataFrame, inds)` is deprecated, use `deleteat!(df::DataFrame, inds)` instead.
+│   caller = top-level scope at deprecated.jl:120
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:120
+┌ Warning: `delete!(df::DataFrame, inds)` is deprecated, use `deleteat!(df::DataFrame, inds)` instead.
+│   caller = top-level scope at deprecated.jl:120
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:120
+┌ Warning: `delete!(df::DataFrame, inds)` is deprecated, use `deleteat!(df::DataFrame, inds)` instead.
+│   caller = top-level scope at deprecated.jl:120
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:120
+┌ Warning: `delete!(df::DataFrame, inds)` is deprecated, use `deleteat!(df::DataFrame, inds)` instead.
+│   caller = top-level scope at deprecated.jl:120
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:120
+┌ Warning: `delete!(df::DataFrame, inds)` is deprecated, use `deleteat!(df::DataFrame, inds)` instead.
+│   caller = top-level scope at deprecated.jl:120
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:120
+┌ Warning: When empty column selector is passed ordering is done on all columns. This behavior is deprecated and will change in the future.
+│   caller = sortperm(df::DataFrame, cols::Vector{Any}; alg::Nothing, lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering, checkunique::Bool) at sort.jl:611
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/sort.jl:611
+┌ Warning: When empty column selector is passed ordering is done on all columns. This behavior is deprecated and will change in the future.
+│   caller = issorted(df::DataFrame, cols::Vector{Any}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering, checkunique::Bool) at sort.jl:430
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/sort.jl:430
+┌ Warning: When empty column selector is passed ordering is done on all columns. This behavior is deprecated and will change in the future.
+│   caller = sort!(df::DataFrame, cols::Vector{Any}; alg::Nothing, lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering, checkunique::Bool) at sort.jl:740
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/src/abstractdataframe/sort.jl:740
+┌ Warning: allowduplicates keyword argument is deprecated. Pass `combine=last` instead of `allowduplicates=true`.
+│   caller = top-level scope at deprecated.jl:139
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:139
+┌ Warning: allowduplicates keyword argument is deprecated. Pass `combine=last` instead of allowduplicates=true.
+│   caller = top-level scope at deprecated.jl:139
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:139
+┌ Warning: allowduplicates keyword argument is deprecated. Pass `combine=last` instead of allowduplicates=true.
+│   caller = top-level scope at deprecated.jl:139
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:139
+┌ Warning: allowduplicates keyword argument is deprecated. Pass `combine=last` instead of allowduplicates=true.
+│   caller = top-level scope at deprecated.jl:139
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:139
+┌ Warning: allowduplicates keyword argument is deprecated. Pass `combine=last` instead of `allowduplicates=true`.
+│   caller = top-level scope at deprecated.jl:139
+└ @ Core ~/Repos/julia-trait-bound/forks/DataFrames/test/deprecated.jl:139
+Test Summary:             | Pass  Total  Time
+hashing of pooled vectors |    8      8  0.6s
+Test Summary:                 | Pass  Total  Time
+column selection and renaming |   13     13  0.1s
+Test Summary:                        | Pass  Total  Time
+corner cases of wrong transformation |   20     20  1.7s
+Test Summary:                                               | Pass  Total  Time
+select and transform! tests with function as first argument |    6      6  0.6s
+Test Summary:                                               | Pass  Total  Time
+make sure we handle idx correctly when groups are reordered |    4      4  0.3s
+Test Summary:                           |  Pass  Total   Time
+permutations of operations with combine | 16921  16921  11.1s
+Test Summary:                               | Pass  Total   Time
+result eltype widening from different tasks |   35     35  28.9s
+Test Summary:                  | Pass  Total  Time
+CategoricalArray thread safety |    3      3  1.1s
+Test Summary:                | Pass  Total  Time
+grouped data frame iteration |    6      6  1.4s
+Test Summary:          | Pass  Total  Time
+groupby multithreading |   32     32  9.2s
+Test Summary:           | Pass  Total  Time
+map on GroupedDataFrame |    2      2  0.0s
+Test Summary:              | Pass  Total  Time
+aggregation of PooledArray |    5      5  1.2s
+Test Summary:                       | Pass  Total  Time
+extra tests of wrapper corner cases |    4      4  0.4s
+Test Summary:                       | Pass  Total   Time
+grouping correctness with threading |  296    296  43.1s
+Test Summary:   | Pass  Total  Time
+grouping floats |    6      6  0.0s
+Test Summary:                   | Pass  Total  Time
+aggregation with matrix of Pair |   13     13  0.4s
+Test Summary: |   Pass   Total  Time
+subset! tests | 116069  116069  6.2s
+Test Summary:     | Pass  Total  Time
+consistency check |    2      2  0.1s
+Test Summary:                          | Pass  Total  Time
+check sort keyword argument of groupby |   72     72  0.8s
+Test Summary:                              | Pass  Total  Time
+eachindex, groupindices, and proprow tests |   48     48  1.2s
+Test Summary:                | Pass  Total  Time
+fillfirst! correctness tests |  404    404  0.0s
+Test Summary:                  | Pass  Total  Time
+maximum and minimum on missing |    5      5  0.2s
+Test Summary:            | Pass  Total  Time
+corner cases of indexing |   21     21  0.4s
+Test Summary:                                           | Pass  Total  Time
+aggregation of empty GroupedDataFrame with table output |   31     31  4.4s
+Test Summary: | Pass  Total  Time
+sorting API   |  370    370  4.2s
+Test Summary:                          | Pass  Total  Time
+no levels in pooled grouping bug #3393 |    2      2  2.3s
+	[1m[32mPASSED[0m: grouping.jl
+Test Summary:      | Pass  Total   Time
+subset and subset! |  238    238  17.4s
+Test Summary:                                           | Pass  Total  Time
+subsetting requires passing vector for data frame input |   29     29  1.7s
+Test Summary:         | Pass  Total  Time
+multicolumn selectors |   45     45  4.9s
+Test Summary:   | Pass  Total   Time
+wide subsetting |  260    260  35.8s
+Test Summary:                           | Pass  Total  Time
+test grouping order after the operation | 1609   1609  0.6s
+Test Summary: | Pass  Total  Time
+empty args    |   33     33  0.0s
+Test Summary:              | Pass  Total  Time
+empty conditions in subset |    4      4  0.5s
+	[1m[32mPASSED[0m: subset.jl
+Test Summary: | Pass  Total  Time
+join types    |   30     30  4.0s
+Test Summary:       | Pass  Total  Time
+Test empty inputs 1 |   21     21  0.1s
+Test Summary:       | Pass  Total  Time
+Test empty inputs 2 |   21     21  0.3s
+Test Summary: | Pass  Total  Time
+issue #960    |    4      4  1.6s
+Test Summary: | Pass  Total  Time
+all joins     |   30     30  1.1s
+Test Summary:                    | Pass  Total  Time
+all joins with CategoricalArrays |   32     32  4.9s
+Test Summary:                                                     | Pass  Total  Time
+maintain CategoricalArray levels ordering on join - non-`on` cols |    6      6  0.6s
+Test Summary:                                                          | Pass  Total  Time
+maintain CategoricalArray levels ordering on join - ordering conflicts |   10     10  0.6s
+Test Summary:                                                           | Pass  Total  Time
+maintain CategoricalArray levels ordering on join - left is categorical |   10     10  0.2s
+Test Summary:                                   | Pass  Total  Time
+join on columns with different left/right names |   19     19  2.2s
+Test Summary:                  | Pass  Total  Time
+join with a column of type Any |   16     16  0.8s
+Test Summary:                                       | Pass  Total  Time
+joins with categorical columns and no matching rows |   24     24  1.2s
+Test Summary:  | Pass  Total  Time
+source columns |    4      4  2.0s
+Test Summary:                       | Pass  Total  Time
+test checks of merge key uniqueness |   46     46  4.0s
+Test Summary: | Pass  Total  Time
+consistency   |    3      3  0.0s
+Test Summary:         | Pass  Total  Time
+multi data frame join |   10     10  0.3s
+Test Summary:       | Pass  Total  Time
+flexible on in join |    4      4  0.8s
+Test Summary:          | Pass  Total  Time
+check naming of source |    6      6  0.2s
+Test Summary:                      | Pass  Total  Time
+validate error message composition |   47     47  0.4s
+Test Summary:    | Pass  Total   Time
+renamecols tests |  613    613  18.7s
+Test Summary:       | Pass  Total  Time
+careful source test | 1452   1452  0.1s
+Test Summary:         | Pass  Total  Time
+removed join function |    2      2  0.0s
+Test Summary:                          | Pass  Total  Time
+join mixing DataFrame and SubDataFrame |    1      1  2.6s
+Test Summary:           |    Pass    Total  Time
+OnCol correctness tests | 1203049  1203049  8.5s
+Test Summary:          |  Pass  Total     Time
+join correctness tests | 92253  92253  2m58.2s
+Test Summary:      | Pass  Total  Time
+legacy merge tests |   21     21  1.4s
+Test Summary:     | Pass  Total  Time
+legacy join tests |    3      3  1.8s
+Test Summary:        | Pass  Total  Time
+threaded correctness |   36     36  2.5s
+Test Summary:                      | Pass  Total   Time
+matchmissing :notequal correctness | 1194   1194  42.3s
+Test Summary: | Pass  Total  Time
+leftjoin!     |  215    215  3.6s
+Test Summary:                                                    | Pass  Total  Time
+passing matchmissing in multi-data frame innerjoin and outerjoin |    3      3  0.6s
+Test Summary:   |  Pass  Total  Time
+_count_sortperm | 12680  12680  0.1s
+Test Summary:               | Pass  Total  Time
+basic join tests with order |  132    132  0.1s
+Test Summary:                   |   Pass   Total  Time
+randomized join tests with sort | 141120  141120  4.5s
+Test Summary: |  Pass  Total     Time
+wide joins    | 12002  12002  4m05.1s
+	[1m[32mPASSED[0m: join.jl
+Test Summary:       | Pass  Total  Time
+eachrow and eachcol |   53     53  0.8s
+Test Summary: | Pass  Total  Time
+mapcols       |   20     20  0.5s
+Test Summary: | Pass  Total  Time
+mapcols!      |   21     21  0.8s
+Test Summary: | Pass  Total  Time
+SubDataFrame  |    5      5  0.1s
+Test Summary:   | Pass  Total  Time
+parent mutation |    4      4  0.1s
+Test Summary:                 | Pass  Total  Time
+getproperty and propertynames |   22     22  0.1s
+Test Summary:             | Total  Time
+overload Compat functions |     0  0.0s
+Test Summary:                      | Pass  Total  Time
+keys, values and pairs for eachcol |   11     11  0.1s
+Test Summary:                                    | Pass  Total  Time
+findfirst, findnext, findlast, findprev, findall |   22     22  0.5s
+Test Summary:                      | Pass  Total  Time
+multirow indexing of DataFrameRows |   18     18  0.2s
+Test Summary:            | Pass  Total  Time
+test unaliasing of index |   62     62  0.3s
+Test Summary:                       | Pass  Total  Time
+haskey and get for DataFrameColumns |   48     48  0.2s
+	[1m[32mPASSED[0m: iteration.jl
+Test Summary: | Pass  Total  Time
+nonunique     |   20     20  2.9s
+Test Summary:                                     | Pass  Total  Time
+nonunique, nonunique, unique! with extra argument |   45     45  1.3s
+Test Summary:                             | Pass  Total  Time
+keep argument to nonunique/unique/unique! |  153    153  8.5s
+Test Summary:                                           | Pass  Total  Time
+case when groups are not compressed in row_group_slots! |    4      4  0.0s
+	[1m[32mPASSED[0m: duplicates.jl
+Test Summary:                            | Pass  Total  Time
+Basic show test with allrows and allcols |    9      9  0.2s
+Test Summary:    | Pass  Total  Time
+displaysize test |    4      4  0.1s
+Test Summary:                     |  Pass  Total  Time
+GroupedDataFrame displaysize test | 61208  61208  6.3s
+Test Summary:             | Pass  Total  Time
+IOContext parameters test |    2      2  0.1s
+Test Summary:          | Pass  Total  Time
+SubDataFrame show test |    1      1  0.0s
+Test Summary:                                 | Pass  Total  Time
+Test showing StackedVector and RepeatedVector |    3      3  0.2s
+Test Summary:                                            | Pass  Total  Time
+Test colors and non-standard values: missing and nothing |    3      3  0.2s
+Test Summary:                  | Pass  Total  Time
+Test correct width computation |    1      1  0.0s
+Test Summary:              | Pass  Total  Time
+Test showing special types |    5      5  0.4s
+Test Summary:                              | Pass  Total  Time
+Test using :compact parameter of IOContext |    2      2  0.0s
+Test Summary:                              | Pass  Total  Time
+Test of DataFrameRows and DataFrameColumns |    4      4  0.1s
+Test Summary:                          | Pass  Total  Time
+Test empty data frame and DataFrameRow |    3      3  0.2s
+Test Summary: | Pass  Total  Time
+consistency   |    2      2  0.0s
+Test Summary:  | Pass  Total  Time
+wide type name |    6      6  0.3s
+Test Summary:  | Pass  Total  Time
+wide type name |    2      2  0.1s
+Test Summary: | Pass  Total  Time
+UnionAll      |    1      1  0.1s
+Test Summary:                   | Pass  Total  Time
+wide output and column trimming |    3      3  0.0s
+Test Summary:            | Pass  Total  Time
+Floating point alignment |    8      8  1.1s
+Test Summary:            | Pass  Total  Time
+Complex number alignment |    1      1  0.2s
+Test Summary:                 | Pass  Total  Time
+Invalid keywords in text mode |    2      2  0.0s
+Test Summary:                                            | Pass  Total  Time
+Issue #2673 - Vertical line when not showing row numbers |    4      4  0.2s
+Test Summary:                   | Pass  Total  Time
+Issue #3346 - Showing Base.UUID |    1      1  0.6s
+Test Summary:                         | Pass  Total  Time
+cover all corner cases of compacttype |    1      1  0.0s
+Test Summary:                       | Pass  Total  Time
+InlineStrings with GroupedDataFrame |   12     12  1.0s
+	[1m[32mPASSED[0m: show.jl
+Test Summary:       | Pass  Total  Time
+copy - SubDataFrame |    5      5  0.3s
+Test Summary:     | Pass  Total  Time
+view -- DataFrame |   77     77  0.8s
+Test Summary:        | Pass  Total  Time
+view -- SubDataFrame |   62     62  1.5s
+Test Summary:                               | Pass  Total  Time
+getproperty, setproperty! and propertynames |    8      8  0.3s
+Test Summary: | Pass  Total  Time
+index         |   11     11  0.1s
+Test Summary: | Pass  Total  Time
+deleteat!     |    1      1  0.0s
+Test Summary: | Pass  Total  Time
+parent        |    6      6  0.1s
+Test Summary:    | Pass  Total  Time
+duplicate column |    1      1  0.0s
+Test Summary:           | Pass  Total  Time
+conversion to DataFrame |   12     12  0.1s
+Test Summary:     | Pass  Total  Time
+setindex! in view |    4      4  0.2s
+Test Summary:             | Pass  Total  Time
+SubDataFrame corner cases |    6      6  0.1s
+Test Summary:                              | Pass  Total  Time
+disallowed use of SubDataFrame constructor |    1      1  0.0s
+Test Summary:                | Pass  Total  Time
+subdataframe with no columns |   33     33  1.3s
+	[1m[32mPASSED[0m: subdataframe.jl
+Test Summary:                                     | Pass  Total  Time
+mutating SubDataFrame with assignment to [!, col] |  109    109  1.8s
+Test Summary:                                                  | Pass  Total  Time
+mutating SubDataFrame with broadcasting assignment to [!, col] |  105    105  1.4s
+Test Summary:                                      | Pass  Total  Time
+mutating SubDataFrame with assignment to [!, cols] |  149    149  1.2s
+Test Summary:                                                   | Pass  Total  Time
+mutating SubDataFrame with broadcasting assignment to [!, cols] |  162    162  0.8s
+Test Summary:                                     | Pass  Total  Time
+mutating SubDataFrame with assignment to [:, col] |  104    104  1.0s
+Test Summary:                                                  | Pass  Total  Time
+mutating SubDataFrame with broadcasting assignment to [:, col] |  109    109  0.6s
+Test Summary:                                      | Pass  Total  Time
+mutating SubDataFrame with assignment to [:, cols] |  143    143  0.4s
+Test Summary:                                                   | Pass  Total  Time
+mutating SubDataFrame with broadcasting assignment to [:, cols] |  162    162  1.3s
+Test Summary:                                    | Pass  Total  Time
+mutating SubDataFrame with assignment to sdf.col |    6      6  0.1s
+Test Summary:                                                 | Pass  Total  Time
+mutating SubDataFrame with broadcasting assignment to sdf.col |    6      6  0.0s
+Test Summary:                | Pass  Total  Time
+insertcols! for SubDataFrame |   19     19  0.6s
+Test Summary:           | Pass  Total  Time
+select! on SubDataFrame |   15     15  1.1s
+Test Summary:              | Pass  Total  Time
+transform! on SubDataFrame |   12     12  0.1s
+Test Summary:                             | Pass  Total  Time
+select! on GroupedDataFrame{SubDataFrame} |    8      8  2.6s
+Test Summary:                                | Pass  Total  Time
+transform! on GroupedDataFrame{SubDataFrame} |    6      6  0.5s
+Test Summary:      | Pass  Total  Time
+promote_type tests |   46     46  0.8s
+	[1m[32mPASSED[0m: subdataframe_mutation.jl
+Test Summary: | Pass  Total  Time
+Tables        |  101    101  4.9s
+Test Summary:                  | Pass  Total  Time
+DataFrame without copying cols |   13     13  0.2s
+Test Summary: | Pass  Total  Time
+columnindex   |   23     23  1.5s
+Test Summary:                   | Pass  Total  Time
+eachrow and eachcol integration |   29     29  0.5s
+Test Summary:                 | Pass  Total  Time
+test constructor with vectors |   18     18  1.1s
+Test Summary: | Pass  Total  Time
+materializer  |   14     14  0.0s
+Test Summary: | Pass  Total  Time
+Tables.subset |   72     72  0.4s
+	[1m[32mPASSED[0m: tables.jl
+Test Summary: | Pass  Total  Time
+TableTraits   |   10     10  1.2s
+	[1m[32mPASSED[0m: tabletraits.jl
+Test Summary:      | Pass  Total  Time
+getindex DataFrame |  104    104  2.3s
+Test Summary:       | Pass  Total  Time
+getindex df[!, col] |   13     13  0.0s
+Test Summary:  | Pass  Total  Time
+view DataFrame |  131    131  0.8s
+Test Summary:         | Pass  Total  Time
+getindex SubDataFrame |  140    140  2.5s
+Test Summary:     | Pass  Total  Time
+view SubDataFrame |  143    143  1.4s
+Test Summary:         | Pass  Total  Time
+getindex DataFrameRow |   22     22  0.1s
+Test Summary:     | Pass  Total  Time
+view DataFrameRow |   25     25  0.1s
+Test Summary:                             | Pass  Total  Time
+additional tests of post-! getindex rules |  230    230  1.4s
+Test Summary:          | Pass  Total  Time
+setindex! on DataFrame |  115    115  1.5s
+Test Summary:             | Pass  Total  Time
+setindex! on SubDataFrame |  280    280  2.7s
+Test Summary:             | Pass  Total  Time
+setindex! on DataFrameRow |  101    101  1.0s
+Test Summary:                           | Pass  Total  Time
+setindex! with ! or : and multiple cols |   24     24  0.7s
+Test Summary:              | Pass  Total  Time
+additional setindex! tests |    5      5  0.2s
+Test Summary:      | Pass  Total  Time
+invalid view tests |   28     28  0.3s
+Test Summary:   | Pass  Total  Time
+string indexing |  115    115  1.3s
+Test Summary:              | Pass  Total  Time
+setindex! for DataFrameRow |   12     12  0.1s
+Test Summary:                           | Pass  Total  Time
+setindex! for ncols(df)+1 and old tests |    3      3  0.0s
+Test Summary:       | Pass  Total  Time
+begin and end tests |   20     20  0.4s
+Test Summary:                                                     | Pass  Total  Time
+unsupported df[col] and df[col] for getindex, view, and setindex! |   54     54  0.2s
+Test Summary:             | Pass  Total  Time
+setproperty! corner cases |    8      8  0.1s
+Test Summary:                             | Pass  Total  Time
+disallowed getindex and setindex! methods |    6      6  0.0s
+Test Summary:                       | Pass  Total  Time
+array interface tests for all types |  130    130  0.4s
+Test Summary:                                   | Pass  Total   Time
+Check allowing only 1-based indexing of vectors |   11     11  13.0s
+Test Summary:               | Pass  Total  Time
+threading correctness tests |  288    288  0.6s
+Test Summary:      | Pass  Total  Time
+name normalization |  469    469  0.4s
+Test Summary:       | Pass  Total  Time
+haskey method error |   16     16  0.1s
+Test Summary:                          | Pass  Total  Time
+fix #2969 (passing Pairs as selectors) |   40     40  0.1s
+	[1m[32mPASSED[0m: indexing.jl
+Test Summary:  | Pass  Total  Time
+CartesianIndex |   24     24  0.1s
+Test Summary:                             | Pass  Total  Time
+broadcasting of AbstractDataFrame objects |   28     28  4.5s
+Test Summary:                                               | Pass  Total  Time
+broadcasting of AbstractDataFrame objects thrown exceptions |   10     10  1.2s
+Test Summary:            | Pass  Total  Time
+broadcasting data frames |   11     11  0.5s
+Test Summary:                                          | Pass  Total  Time
+broadcasting of AbstractDataFrame objects corner cases |   34     34  6.0s
+Test Summary:                                                               | Pass  Total  Time
+normal data frame and data frame row in broadcasted assignment - one column |  115    115  1.5s
+Test Summary:                                                                 | Pass  Total  Time
+normal data frame and data frame view in broadcasted assignment - two columns |  104    104  1.0s
+Test Summary:                                       | Pass  Total  Time
+assignment to a whole data frame and data frame row |    8      8  0.2s
+Test Summary:                                               | Pass  Total  Time
+extending data frame in broadcasted assignment - one column |   40     40  0.3s
+Test Summary:                | Pass  Total  Time
+empty data frame corner case |  191    191  0.8s
+Test Summary:           | Pass  Total  Time
+test categorical values |  126    126  1.7s
+Test Summary:       | Pass  Total  Time
+scalar broadcasting |    3      3  0.1s
+Test Summary:      | Pass  Total  Time
+tuple broadcasting |    8      8  0.8s
+Test Summary:             | Pass  Total  Time
+scalar on assignment side |    4      4  0.1s
+Test Summary: | Pass  Total  Time
+nothing test  |    4      4  0.2s
+Test Summary: | Pass  Total  Time
+aliasing test |  154    154  1.4s
+Test Summary: | Pass  Total  Time
+@. test       |    2      2  0.5s
+Test Summary:     | Pass  Total  Time
+test common cases |   11     11  1.7s
+Test Summary:                                             | Pass  Total  Time
+data frame only on left hand side broadcasting assignment |   26     26  1.8s
+Test Summary:                          | Pass  Total  Time
+broadcasting with 3-dimensional object |    4      4  0.2s
+Test Summary:                                  | Pass  Total  Time
+additional checks of post-! broadcasting rules |  169    169  2.3s
+Test Summary:                                   | Pass  Total  Time
+DataFrameRow getproperty broadcasted assignment |    8      8  0.1s
+Test Summary:                                | Pass  Total  Time
+make sure that : is in place and ! allocates |   10     10  0.0s
+Test Summary:                                            | Pass  Total  Time
+add new correct rules for df[row, col] .= v broadcasting |   12     12  0.0s
+Test Summary:                 | Pass  Total  Time
+broadcasting into df[!, cols] |  223    223  0.4s
+Test Summary:                           | Pass  Total  Time
+broadcasting over heterogeneous columns |    1      1  0.2s
+Test Summary:        | Pass  Total  Time
+@views on df[!, col] |    3      3  0.1s
+Test Summary:                      | Pass  Total  Time
+broadcasting of df[:, col] = value |   12     12  0.1s
+Test Summary:               | Pass  Total  Time
+broadcasting of getproperty |    6      6  0.2s
+Test Summary:                  | Pass  Total  Time
+dotgetproperty on SubDataFrame |    2      2  0.1s
+Test Summary:                                               | Pass  Total  Time
+test coverage for corner cases that are not normally called |    5      5  0.0s
+	[1m[32mPASSED[0m: broadcasting.jl
+Test Summary: | Pass  Total  Time
+iteration     |   12     12  0.1s
+Test Summary: | Pass  Total  Time
+joins         |   24     24  9.3s
+Test Summary: | Pass  Total  Time
+reshape       |    6      6  2.3s
+Test Summary: | Pass  Total  Time
+selection     |   13     13  0.8s
+Test Summary: | Pass  Total  Time
+tables        |    4      4  0.0s
+Test Summary:       | Pass  Total  Time
+split-apply-combine |   15     15  0.5s
+Test Summary: | Pass  Total  Time
+DataFrameRow  |   13     13  0.5s
+Test Summary:                        | Pass  Total  Time
+names, propertynames and hasproperty |   43     43  0.1s
+Test Summary:     | Pass  Total  Time
+append! and push! |    5      5  0.4s
+	[1m[32mPASSED[0m: string.jl
+Test Summary: | Pass  Total  Time
+split_indices | 4007   4007  1.2s
+Test Summary:   |  Pass  Total  Time
+split_to_chunks | 10398  10398  0.0s
+Test Summary:                        | Pass  Total  Time
+@spawn_or_run_task and @spawn_or_run |    8      8  0.5s
+Test Summary:                                 | Pass  Total  Time
+disabling multithreading via keyword argument |   15     15  5.9s
+	[1m[32mPASSED[0m: multithreading.jl
+Test Summary:   | Pass  Total  Time
+metadatasupport |   22     22  0.2s
+Test Summary:        | Pass  Total  Time
+table-level metadata |  244    244  0.6s
+Test Summary:         | Pass  Total   Time
+column-level metadata | 7756   7756  10.5s
+Test Summary:    | Pass  Total  Time
+metadata default |    6      6  0.0s
+Test Summary:                                    | Pass  Total  Time
+fallback definitions of metadata and colmetadata |   18     18  0.5s
+Test Summary:    | Pass  Total  Time
+rename & rename! |   49     49  0.0s
+Test Summary:          | Pass  Total  Time
+similar, empty, empty! |   49     49  0.0s
+Test Summary:     | Pass  Total  Time
+only, first, last |   72     72  0.1s
+Test Summary: | Pass  Total  Time
+describe      |    8      8  0.1s
+Test Summary:                    | Pass  Total  Time
+functions that keep all metadata |   32     32  0.2s
+Test Summary:                                | Pass  Total   Time
+functions that keep all :note-style metadata | 1662   1662  12.2s
+Test Summary:    | Pass  Total  Time
+fillcombinations |   22     22  1.2s
+Test Summary: | Pass  Total  Time
+hcat          |   54     54  0.0s
+Test Summary: | Pass  Total  Time
+vcat          |  119    119  0.5s
+Test Summary: | Pass  Total  Time
+stack         |   32     32  0.2s
+Test Summary: | Pass  Total  Time
+unstack       |   33     33  0.6s
+Test Summary: | Pass  Total  Time
+permutedims   |   21     21  0.2s
+Test Summary: | Pass  Total  Time
+broadcasting  |   37     37  0.4s
+Test Summary:              | Pass  Total  Time
+push!, pushfirst!, insert! |   36     36  1.0s
+Test Summary:     | Pass  Total  Time
+append!, prepend! |   94     94  0.5s
+Test Summary: | Pass  Total  Time
+leftjoin!     |   36     36  0.1s
+Test Summary: | Pass  Total  Time
+leftjoin      |   54     54  1.0s
+Test Summary: | Pass  Total  Time
+rightjoin     |   54     54  0.0s
+Test Summary:        | Pass  Total  Time
+innerjoin, outerjoin |  114    114  0.1s
+Test Summary:      | Pass  Total  Time
+semijoin, antijoin |   28     28  0.0s
+Test Summary: | Pass  Total  Time
+crossjoin     |   24     24  0.5s
+Test Summary:                                              | Pass  Total  Time
+data frame combine, select, select!, transform, transform! | 2384   2384  1.8s
+Test Summary:                                           | Pass  Total  Time
+grouped combine, select, select!, transform, transform! | 5876   5876  7.8s
+Test Summary:              | Pass  Total  Time
+insertcols! and insertcols |   35     35  5.0s
+	[1m[32mPASSED[0m: metadata.jl
+Test Summary:      | Pass  Total  Time
+indicator in joins |    6      6  1.3s
+Test Summary:    | Pass  Total  Time
+hcat with vector |   59     59  0.4s
+Test Summary: | Pass  Total  Time
+delete!       |    5      5  0.1s
+Test Summary:   | Pass  Total  Time
+deprecated sort |    4      4  0.3s
+Test Summary:                         | Pass  Total  Time
+deprecated allowduplicates in unstack |    6      6  0.2s
+	[1m[32mPASSED[0m: deprecated.jl
+     Testing DataFrames tests passed 
