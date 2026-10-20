@@ -5,7 +5,7 @@ Forks of Tables 1.14.0, DataFrames 1.8.2 and CSV 1.1.0 with traits brought in wh
 Status (session 29, 2026-10-19): M0, M1 done; M2–M5 redone as a trait port (below); M6 in part. The forks are paused (the user, session 29), after one round on the facts+traits compiler (julia-1.13 61852d8fb1, TraitWorld 375a930):
 - the upstream suites of Tables, CSV and DataFrames pass on it (forks 8c6366a);
 - the scripted session's digests equal upstream's at all 26 steps; the REPL session has 20 marks and 0 errors;
-- the session was measured: "Measured in session 29" below, and the design repository's [`../writeup/design/evidence.md`](../writeup/design/evidence.md) §3, with the build and the caveats.
+- the session was measured: "Measured in session 29" below, this file's dated results. **The current numbers** are in the design repository's [`../writeup/design/evidence.md`](../writeup/design/evidence.md) §3, from the measurement round of 2026-10-20 (julia-1.13 3b8085c222, TraitWorld bed3782; a loaded machine, so indicative), which reran the session after the `String15` fixes.
 
 All runs: the patched build, `JULIA_TW_VIEWCACHE=0`, no TraitWorld system image, no witness tables.
 
@@ -90,7 +90,7 @@ To run, in this order (one job at a time; `scripts/testsuites.sh` takes the lock
 
 ## Measured in session 29
 
-From [`../writeup/design/evidence.md`](../writeup/design/evidence.md) §3: julia-1.13 61852d8fb1, TraitWorld 375a930, the patched build. `scripts/session.jl` at a REPL on a pty, 3 runs each. One machine, shared with other jobs. Upstream runs on the same build, in the default mode (not under `all`).
+A dated table: julia-1.13 61852d8fb1, TraitWorld 375a930 (the build of 2026-10-19), the patched build. `scripts/session.jl` at a REPL on a pty, 3 runs each. One machine, shared with other jobs. Upstream runs on the same build, in the default mode (not under `all`). The current numbers, from the round of 2026-10-20: [`../writeup/design/evidence.md`](../writeup/design/evidence.md) §3.
 
 | | Forks | Upstream |
 |---|---|---|
@@ -100,14 +100,14 @@ From [`../writeup/design/evidence.md`](../writeup/design/evidence.md) §3: julia
 | `String15` read and show | 1.56–1.67 s (before the fixes) | 0.19 s |
 | the session without imports | **2.85 s** | **10.40 s** |
 
-The forks' first `String15` read alone (a script) took 1.74 s before and 0.04 s after the session-29 fixes (a workload extension and the first-call check by facts; their contributions were not separated). The session harness has not been rerun since.
+The forks' first `String15` read alone (a script) took 1.74 s before and 0.04 s after the session-29 fixes (a workload extension and the first-call check by facts; their contributions were not separated). The session harness was rerun in the round of 2026-10-20 (julia-1.13 3b8085c222): the `String15` step 0.060–0.062 s, the session without imports 1.35–1.37 s against upstream's 10.7–11.2 s (indicative: load average 3.4–5.2; `evidence.md` §3).
 
 - The earlier rows (session 28: 1.19 s; upstream 10.9 s) predate this rebuild and used the TraitWorld system image, the policy as a package and the kernels that unwrapped columns.
-- The control under `--compile-by-facts=all` ran upstream CSV + DataFrames, not the forks: nine unrelated loads after the work lost 2 of 3,340 of their CodeInstances under `all` against 570 of 4,712 in plain mode; their work after the loads took 992 ms under `all` (not diagnosed) against 4,009 ms (`evidence.md` §1).
+- The control under `--compile-by-facts=all` ran upstream CSV + DataFrames, not the forks: nine unrelated loads after the work lost 2 of 3,340 of their CodeInstances under `all` against 570 of 4,712 in plain mode; their work after the loads took 992 ms under `all` (not diagnosed) against 4,009 ms. The round of 2026-10-20 has newer numbers (`evidence.md` §1).
 
 **Not measured yet** (each against upstream under `--compile-by-facts=all` with the same workloads, first call and steady state, first session and later sessions):
 
-- The session harness after the `String15` fixes.
+- The session harness on a quiet machine (the round's rerun after the `String15` fixes had a load average of 3.4–5.2).
 - The session against upstream under `all` (the numbers above compare with upstream in the default mode).
 - The cost of gathering cells (`describe`, the additive aggregates): one copy of each column per call. Against upstream's direct call on the vector, on `big.csv` (10⁶ rows).
 - `refine!` (a comparison sort of row indices through `cell`) against upstream's `RadixSort`/`TimSort` on a column, single and two-column sorts on `big.csv`.
