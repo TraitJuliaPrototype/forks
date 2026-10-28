@@ -2,7 +2,7 @@
 
 Forks of Tables 1.14.0, DataFrames 1.8.2 and CSV 1.1.0 with traits brought in where they fit, measured as an interactive session against the unmodified upstream packages and against pandas. The plan is `../writeup/plans/2026-10-17-dataframes-traits-plan.md`; `git diff upstream` is the port.
 
-Status (2026-10-28): the forks follow [the design memo](../writeup/plans/2026-10-28-dataframes-lean-core.md) (W-79, W-14). **D2 done** (E-211; julia-1.13 a4e9ad5da9, TraitWorld 3fcff02, forks 30f77b3): `Column{T}` asks only what every vector can do; the reference pool is `PooledColumn{T}`, a trait of its own, implemented in the Tables fork's extensions for PooledArrays and CategoricalArrays (`Tables/ext/`); the groupby kernel's `refcodes` is chosen at a stored column by its object's traits. The three forks precompile and their upstream suites pass (`logs/*-D2c.log`); the pooled path is taken for pooled and categorical columns stored as `Dynamic{Column}` (`scripts/d2_pooled.jl`, `logs/d2/`). **Next: D0** (E-212), the control: `scripts/measure_session.sh` with the configs `up-patched`, `up-wrapped` (upstream wrapped as trait modules: the branch `wrapped`, checked out at `../forks-wrapped`, and `env_wrapped/`), `up-all` and `fk-patched`.
+Status (2026-10-28): the forks follow [the design memo](../writeup/plans/2026-10-28-dataframes-lean-core.md) (W-79, W-14). **D2 done** (E-211; julia-1.13 a4e9ad5da9, TraitWorld 3fcff02, forks 30f77b3): `Column{T}` asks only what every vector can do; the reference pool is `PooledColumn{T}`, a trait of its own, implemented in the Tables fork's extensions for PooledArrays and CategoricalArrays (`Tables/ext/`); the groupby kernel's `refcodes` is chosen at a stored column by its object's traits. The three forks precompile and their upstream suites pass (`logs/*-D2c.log`); the pooled path is taken for pooled and categorical columns stored as `Dynamic{Column}` (`scripts/d2_pooled.jl`, `logs/d2/`). **D0 done** (E-212; results below): the control, `scripts/measure_session.sh` with the configs `up-patched`, `up-wrapped` (upstream wrapped as trait modules: the branch `wrapped`, checked out at `../forks-wrapped`, and `env_wrapped/`), `up-all` and `fk-patched`. **Next: D3,** the kernels' costs.
 
 Session 29 (2026-10-19): M0, M1 done; M2–M5 redone as a trait port (below); M6 in part; one round on the facts+traits compiler (julia-1.13 61852d8fb1, TraitWorld 375a930):
 - the upstream suites of Tables, CSV and DataFrames pass on it (forks 8c6366a);
@@ -16,6 +16,18 @@ All runs: the patched build, `JULIA_TW_VIEWCACHE=0`, no TraitWorld system image,
 `scripts/session.jl`, fed line by line to a real REPL on a pseudo-terminal (`script`), results displayed as at the prompt; `scripts/session.py` is the same in pandas 3.0.6. Data from `scripts/gendata.jl` (deterministic): `people.csv` (10 000 rows: `Int`, two strings, `Int` and `Float64` with missing values, `Date`, `Bool`), `orders.csv` (50 000 rows, joined on `id`), `sensors.csv` (a second schema). Steps: read, show, describe, select and filter (`subset` with `ByRow`), sort on two columns, groupby-combine, a user function (`transform` with `ByRow`), join, add a column, write; then a second schema (read and show, describe, sort, groupby-combine); then `using InlineStrings` and a read with `stringtype = String15`, describe, groupby-combine.
 
 Harness: `scripts/measure_session.sh [runs] [configs]` (one job at a time under `flock`, niced; each run's 1-minute load average logged), `scripts/summarize.py` (min and median per step, runs with load above 4 dropped).
+
+## D0: the control on one build (2026-10-28)
+
+julia-1.13 a4e9ad5da9, TraitWorld 3fcff02, forks 408dff9, wrapped upstream 3687dc6; `scripts/measure_session.sh 3 "up-patched up-wrapped up-all fk-patched"`; the first run of each a warm-up, ranges over the other 2; load average 1.5–2.7, the machine otherwise idle; `logs/d0/session.log`. Current numbers: [the evidence](../writeup/design/evidence.md) §3.
+
+| | forks | upstream plain | upstream wrapped | upstream `all` |
+|---|---|---|---|---|
+| imports | 2.25–2.30 s | 1.14–1.17 s | 1.42–1.44 s | 0.56 s |
+| without start and imports | 1.82–1.87 s | 10.5–10.7 s | 7.9–8.7 s | 6.5 s |
+| wall | 4.4–4.5 s | 11.9–12.5 s | 9.6–10.5 s | 7.5–7.6 s |
+
+Wrapping upstream (porting 0.1a; `scripts/d0_pirates.jl`, `logs/d0/pirates.log`): rule 3 refuses Tables' `DataAPI.nrow` and `ncol` for `NamedTuple`s (4 methods) and DataFrames' `Base.vcat(dfs::AbstractDataFrame...)` (2: at zero arguments it names nothing of DataFrames'). Resolved: DataAPI, a copy on the branch `wrapped`, names Tables a joint owner; `vcat` names its first frame. `scripts/check_session.sh ../julia-1.13/julia env_wrapped`: digests equal at 26 steps, the REPL session 20 marks and 0 errors (`logs/d0/check-wrapped.log`).
 
 ## M0: the baseline
 
