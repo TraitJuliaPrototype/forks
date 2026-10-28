@@ -11,6 +11,14 @@ OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 TableTraits = "3783bdb8-4a98-5b6b-af9a-565f29a5fe9c"
 TraitWorld = "7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14"
 
+[weakdeps]
+CategoricalArrays = "324d7699-5711-5eae-9e2f-1d82baa6b597"
+PooledArrays = "2dfb63ee-cc39-5dd5-95bd-886bf059d720"
+
+[extensions]
+TablesCategoricalArraysExt = "CategoricalArrays"
+TablesPooledArraysExt = "PooledArrays"
+
 [sources]
 TraitWorld = {path = "../../TraitWorld"}
 

@@ -2,7 +2,7 @@
 # describe, sort, groupby, joins and row selection, written once against the `Column` trait
 # (Tables.ColumnCore) and compiled per key, the column's type: never per schema or per tuple
 # of column types. A kernel reads a column only through the trait's operations (`nrows`,
-# `cell`, `emptycells`, `take`, `nlevels`, `levelcode`, `level`); it never unwraps the
+# `cell`, `emptycells`, `take`; a pooled column's `nlevels`, `levelcode`, `level`); it never unwraps the
 # stored vector. Where a kernel needs Base's or Statistics' code over many cells (describe's
 # statistics), it gathers the cells into a plain `Vector{T}` first, so that code is compiled
 # per cell type `T`, which is what the bound sees, and shared by every column type with
@@ -12,7 +12,7 @@
 # `row_group_slots!`).
 @trait_module module ColumnKernels
 using TraitWorld
-using Tables.ColumnCore: Column, nrows, cell, emptycells, take, nlevels, levelcode, level, vector,
+using Tables.ColumnCore: Column, PooledColumn, nrows, cell, emptycells, take, nlevels, levelcode, level, vector,
                          TableSource, tablenames, tablecolumn, tablerows
 using Statistics
 const _DF = parentmodule(@__MODULE__)
@@ -154,21 +154,22 @@ the codes follow the sorted order of the values. A column has a reference pool i
 `refpool_and_array` decides, if its cells are integers in a narrow range. With `sort`, codes
 follow the sorted order of the pool. A worker per column type.
 """
-function refcodes(c::Column, skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}}
+refcodes(c::Column, skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}} =
+    _integercodes(c, skipmissing)
+# a column with a reference pool: selected by what the column's object can do, also for a column stored
+# as a `Dynamic{Column}` (traits reference §6.5)
+function refcodes(c::(Column, PooledColumn), skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}}
     n = nrows(c)
     L = nlevels(c)
-    if L > 0
-        levels = emptycells(c, L)
-        for k in 1:L
-            levels[k] = level(c, k)
-        end
-        codes = Vector{Int}(undef, n)
-        for i in 1:n
-            codes[i] = levelcode(c, i)
-        end
-        return _poolcodes!(codes, levels, skipmissing, sort)
+    levels = emptycells(c, L)
+    for k in 1:L
+        levels[k] = level(c, k)
     end
-    return _integercodes(c, skipmissing)
+    codes = Vector{Int}(undef, n)
+    for i in 1:n
+        codes[i] = levelcode(c, i)
+    end
+    return _poolcodes!(codes, levels, skipmissing, sort)
 end
 
 # Codes from a pool `levels` (1-based codes in `codes`, rewritten in place to 0-based).

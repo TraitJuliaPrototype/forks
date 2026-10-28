@@ -16,11 +16,11 @@
 @trait_module module ColumnCore
 using TraitWorld
 using DataAPI
-export Column, nrows, cell, emptycells, take, nlevels, levelcode, level, vector, tocolumn,
+export Column, nrows, cell, emptycells, take, vector, tocolumn, PooledColumn, nlevels, levelcode, level,
        TableSource, tablenames, tablecolumn, tablerows
 
 """
-A column of a table, cells of type `T`.
+A column of a table, cells of type `T`: what every column can do.
 
 - `nrows(c)`: the number of rows.
 - `cell(c, i)`: the cell in row `i` (`1 ≤ i ≤ nrows(c)`).
@@ -28,11 +28,11 @@ A column of a table, cells of type `T`.
   column's cell type (a buffer; it also names `T` in code bounded by `Column`).
 - `take(c, rows)`: rows `rows` as a new column of the same kind (upstream: `col[rows]`;
   a pooled column stays pooled).
-- `nlevels(c)`, `levelcode(c, i)`, `level(c, k)`: the column's reference pool, if it has
-  one whose levels are unique (DataAPI's `refpool`/`refarray`: pooled and categorical
-  columns). `nlevels(c) == 0` when it has none; otherwise row `i` holds level
-  `levelcode(c, i)` (in `1:nlevels(c)`), whose value is `level(c, k)`.
 - `vector(c)`: the stored vector itself, for the API.
+
+A capability that only some columns have is a trait of its own (`PooledColumn`): code that
+can use it has a method bounded by both, selected by what the column's object can do, also
+for a column stored as a `Dynamic{Column}` (traits reference §6.5).
 """
 @trait Column{T} begin
     T = eltype(Self)
@@ -40,34 +40,37 @@ A column of a table, cells of type `T`.
     cell(c::Column{T}, i::Int)::T
     emptycells(c::Column{T}, n::Int)::Vector{T}
     take(c::Column, rows::AbstractVector{Int})::AbstractVector
-    nlevels(c::Column)::Int
-    levelcode(c::Column, i::Int)::Int
-    level(c::Column{T}, k::Int)::T
     vector(c::Column)::AbstractVector
 end
 @implement Column A where {A <: AbstractVector} begin
-    nrows(c) = length(c)
-    cell(c, i) = @inbounds c[firstindex(c) + i - 1]
+    # Base's contract for every vector, asserted: `length` is an `Int`, a cell is of the element type (a vector
+    # that keeps its data at an abstract type, as DataFrames' `RepeatedVector`, infers neither)
+    nrows(c) = length(c)::Int
+    cell(c, i) = (@inbounds c[firstindex(c) + i - 1])::eltype(c)
     emptycells(c, n) = Vector{eltype(c)}(undef, n)
     take(c, rows) = c[rows]
-    nlevels(c) = _nlevels(c)
-    levelcode(c, i) = @inbounds Int(DataAPI.refarray(c)[firstindex(c) + i - 1]) - firstindex(DataAPI.refpool(c)) + 1
-    level(c, k) = convert(eltype(c), @inbounds DataAPI.refpool(c)[firstindex(DataAPI.refpool(c)) + k - 1])
     vector(c) = c
 end
 
-# A reference pool counts only if its levels are unique (as DataFrames' `refpool_and_array`
-# requires) and its references are integers.
-function _nlevels(c::AbstractVector)
-    rp = DataAPI.refpool(c)
-    rp === nothing && return 0
-    DataAPI.refarray(c) isa AbstractVector{<:Integer} || return 0
-    DataAPI.invrefpool(c) !== nothing || allunique(rp) || return 0
-    return length(rp)
+"""
+A column with a reference pool whose levels are unique (DataAPI's `refpool`/`refarray`:
+pooled and categorical columns): `nlevels(c)` levels; row `i` holds level `levelcode(c, i)`
+(in `1:nlevels(c)`), whose value is `level(c, k)`. Implemented for PooledArrays' and
+CategoricalArrays' vectors by this package's extensions.
+"""
+@trait PooledColumn{T} begin
+    T = eltype(Self)
+    nlevels(c::PooledColumn)::Int
+    levelcode(c::PooledColumn, i::Int)::Int
+    level(c::PooledColumn{T}, k::Int)::T
 end
+"The pool's operations through DataAPI, for an extension's implementation (its levels are unique by construction)."
+_pool_nlevels(c::AbstractVector) = length(DataAPI.refpool(c))
+_pool_levelcode(c::AbstractVector, i::Int) = @inbounds Int(DataAPI.refarray(c)[firstindex(c) + i - 1]) - firstindex(DataAPI.refpool(c)) + 1
+_pool_level(c::AbstractVector, k::Int) = convert(eltype(c), @inbounds DataAPI.refpool(c)[firstindex(DataAPI.refpool(c)) + k - 1])
 
-"A column of any conforming type, kept as a dynamic value (one dispatch per operation, workers per column type)."
-tocolumn(c::Column)::Dynamic{Column} = Dynamic{Column}(c)
+"A column of any conforming type, kept as a dynamic value (one dispatch per operation, workers per column type): it enters `Dynamic` at the bound, whatever the caller knows."
+tocolumn(c::Dynamic{Column{T}}) where {T} = Dynamic{Column}(c)::Dynamic{Column}
 
 """
 A table: its column names (`tablenames(t)`, a new vector), its columns by position
