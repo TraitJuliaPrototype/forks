@@ -1,4 +1,8 @@
 module Tables
+# E-212 (W-79's D0): the unchanged package wrapped as a trait module (porting 0.1a)
+using TraitWorld: @trait_module
+@trait_module begin
+
 
 using DataValueInterfaces, DataAPI, TableTraits, IteratorInterfaceExtensions, OrderedCollections
 
@@ -745,5 +749,7 @@ Base.@pure function columntype(names::Tuple{Vararg{Symbol}}, ::Type{types}, name
     end
     return Union{}
 end
+
+end # @trait_module (E-212: the package unchanged, wrapped)
 
 end # module

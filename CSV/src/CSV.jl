@@ -12,6 +12,10 @@ lazy, row-wise, and chunked workflows. Parsing and writing are deterministic
 for any supported thread count.
 """
 module CSV
+# E-212 (W-79's D0): the unchanged package wrapped as a trait module (porting 0.1a)
+using TraitWorld: @trait_module
+@trait_module begin
+
 
 using Tables
 
@@ -223,5 +227,7 @@ import Dates, CodecZlib
 end
 
 __init__() = _probecpu!()
+
+end # @trait_module (E-212: the package unchanged, wrapped)
 
 end # module CSV

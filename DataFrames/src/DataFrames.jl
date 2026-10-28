@@ -1,4 +1,8 @@
 module DataFrames
+# E-212 (W-79's D0): the unchanged package wrapped as a trait module (porting 0.1a)
+using TraitWorld: @trait_module
+@trait_module begin
+
 
 using Base.Sort,
       Base.Order,
@@ -183,5 +187,7 @@ include("other/metadata.jl")
 include("deprecated.jl")
 
 include("other/precompile.jl")
+
+end # @trait_module (E-212: the package unchanged, wrapped)
 
 end # module DataFrames
