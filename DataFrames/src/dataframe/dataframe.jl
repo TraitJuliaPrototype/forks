@@ -447,7 +447,7 @@ _dcolumns(df::DataFrame) = getfield(df, :columns)
 _dcolumns(df::AbstractDataFrame) = Dynamic{Column}[tocolumn(col) for col in eachcol(df)]
 "Column `i` of a data frame as a dynamic value of `Column`."
 _dcolumn(df::DataFrame, i::Int) = getfield(df, :columns)[i]
-_dcolumn(df::AbstractDataFrame, i::Int) = tocolumn(df[!, i])::Dynamic{Column}
+_dcolumn(df::AbstractDataFrame, i::Int) = tocolumn(df[!, i])
 
 """
     ColumnVectors

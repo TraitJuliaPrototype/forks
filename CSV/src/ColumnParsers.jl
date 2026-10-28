@@ -167,6 +167,6 @@ end
 
 @implement Tables.ColumnCore.TableSource File begin
     tablenames(t) = copy(names(getfield(t, :table)))
-    tablecolumn(t, i) = Tables.ColumnCore.tocolumn(columns(getfield(t, :table))[i])::TraitWorld.Dynamic{Tables.ColumnCore.Column}
+    tablecolumn(t, i) = Tables.ColumnCore.tocolumn(columns(getfield(t, :table))[i])
     tablerows(t) = getfield(t, :table).nrows
 end

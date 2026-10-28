@@ -797,6 +797,6 @@ end
 end
 @implement TableSource SubDataFrame begin
     tablenames(t) = copy(_names(t))
-    tablecolumn(t, i) = tocolumn(t[!, i])::Dynamic{Column}
+    tablecolumn(t, i) = tocolumn(t[!, i])
     tablerows(t) = nrow(t)
 end

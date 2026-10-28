@@ -70,7 +70,9 @@ _pool_levelcode(c::AbstractVector, i::Int) = @inbounds Int(DataAPI.refarray(c)[f
 _pool_level(c::AbstractVector, k::Int) = convert(eltype(c), @inbounds DataAPI.refpool(c)[firstindex(DataAPI.refpool(c)) + k - 1])
 
 "A column of any conforming type, kept as a dynamic value (one dispatch per operation, workers per column type): it enters `Dynamic` at the bound, whatever the caller knows."
-tocolumn(c::Dynamic{Column{T}}) where {T} = Dynamic{Column}(c)::Dynamic{Column}
+function tocolumn(c::Dynamic{Column{T}})::Dynamic{Column} where {T}
+    return Dynamic{Column}(c)
+end
 
 """
 A table: its column names (`tablenames(t)`, a new vector), its columns by position

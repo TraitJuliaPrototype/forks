@@ -1,0 +1,5 @@
+tocolumn(::Vector{Int64}) infers Any[TraitWorld.Dynamic{Tables.ColumnCore.Column}]
+tocolumn(::Vector{String}) infers Any[TraitWorld.Dynamic{Tables.ColumnCore.Column}]
+tocolumn(::AbstractVector) infers Any[TraitWorld.Dynamic{Tables.ColumnCore.Column}]
+tocolumn(::Any) infers Any[TraitWorld.Dynamic{Tables.ColumnCore.Column}, TraitWorld.Dynamic{Tables.ColumnCore.Column}]
+_dcolumn infers Any[TraitWorld.Dynamic{Tables.ColumnCore.Column}]
