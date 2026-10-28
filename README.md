@@ -2,7 +2,7 @@
 
 Forks of Tables 1.14.0, DataFrames 1.8.2 and CSV 1.1.0 with traits brought in where they fit, measured as an interactive session against the unmodified upstream packages and against pandas. The plan is `../writeup/plans/2026-10-17-dataframes-traits-plan.md`; `git diff upstream` is the port.
 
-Status (2026-10-28): the forks follow [the design memo](../writeup/plans/2026-10-28-dataframes-lean-core.md) (W-79, W-14). **D2 done** (E-211; julia-1.13 a4e9ad5da9, TraitWorld 3fcff02, forks 30f77b3): `Column{T}` asks only what every vector can do; the reference pool is `PooledColumn{T}`, a trait of its own, implemented in the Tables fork's extensions for PooledArrays and CategoricalArrays (`Tables/ext/`); the groupby kernel's `refcodes` is chosen at a stored column by its object's traits. The three forks precompile and their upstream suites pass (`logs/*-D2c.log`); the pooled path is taken for pooled and categorical columns stored as `Dynamic{Column}` (`scripts/d2_pooled.jl`, `logs/d2/`). **D0 done** (E-212; results below): the control, `scripts/measure_session.sh` with the configs `up-patched`, `up-wrapped` (upstream wrapped as trait modules: the branch `wrapped`, checked out at `../forks-wrapped`, and `env_wrapped/`), `up-all` and `fk-patched`. **D1 done** (E-213): about 0.45 s of the forks' 1.59 s import is 28 family members of `Column` checked again at load (W-84). **Next: D3,** the kernels' costs.
+Status (2026-10-28): the forks follow [the design memo](../writeup/plans/2026-10-28-dataframes-lean-core.md) (W-79, W-14). **D2 done** (E-211; julia-1.13 a4e9ad5da9, TraitWorld 3fcff02, forks 30f77b3): `Column{T}` asks only what every vector can do; the reference pool is `PooledColumn{T}`, a trait of its own, implemented in the Tables fork's extensions for PooledArrays and CategoricalArrays (`Tables/ext/`); the groupby kernel's `refcodes` is chosen at a stored column by its object's traits. The three forks precompile and their upstream suites pass (`logs/*-D2c.log`); the pooled path is taken for pooled and categorical columns stored as `Dynamic{Column}` (`scripts/d2_pooled.jl`, `logs/d2/`). **D0 done** (E-212; results below): the control, `scripts/measure_session.sh` with the configs `up-patched`, `up-wrapped` (upstream wrapped as trait modules: the branch `wrapped`, checked out at `../forks-wrapped`, and `env_wrapped/`), `up-all` and `fk-patched`. **D1 done** (E-213): about 0.45 s of the forks' 1.59 s import is 28 family members of `Column` checked again at load (W-84). **D3 done** (E-214): the columns opened at the kernels' entries (`compiled_for`); a closure in `_group_rows!` that boxed a counter fixed; aggregates and `describe` read the cells in place through `CellVector` (open issue 96, TraitWorld bdaf4b3). **D4 done** (E-215): no kernel worker for a schema whose column types were seen. **Next: M6,** user functions in `ByRow` as `Callable`s (E-216).
 
 Session 29 (2026-10-19): M0, M1 done; M2–M5 redone as a trait port (below); M6 in part; one round on the facts+traits compiler (julia-1.13 61852d8fb1, TraitWorld 375a930):
 - the upstream suites of Tables, CSV and DataFrames pass on it (forks 8c6366a);
@@ -28,6 +28,24 @@ julia-1.13 a4e9ad5da9, TraitWorld 3fcff02, forks 408dff9, wrapped upstream 3687d
 | wall | 4.4–4.5 s | 11.9–12.5 s | 9.6–10.5 s | 7.5–7.6 s |
 
 Wrapping upstream (porting 0.1a; `scripts/d0_pirates.jl`, `logs/d0/pirates.log`): rule 3 refuses Tables' `DataAPI.nrow` and `ncol` for `NamedTuple`s (4 methods) and DataFrames' `Base.vcat(dfs::AbstractDataFrame...)` (2: at zero arguments it names nothing of DataFrames'). Resolved: DataAPI, a copy on the branch `wrapped`, names Tables a joint owner; `vcat` names its first frame. `scripts/check_session.sh ../julia-1.13/julia env_wrapped`: digests equal at 26 steps, the REPL session 20 marks and 0 errors (`logs/d0/check-wrapped.log`).
+
+## D3 and D4: the kernels, and schema independence (2026-10-28)
+
+D3 (`scripts/d3_kernels.jl`, 10⁶ rows, minimum of 5 after a warm-up, one process per setting; `logs/d3/`), upstream against the forks as they were, with the columns opened and the boxed counter fixed (`fixed`), and with `CellVector` (`cellvec`, TraitWorld bdaf4b3):
+
+| | upstream | forks as they were | fixed | cellvec |
+|---|---|---|---|---|
+| sort Int | 141 ms | 119 | 69 | 68 |
+| sort String, Float64 | 303 ms | 742 | 320 | 314 |
+| groupby-sum Int key | 2.6 ms | 34.6 | 5.8 | 4.4 |
+| groupby-sum two keys | 3.3 ms | 36.1 | 11.0 | 7.1 |
+| groupby-sum pooled key | 1.8 ms | 48.0 | 5.2 | 4.2 |
+| groupby-mean skipmissing | 1.7 ms | 14.3 | 3.8 | 1.6 |
+| describe | 53 ms | 114 | 95 | 77 |
+| innerjoin Int key | 27 ms | 25 | 32 | 26 |
+| combine SubDataFrame fn | 2.0 ms | 2.2 | 2.5 | 2.5 |
+
+D4 (`scripts/d4_schemas.jl`, 10⁴ rows; `logs/d4/`): the same work over three schemas with the same column types. Forks 367 / 78 / 51 ms, upstream 5,084 / 113 / 114 ms; no kernel worker for schemas 2 and 3.
 
 ## M0: the baseline
 
