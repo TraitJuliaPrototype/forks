@@ -1,0 +1,9 @@
+M8 split jointcodes! a order=true 4.9 ms
+M8 split jointcodes! a order=false 4.2 ms
+M8 split jointcodes! s order=true 17.1 ms
+M8 split jointcodes! s order=false 16.8 ms
+M8 split joinkeys 24.7 ms
+M8 split keys ordered=true, distinct 26000 / 25429
+M8 split innerrows on keys 94.6 ms
+M8 split semirows on keys 2.1 ms
+M8 split whole innerjoin 86.7 ms

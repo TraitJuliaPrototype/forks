@@ -1,0 +1,6 @@
+env_forks exit 0
+upstream exit 0
+digests equal: 26 steps
+repl exit 0; marks 20; errors 0
+
+[exited with code 0]

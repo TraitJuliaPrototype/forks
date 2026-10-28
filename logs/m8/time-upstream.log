@@ -1,0 +1,5 @@
+M8 upstream first innerjoin on [:a, :s]           906.9 ms (compile 906.1 ms)
+M8 upstream first innerjoin on [:s, :x]           235.4 ms (compile 233.5 ms)
+M8 upstream first innerjoin on [:x, :a, :s]       313.7 ms (compile 313.0 ms)
+M8 upstream steady innerjoin 10^6 x 10^5 on [:a, :s]     159.2 ms
+M8 upstream steady semijoin 10^6 x 10^5 on [:a, :s]      34.5 ms

@@ -1,0 +1,110 @@
+M8 right Int,Int unsorted inner 671 0x4c494ec3406cced7
+M8 right Int,Int unsorted left 691 0xcbee3b8d3f774296
+M8 right Int,Int unsorted right 695 0x6f364571ebe33721
+M8 right Int,Int unsorted outer 715 0xe2f152194fd0e647
+M8 right Int,Int unsorted semi 280 0x04e7acc905f1972a
+M8 right Int,Int unsorted anti 20 0xaa56c3011b3721c6
+M8 right Int,Int unsorted inner order=:left 671 0x4c494ec3406cced7
+M8 right Int,String inner 281 0xeda05edc643ed05e
+M8 right Int,String left 406 0x782ae2fd459dcc38
+M8 right Int,String right 323 0x7e4d166375b980c6
+M8 right Int,String outer 448 0x517d76e51f3a4db3
+M8 right Int,String semi 175 0xad324219ab3f03fd
+M8 right Int,String anti 125 0x8b5214b332927004
+M8 right Int,String inner order=:left 281 0xeda05edc643ed05e
+M8 right String,Float64 inner 1350 0x7026758da38c656f
+M8 right String,Float64 left 1479 0x4394a672102d010c
+M8 right String,Float64 right 1396 0x2bbb85e5f238dc42
+M8 right String,Float64 outer 1525 0x77b9e19b5f57ffa0
+M8 right String,Float64 semi 171 0x5eca60c0c56be36c
+M8 right String,Float64 anti 129 0x1305f19af440ec7b
+M8 right String,Float64 inner order=:left 1350 0x7026758da38c656f
+M8 right Int,String,Bool inner 123 0xd092d805b1e18d1f
+M8 right Int,String,Bool left 325 0x081bacc2fd591837
+M8 right Int,String,Bool right 182 0xb7db479e635d9d76
+M8 right Int,String,Bool outer 384 0x2a965900d430238c
+M8 right Int,String,Bool semi 98 0x18d4b85c5a9b3639
+M8 right Int,String,Bool anti 202 0x955190b6a6cbe4ef
+M8 right Int,String,Bool inner order=:left 123 0xd092d805b1e18d1f
+M8 right pooled,Int inner 281 0x660f408b079c5b01
+M8 right pooled,Int left 406 0x07333b5e04ea0201
+M8 right pooled,Int right 323 0x7e75a547331f7477
+M8 right pooled,Int outer 448 0x3186a547972f32de
+M8 right pooled,Int semi 175 0xad324219ab3f03fd
+M8 right pooled,Int anti 125 0x8b5214b332927004
+M8 right pooled,Int inner order=:left 281 0x660f408b079c5b01
+M8 right Int,missing (:equal) inner 261 0x8eb51c913b596909
+M8 right Int,missing (:equal) left 413 0xcaa6d7f5d0c9451a
+M8 right Int,missing (:equal) right 314 0xfcd2140c5a984ae1
+M8 right Int,missing (:equal) outer 466 0x5349cba2cb4a989e
+M8 right Int,missing (:equal) semi 148 0xd3f13f0c10d9a7a9
+M8 right Int,missing (:equal) anti 152 0xb84f61ff70d13f00
+M8 right Int,missing (:equal) inner order=:left 261 0x8eb51c913b596909
+M8 right Complex,Int (unsortable) inner 249 0xd6e1ffe7c006fb11
+M8 right Complex,Int (unsortable) left 412 0xfe2045f671e8cd8d
+M8 right Complex,Int (unsortable) right 310 0xd4cc86e9ee73d2f4
+M8 right Complex,Int (unsortable) outer 473 0xebe1c7908f7b146e
+M8 right Complex,Int (unsortable) semi 137 0x09adfd3d2c271165
+M8 right Complex,Int (unsortable) anti 163 0x034f2fe31f31b211
+M8 right Complex,Int (unsortable) inner order=:left 249 0xd6e1ffe7c006fb11
+M8 right sorted Int,String inner 281 0xcfb5d82aec5a99e6
+M8 right sorted Int,String semi 175 0x602ecf99cba267db
+M8 right Int~Float64,String inner 281 0x1accedf0c7c7f035
+M8 right sorted Int~Float64,String inner 281 0x0bc0aa96e05d107a
+M8 right empty inner 0 0xf6e3c3752969dc71
+M8 right empty semi 0 0x2c7dfc779189712c
+M8 left Int,Int unsorted inner 671 0xf95b95f55d05e205
+M8 left Int,Int unsorted left 671 0xf95b95f55d05e205
+M8 left Int,Int unsorted right 754 0xf3cb16345c66b561
+M8 left Int,Int unsorted outer 754 0xf3cb16345c66b561
+M8 left Int,Int unsorted semi 120 0x362ada21373d7c26
+M8 left Int,Int unsorted anti 0 0x2c7dfc779189712c
+M8 left Int,Int unsorted inner order=:left 671 0xe1485d7c65abae35
+M8 left Int,String inner 271 0xff1b2f4b95898173
+M8 left Int,String left 299 0xdcc6063bc64d7265
+M8 left Int,String right 420 0x094fcfeba1a64a24
+M8 left Int,String outer 448 0xdd6a597afd5d18bf
+M8 left Int,String semi 92 0xd464739ed2f13f26
+M8 left Int,String anti 28 0x0f155af9ec5da0fe
+M8 left Int,String inner order=:left 271 0x657941838dbc786b
+M8 left String,Float64 inner 1183 0x8dbb6429d5e31756
+M8 left String,Float64 left 1227 0xedc92f992a6babdf
+M8 left String,Float64 right 1331 0x03d305c70e550f19
+M8 left String,Float64 outer 1375 0x03564c2729933e72
+M8 left String,Float64 semi 76 0x948bd099283e4e9c
+M8 left String,Float64 anti 44 0xcefda19e7793176d
+M8 left String,Float64 inner order=:left 1183 0xc53d50813b4edcde
+M8 left Int,String,Bool inner 127 0x18e61c39ca8c0ec5
+M8 left Int,String,Bool left 172 0x4af5de785c4d0229
+M8 left Int,String,Bool right 332 0xc9eea723b165b00d
+M8 left Int,String,Bool outer 377 0x4b6dcf282dc9ee4e
+M8 left Int,String,Bool semi 75 0x02c9217db5f84b81
+M8 left Int,String,Bool anti 45 0x0533b31820f236c3
+M8 left Int,String,Bool inner order=:left 127 0x548b806fd3d0bcee
+M8 left pooled,Int inner 271 0x04397942cf70ed9c
+M8 left pooled,Int left 299 0xe5ab81ef1a59cc6f
+M8 left pooled,Int right 420 0x6bae876618db7e8f
+M8 left pooled,Int outer 448 0xc99c538494c94cc0
+M8 left pooled,Int semi 92 0xd464739ed2f13f26
+M8 left pooled,Int anti 28 0x0f155af9ec5da0fe
+M8 left pooled,Int inner order=:left 271 0xc17e46827abac69d
+M8 left Int,missing (:equal) inner 226 0x67259bee9138641e
+M8 left Int,missing (:equal) left 268 0xf18278058f87e928
+M8 left Int,missing (:equal) right 395 0x8e3e46b6b878268c
+M8 left Int,missing (:equal) outer 437 0xadae0f267438966a
+M8 left Int,missing (:equal) semi 78 0xf018a16777cc0389
+M8 left Int,missing (:equal) anti 42 0x5f1a26ecb1e266d4
+M8 left Int,missing (:equal) inner order=:left 226 0x8fcb76c67c2adac9
+M8 left Complex,Int (unsortable) inner 328 0xdc21a3b7c377357e
+M8 left Complex,Int (unsortable) left 369 0xb16b608636a06312
+M8 left Complex,Int (unsortable) right 496 0xc2a7ac1ce1094318
+M8 left Complex,Int (unsortable) outer 537 0xb10d8ccfb0c9ea09
+M8 left Complex,Int (unsortable) semi 79 0xfad7e268da22d190
+M8 left Complex,Int (unsortable) anti 41 0xbf3bc45e35ceca7b
+M8 left Complex,Int (unsortable) inner order=:left 328 0x58044b1ceabe8547
+M8 left sorted Int,String inner 271 0xabc9b4df824cfd3b
+M8 left sorted Int,String semi 92 0xaef70b21fe095fe5
+M8 left Int~Float64,String inner 271 0x512a2094dca05f03
+M8 left sorted Int~Float64,String inner 271 0x13fc5a52e6f623f3
+M8 left empty inner 0 0xf6e3c3752969dc71
+M8 left empty semi 0 0x2c7dfc779189712c

@@ -16,7 +16,7 @@ using Tables.ColumnCore: Column, PooledColumn, nrows, cell, emptycells, take, nl
                          TableSource, tablenames, tablecolumn, tablerows
 using Statistics
 const _DF = parentmodule(@__MODULE__)
-export colstats, aggregate, refine!, firstcodes!, refcodes, innerrows, semirows, fromsource
+export colstats, aggregate, refine!, firstcodes!, refcodes, jointcodes!, innerrows, semirows, fromsource
 
 "The cells of `c`, in a new plain `Vector{T}`."
 function cells(c::Column)
@@ -265,6 +265,51 @@ function _integercodes(c::Column, skipmissing::Bool)::Union{Nothing, Tuple{Vecto
 end
 
 # --- joins ---------------------------------------------------------------------------------------
+
+"""
+Joint codes of a pair of key columns, for a join on several keys: row `i` of `l` gets the code
+`lc[i]`, row `j` of `r` the code `rc[j]`, in `1:n`, equal exactly when the cells are `isequal`
+(as upstream's `OnCol` rows compare them). Returns `(n, ordered)`. With `order`, the codes follow
+the cells' `isless` order if all cells can be compared (`ordered`); otherwise they number the
+cells by first appearance, the right column's first. A worker per pair of column types.
+"""
+function jointcodes!(lc::Vector{Int}, rc::Vector{Int}, l::Column, r::Column, order::Bool)::Tuple{Int, Bool}
+    d = Dict{Union{celltype(l), celltype(r)}, Int}()
+    n = _numbercells!(rc, r, d, 0)
+    n = _numbercells!(lc, l, d, n)
+    order || return n, false
+    cells = Vector{Union{celltype(l), celltype(r)}}(undef, n)
+    for (x, k) in d
+        cells[k] = x
+    end
+    p = try
+        sortperm(cells)
+    catch
+        return n, false                                 # some cells cannot be compared
+    end
+    rank = invperm(p)
+    @inbounds for i in eachindex(lc)
+        lc[i] = rank[lc[i]]
+    end
+    @inbounds for j in eachindex(rc)
+        rc[j] = rank[rc[j]]
+    end
+    return n, true
+end
+
+# the cells of `c` numbered by first appearance in `d`, after the `n` cells numbered before; returns the new count
+function _numbercells!(codes::Vector{Int}, c::Column, d::Dict, n::Int)
+    @inbounds for i in 1:nrows(c)
+        x = cell(c, i)
+        k = get(d, x, 0)
+        if k == 0
+            k = n += 1
+            d[x] = k
+        end
+        codes[i] = k
+    end
+    return n
+end
 
 """
 The matching rows of an inner join on one column each side, `(left rows, right rows)`, by
