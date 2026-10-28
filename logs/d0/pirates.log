@@ -1,0 +1,13 @@
+P Tables: 4 methods rule 3 refuses
+P   DataAPI.ncol                            2
+P   DataAPI.nrow                            2
+M Tables  nrow  Tuple{typeof(nrow), NamedTuple{names, T} where {N, names, T<:NTuple{N, AbstractVector}}}  namedtuples.jl:201
+M Tables  ncol  Tuple{typeof(ncol), NamedTuple{names, T} where {N, names, T<:NTuple{N, AbstractVector}}}  namedtuples.jl:202
+M Tables  nrow  Tuple{typeof(nrow), AbstractVector{T} where T<:NamedTuple}  namedtuples.jl:204
+M Tables  ncol  Tuple{typeof(ncol), AbstractVector{T} where T<:NamedTuple}  namedtuples.jl:205
+P CSV: 0 methods rule 3 refuses
+P DataFrames: 2 methods rule 3 refuses
+P   Core.vcat                               1
+P   Base.vcat                               1
+M DataFrames  vcat  Tuple{typeof(Core.kwcall), NamedTuple, typeof(vcat), Vararg{AbstractDataFrame}}  abstractdataframe/abstractdataframe.jl:1813
+M DataFrames  vcat  Tuple{typeof(vcat), Vararg{AbstractDataFrame}}  abstractdataframe/abstractdataframe.jl:1813

@@ -1,0 +1,36 @@
+Precompiling packages...
+   0.4 s  ✓ Reexport
+   0.4 s  ✓ DataAPI
+   0.4 s  ✓ Statistics
+   1.1 s  ✓ InlineStrings
+   0.3 s  ✓ DataValueInterfaces
+   0.3 s  ✓ Future
+   0.4 s  ✓ CompilerSupportLibraries_jll
+   0.5 s  ✓ OrderedCollections
+   0.3 s  ✓ InvertedIndices
+   0.4 s  ✓ Mmap
+   0.4 s  ✓ DataStrings
+   0.3 s  ✓ IteratorInterfaceExtensions
+   0.3 s  ✓ LaTeXStrings
+   0.6 s  ✓ TranscodingStreams
+   0.4 s  ✓ Compat
+   1.0 s  ✓ Crayons
+   1.1 s  ✓ SentinelArrays
+   0.9 s  ✓ Durations
+   0.4 s  ✓ Missings
+   0.4 s  ✓ PooledArrays
+   2.3 s  ✓ DataStructures
+   3.5 s  ✓ StringManipulation
+   0.3 s  ✓ TableTraits
+   0.5 s  ✓ CodecZlib
+   0.6 s  ✓ Compat → CompatLinearAlgebraExt
+   0.4 s  ✓ SortingAlgorithms
+   1.0 s  ✓ Tables
+  19.9 s  ✓ Parsers
+   0.3 s  ✓ InlineStrings → ParsersExt
+  34.0 s  ✓ REPL
+  25.5 s  ✓ CSV
+   0.5 s  ✓ CSV → CSVInlineStringsExt
+  19.2 s  ✓ PrettyTables
+  28.6 s  ✓ DataFrames
+  34 dependencies successfully precompiled in 84 seconds. 23 already precompiled.

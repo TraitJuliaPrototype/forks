@@ -1,0 +1,12 @@
+     Project No packages added to or removed from `~/Repos/julia-trait-bound/forks/env_wrapped/Project.toml`
+    Manifest No packages added to or removed from `~/Repos/julia-trait-bound/forks/env_wrapped/Manifest.toml`
+Precompiling packages...
+   0.6 s  ✓ DataAPI
+   0.5 s  ✓ Missings
+   0.6 s  ✓ PooledArrays
+   1.4 s  ✓ Tables
+  13.5 s  ✓ PrettyTables
+  26.4 s  ✓ CSV
+   0.7 s  ✓ CSV → CSVInlineStringsExt
+  36.6 s  ✓ DataFrames
+  8 dependencies successfully precompiled in 52 seconds. 51 already precompiled.
