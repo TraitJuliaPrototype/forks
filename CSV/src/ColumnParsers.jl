@@ -17,13 +17,6 @@
 using TraitWorld
 using Tables.ColumnCore: Column, nrows, cell, emptycells, TableSource
 const _CSV = parentmodule(@__MODULE__)
-# WORKAROUND (TraitWorld issue, reported): a family implementation names its builder registry
-# `gensym(:family_builders)` and defines `TraitWorld._family_registry(::Val{name})`. Gensym
-# counters start alike in every precompilation process, so CSV's first family registry got the
-# name of one of Tables' (`##family_builders#156`) and precompiling CSV failed with "Method
-# overwriting is not permitted". Advancing the counter here avoids the collision; the fix is a
-# registry key unique per module in TraitWorld.
-foreach(_ -> gensym(), 1:4096)
 export CSVSource, rawsource, readfile, CSVColumn, parsecell!, parsecells!,
        TextColumn, textcolumn, settext!, rowtexttype, rowtext, filltext!
 

@@ -461,8 +461,8 @@ struct ColumnVectors <: AbstractVector{AbstractVector}
 end
 Base.size(c::ColumnVectors) = size(c.cols)
 Base.IndexStyle(::Type{ColumnVectors}) = IndexLinear()
-Base.@propagate_inbounds Base.getindex(c::ColumnVectors, i::Int) = Tables.ColumnCore.vector(c.cols[i])::AbstractVector
-Base.@propagate_inbounds Base.getindex(c::ColumnVectors, I::AbstractVector) = AbstractVector[Tables.ColumnCore.vector(d)::AbstractVector for d in c.cols[I]]
+Base.@propagate_inbounds Base.getindex(c::ColumnVectors, i::Int) = Tables.ColumnCore.vector(c.cols[i])
+Base.@propagate_inbounds Base.getindex(c::ColumnVectors, I::AbstractVector) = AbstractVector[Tables.ColumnCore.vector(d) for d in c.cols[I]]
 Base.@propagate_inbounds function Base.setindex!(c::ColumnVectors, v::AbstractVector, i::Int)
     c.cols[i] = tocolumn(v)
     return c

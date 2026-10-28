@@ -718,7 +718,7 @@ end
 # `_stagecell!` branches resolve statically for the common element types
 # A column's staging is the `Column` kernel `ColumnParsers.stagecells!` (E-217); this is its plain entry.
 _stagecolumn!(st::ColStage, col::AbstractVector, lo::Int, hi::Int, o::WriteOpts) =
-    ColumnParsers.stagecells!(st, compiled_for(Tables.ColumnCore.tocolumn(col)), lo, hi, o)
+    ColumnParsers.stagecells!(st, compiled_for(col), lo, hi, o)
 
 # --- row-block rendering (the parallel unit) --------------------------------
 

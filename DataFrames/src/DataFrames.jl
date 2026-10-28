@@ -22,7 +22,7 @@ using Base.Sort,
 using Tables: ByRow
 using TraitWorld: TraitWorld, Dynamic, @trait_module, @implement, conforms, compiled_for
 import Dates
-using Tables.ColumnCore: Column, tocolumn, TableSource
+using Tables.ColumnCore: Column, tocolumn, TableSource, nrows
 
 import Base.keepat!,
        Base.stack,

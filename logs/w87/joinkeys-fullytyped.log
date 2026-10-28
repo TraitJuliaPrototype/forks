@@ -1,0 +1,9 @@
+joinkeys: fully typed false, 3 sites, 2 declared dynamic
+not fully typed: Tuple{typeof(DataFrames.joinkeys), Vector{Dynamic{Column}}, Vector{Dynamic{Column}}, Bool}
+  3 run-time sites on normal paths; each pays the facts rule's cost:
+  /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:230: TraitWorld._enter_erased(TraitWorld.EntryPos{typeof(DataFrames.ColumnKernels.jointcodes!), 3, 5}, Any)  in joinkeys
+      its arguments are not concrete, so its result is `Any`: give the values concrete types (a typed field or container, a function barrier), or declare them `Dynamic{X}` with a trait that declares the result type
+  /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:230: TraitWorld._enter_erased(TraitWorld.EntryPos{typeof(DataFrames.ColumnKernels.jointcodes!), 4, 5}, Any)  in joinkeys
+      its arguments are not concrete, so its result is `Any`: give the values concrete types (a typed field or container, a function barrier), or declare them `Dynamic{X}` with a trait that declares the result type
+  /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1201: TraitWorld.checked_call(typeof(DataFrames.ColumnKernels.jointcodes!), Vector{Int64}, Vector{Int64}, Any, Any, Bool)  in joinkeys
+      a value whose type is known only when the code runs enters trait code here (an opened `Dynamic`, a value of unknown type): one dispatch per call chooses the worker

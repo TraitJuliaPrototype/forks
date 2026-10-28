@@ -1,0 +1,5 @@
+M8 forks    first innerjoin on [:a, :s]           982.7 ms (compile 976.0 ms)
+M8 forks    first innerjoin on [:s, :x]           304.5 ms (compile 298.8 ms)
+M8 forks    first innerjoin on [:x, :a, :s]        12.1 ms (compile 11.4 ms)
+M8 forks    steady innerjoin 10^6 x 10^5 on [:a, :s]     195.5 ms
+M8 forks    steady semijoin 10^6 x 10^5 on [:a, :s]      38.2 ms

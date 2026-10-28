@@ -41,9 +41,6 @@ Base.size(v::CellVector) = (nrows(v.c),)
 Base.IndexStyle(::Type{<:CellVector}) = IndexLinear()
 Base.@propagate_inbounds Base.getindex(v::CellVector, i::Int) = cell(v.c, i)
 
-"The type of the cells of `c` (`T` of `Column{T}`), as a constant of the worker."
-celltype(c::Column) = eltype(emptycells(c, 0))
-
 # --- describe -------------------------------------------------------------------------------
 
 """
@@ -139,8 +136,8 @@ The group codes of one column by first appearance, into `codes` (1, 2, … in or
 appearance; 0 for `missing` when `skipmissing`); returns the number of codes. Equality is
 `isequal`, as upstream's row hashing. A worker per column type.
 """
-function firstcodes!(codes::Vector{Int}, c::Column, skipmissing::Bool)::Int
-    d = Dict{celltype(c), Int}()
+function firstcodes!(codes::Vector{Int}, c::Column{T}, skipmissing::Bool)::Int where {T}
+    d = Dict{T, Int}()
     n = 0
     @inbounds for i in 1:nrows(c)
         x = cell(c, i)
@@ -222,8 +219,7 @@ end
 # Upstream's `IntegerRefpool`: the cells, if they are integers (or real numbers holding
 # integers, not -0.0) in a range at most twice the number of rows, are their own codes:
 # `x - min`, `missing` after the largest value. The pool is sorted by construction.
-function _integercodes(c::Column, skipmissing::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}}
-    T = celltype(c)
+function _integercodes(c::Column{T}, skipmissing::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}} where {T}
     n = nrows(c)
     (T <: Union{Real, Missing} && n > 0) || return nothing
     if !(T <: Union{Integer, Missing})
@@ -271,14 +267,14 @@ Joint codes of a pair of key columns, for a join on several keys: row `i` of `l`
 `lc[i]`, row `j` of `r` the code `rc[j]`, in `1:n`, equal exactly when the cells are `isequal`
 (as upstream's `OnCol` rows compare them). Returns `(n, ordered)`. With `order`, the codes follow
 the cells' `isless` order if all cells can be compared (`ordered`); otherwise they number the
-cells by first appearance, the right column's first. A worker per pair of column types.
+cells by first appearance, the right column's first. A worker per pair of cell types (the joins pass the columns `Dynamic`).
 """
-function jointcodes!(lc::Vector{Int}, rc::Vector{Int}, l::Column, r::Column, order::Bool)::Tuple{Int, Bool}
-    d = Dict{Union{celltype(l), celltype(r)}, Int}()
+function jointcodes!(lc::Vector{Int}, rc::Vector{Int}, l::Column{T1}, r::Column{T2}, order::Bool)::Tuple{Int, Bool} where {T1, T2}
+    d = Dict{Union{T1, T2}, Int}()
     n = _numbercells!(rc, r, d, 0)
     n = _numbercells!(lc, l, d, n)
     order || return n, false
-    cells = Vector{Union{celltype(l), celltype(r)}}(undef, n)
+    cells = Vector{Union{T1, T2}}(undef, n)
     for (x, k) in d
         cells[k] = x
     end
@@ -315,7 +311,7 @@ end
 The matching rows of an inner join on one column each side, `(left rows, right rows)`, by
 upstream's algorithms (join/core.jl: a sorted merge if both columns are sorted, else hashing
 the shorter side, with a direct table for integers in a narrow range), over the cells of the
-two columns. A worker per pair of column types.
+two columns. A worker per pair of cell types (the joins pass the columns `Dynamic`).
 """
 function innerrows(l::Column, r::Column, right_shorter::Bool, disallow_sorted::Bool)::Tuple{Vector{Int}, Vector{Int}}
     (nrows(l) == 0 || nrows(r) == 0) && return Int[], Int[]
@@ -404,12 +400,12 @@ end
 # upstream's `_innerjoin_unsorted` and `_innerjoin_unsorted_int`: `right` is hashed (or
 # tabled, for integers in a narrow range); it is assumed to have no duplicates until one is
 # found, then the duplicate-aware path continues from there
-function _innerjoin_unsorted(left::Column, right::Column)
-    if celltype(left) <: Union{Integer, Missing} && celltype(right) <: Union{Integer, Missing}
+function _innerjoin_unsorted(left::Column{T1}, right::Column{T2}) where {T1, T2}
+    if T1 <: Union{Integer, Missing} && T2 <: Union{Integer, Missing}
         res = _innerjoin_unsorted_int(left, right)
         res === nothing || return res
     end
-    dict = Dict{celltype(right), Int}()
+    dict = Dict{T2, Int}()
     right_len = nrows(right)
     sizehint!(dict, 2 * min(right_len, typemax(Int) >> 2))
     for idx_r in 1:right_len
@@ -595,7 +591,7 @@ end
 """
 The rows of the left column that have a match in the right column, for `semijoin` and
 `antijoin` on one column each side (upstream's `find_semi_rows`, join/core.jl, ported onto
-the cells: a sorted merge, a set or table of the shorter side). A worker per pair of column types.
+the cells: a sorted merge, a set or table of the shorter side). A worker per pair of cell types (the joins pass the columns `Dynamic`).
 """
 function semirows(l::Column, r::Column, right_shorter::Bool, disallow_sorted::Bool)::BitVector
     seen_rows = falses(nrows(l))
@@ -642,14 +638,14 @@ end
 # upstream's `_semijoin_unsorted(_int)`: with `right_shorter`, `seen_rows` marks rows of
 # `left`; otherwise the columns come swapped (`left` is the right table's column) and it marks
 # rows of `right`
-function _semijoin_unsorted(left::Column, right::Column, seen_rows::BitVector, right_shorter::Bool)
-    if celltype(left) <: Union{Integer, Missing} && celltype(right) <: Union{Integer, Missing}
+function _semijoin_unsorted(left::Column{T1}, right::Column{T2}, seen_rows::BitVector, right_shorter::Bool) where {T1, T2}
+    if T1 <: Union{Integer, Missing} && T2 <: Union{Integer, Missing}
         res = _semijoin_unsorted_int(left, right, seen_rows, right_shorter)
         res === nothing || return res
     end
     right_len = nrows(right)
     if right_shorter
-        set = Set{celltype(right)}()
+        set = Set{T2}()
         sizehint!(set, 2 * min(right_len, typemax(Int) >> 2))
         for idx_r in 1:right_len
             push!(set, cell(right, idx_r))
@@ -658,7 +654,7 @@ function _semijoin_unsorted(left::Column, right::Column, seen_rows::BitVector, r
             seen_rows[idx_l] = cell(left, idx_l) in set
         end
     else
-        dict = Dict{celltype(right), Int}()
+        dict = Dict{T2, Int}()
         sizehint!(dict, 2 * min(right_len, typemax(Int) >> 2))
         for idx_r in 1:right_len
             val_r = cell(right, idx_r)
@@ -785,7 +781,7 @@ are, or copied with `copycols`, as upstream's `fromcolumns` does for a Tables.jl
 """
 function fromsource(t::TableSource, copycols::Bool)::_DF.DataFrame
     nms = tablenames(t)
-    cols = AbstractVector[vector(tablecolumn(t, i)::Dynamic{Column})::AbstractVector
+    cols = AbstractVector[vector(tablecolumn(t, i))
                           for i in eachindex(nms)]
     return _DF.DataFrame(cols, _DF.Index(nms), copycols = copycols)
 end
