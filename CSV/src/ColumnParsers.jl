@@ -149,6 +149,25 @@ function filltext!(c::TextColumn, col::_CSV.DataStringVector, n::Int)::Nothing
     return nothing
 end
 
+"""
+`CSV.write`'s staging of a column without a direct descriptor (pooled, InlineStrings', a user's cell
+type): rows `lo:hi` rendered cell by cell into the stage `st`, each cell's bytes ended. A worker per
+column type (the writer opens the column), so no code is compiled per schema (E-217).
+"""
+function stagecells!(st::_CSV.ColStage, c::Column, lo::Int, hi::Int, o::_CSV.WriteOpts)
+    _CSV._reset!(st, hi - lo + 1)
+    k = 0
+    for r in lo:hi
+        _CSV._stagecell!(st, cell(c, r), o)
+        _CSV._endcell!(st, k += 1)
+    end
+    return st
+end
+"The stages of rows `lo:hi` of the writer's fallback columns: each column opened, its stage made by its worker."
+function stageblock(cs::Vector{Column}, lo::Int, hi::Int, o::_CSV.WriteOpts)::Vector{_CSV.ColStage}
+    return _CSV.ColStage[stagecells!(_CSV.ColStage(), compiled_for(c), lo, hi, o) for c in cs]
+end
+
 end
 
 # --- CSV.File as a TableSource (CSV owns the type) ---------------------------------------------

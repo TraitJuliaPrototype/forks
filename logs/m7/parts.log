@@ -1,0 +1,5 @@
+M7P whole write 35.47 ms; staging 3.48 ms; descriptors' copies 0.0 ms; blocks 25
+M7P timed: 45.68 ms, gc 13.58 ms, 90.65 MiB
+M7P timed: 36.83 ms, gc 4.99 ms, 90.65 MiB
+M7P timed: 41.13 ms, gc 9.22 ms, 90.65 MiB
+M7P rowbound 4194304 bytes, block rows 2, blocks 50000

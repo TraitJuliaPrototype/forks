@@ -14,6 +14,7 @@ for any supported thread count.
 module CSV
 
 using Tables
+using TraitWorld: Dynamic, compiled_for   # the writer's fallback columns (write.jl, E-217)
 
 # These files form one `CSV` module. The split keeps each implementation area
 # small enough to read without adding private module boundaries.

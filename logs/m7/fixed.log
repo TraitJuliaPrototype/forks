@@ -1,0 +1,4 @@
+M7 fixed    1: Int, pooled, String7                194.8 ms, compile   190.5 ms, CodeInstances 68
+M7 fixed    2: pooled, Symbol, Int, String7        179.0 ms, compile   175.9 ms, CodeInstances 143
+M7 fixed    3: String7, Symbol, pooled, pooled       0.8 ms, compile     0.0 ms, CodeInstances 0
+M7 fixed    steady, 10^5 rows, 3 fallback columns   7.75 ms

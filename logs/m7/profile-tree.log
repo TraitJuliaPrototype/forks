@@ -1,0 +1,48 @@
+Overhead ╎ [+additional indent] Count File:Line  Function
+=========================================================
+    ╎7593  @Base/client.jl:577  _start()
+    ╎ 7593  @Base/client.jl:344  exec_options(opts::Base.JLOptions)
+    ╎  7593  @Base/Base.jl:310  include(mod::Module, _path::String)
+    ╎   7593  @Base/loading.jl:3105  _include(mapexpr::Function, mod::Module, _path::String)
+    ╎    7593  @Base/loading.jl:3045  include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    ╎     7593  @Base/boot.jl:489  eval(m::Module, e::Any)
+    ╎    ╎ 7593  /home/hellmann/Repos/julia-trait-bound/forks/scripts/m7_profile.jl:9  top-level scope
+    ╎    ╎  7593  @CSV/src/write.jl:1640  write(sink::IOBuffer, table::DataFrame)
+    ╎    ╎   7563  @CSV/src/write.jl:1719  #write#244
+    ╎    ╎    7563  @CSV/src/write.jl:1626  (::CSV._ColumnEmitter{CSV._WriterColumns, CSV.WriteOpts{Nothing, Nothing}, typeof(CSV._identity_transform), Val{true}, Val{false}})(io::IOBuffer)
+   3╎    ╎     7537  @CSV/src/write.jl:1300  _emitrowblocks!(io::IOBuffer, cols::CSV._WriterColumns, nrows::Int64, blockrows::Int64, o::CSV.WriteOpts{Nothing, Nothing}, transform::typeof(CSV._identity_transform), ntasks::Int64, ::Val{true})
+    ╎    ╎    ╎ 7514  @CSV/src/write.jl:1262  _renderwrite_identity!(io::IOBuffer, cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer)
+  16╎    ╎    ╎  7397  @CSV/src/write.jl:1027  _renderblock
+    ╎    ╎    ╎   702   @CSV/src/write.jl:1040  _renderblock(cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer, prefix::Vector{UInt8})
+   4╎    ╎    ╎    585   @CSV/src/write.jl:1011  _writerow_direct!
+    ╎    ╎    ╎   2739  @CSV/src/write.jl:1029  _renderblock(cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer, prefix::Vector{UInt8})
+    ╎    ╎    ╎    443   @Base/array.jl:385  copy
+ 438╎    ╎    ╎     438   @Base/genericmemory.jl:143  unsafe_copyto!
+2097╎    ╎    ╎    2110  @Base/array.jl:386  copy
+   1╎    ╎    ╎   3637  @CSV/src/write.jl:1030  _renderblock(cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer, prefix::Vector{UInt8})
+    ╎    ╎    ╎    3176  none:0  stagecells!
+ 496╎    ╎    ╎     3016  @TraitWorld/src/trait_module.jl:1134  macro expansion
+  36╎    ╎    ╎    ╎ 2520  @TraitWorld/src/untyped.jl:186  (::TraitWorld._UWrap)(o::TraitWorld._UCall{CSV.ColumnParsers.var"##tw_untyped_stagecells!#4365", implementation of Tables.ColumnCore.Column{Symbol} at Vector{Symbol}}, a1::Any, a2::Any, a3::…
+ 745╎    ╎    ╎    ╎  2473  none:?  (::CSV.ColumnParsers.var"##tw_untyped_stagecells!#4365")(b#4366::implementation of Tables.ColumnCore.Column{Symbol} at Vector{Symbol}, xa#4370::TraitWorld.XAny, xa#4371::TraitWorld.XAny, xa#4373::TraitWorld.XAny, …
+  20╎    ╎    ╎    ╎   1697  @TraitWorld/src/checks.jl:321  checked_call(f::typeof(CSV.ColumnParsers.stagecells!), a1::CSV.ColStage, a2::Tables.ColumnCore.Column{String7} at Vector{String7}, a3::Int64, a4::Int64, a5::CSV.WriteOpts{Nothing, Nothing})
+  31╎    ╎    ╎    ╎    1656  @TraitWorld/src/checks.jl:303  macro expansion
+    ╎    ╎    ╎    ╎     366   @CSV/src/ColumnParsers.jl:158  stagecells!(st::CSV.ColStage, c::Tables.ColumnCore.Column{Symbol} at Vector{Symbol}, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing})
+   3╎    ╎    ╎    ╎    ╎ 362   @CSV/src/write.jl:215  _reset!
+    ╎    ╎    ╎    ╎    ╎  322   @Base/array.jl:1545  resize!(a::Vector{Int64}, nl_::Int64)
+  14╎    ╎    ╎    ╎    ╎   300   @Base/array.jl:1205  _growend!
+    ╎    ╎    ╎    ╎     1122  @CSV/src/ColumnParsers.jl:161  stagecells!(st::CSV.ColStage, c::Tables.ColumnCore.Column{String7} at Vector{String7}, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing})
+    ╎    ╎    ╎    ╎    ╎ 1084  @CSV/src/write.jl:629  _stagecell!
+    ╎    ╎    ╎    ╎    ╎  528   @CSV/src/write.jl:687  _appendcell!
+    ╎    ╎    ╎    ╎    ╎  556   @CSV/src/write.jl:639  _appendcell!
+    ╎    ╎    ╎    ╎    ╎   556   @CSV/src/write.jl:308  _appendstring!
+   3╎    ╎    ╎    ╎    ╎    534   @CSV/src/write.jl:273  _appendbytes!
+    ╎    ╎    ╎    ╎    ╎     376   @CSV/src/write.jl:291  _appendbytes!(out::Vector{UInt8}, bytes::Base.CodeUnits{UInt8, String7}, n::Int64, o::CSV.WriteOpts{Nothing, Nothing}, stringcell::Bool)
+    ╎    ╎    ╎    ╎    ╎    ╎ 376   @CSV/src/write.jl:265  _appendraw!
+    ╎    ╎    ╎    ╎    ╎    ╎  304   @Base/array.jl:1411  append!
+    ╎7593  @Base/Base.jl:356  (::Base.var"#start_profile_listener##0#start_profile_listener##1"{Base.AsyncCondition})()
+    ╎ 7593  @Base/Base.jl:336  profile_printing_listener(cond::Base.AsyncCondition)
+    ╎  7593  @Base/asyncevent.jl:186  _trywait(t::Base.AsyncCondition)
+    ╎   7593  @Base/condition.jl:136  wait
+    ╎    7593  @Base/condition.jl:141  wait(c::Base.GenericCondition{Base.Threads.SpinLock}; first::Bool)
+7593╎     7593  @Base/task.jl:1297  wait()
+Total snapshots: 15186. Utilization: 50% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.

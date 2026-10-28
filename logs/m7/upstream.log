@@ -1,0 +1,4 @@
+M7 upstream 1: Int, pooled, String7                443.7 ms, compile   443.1 ms, CodeInstances 105
+M7 upstream 2: pooled, Symbol, Int, String7        408.9 ms, compile   406.9 ms, CodeInstances 140
+M7 upstream 3: String7, Symbol, pooled, pooled     368.4 ms, compile   366.4 ms, CodeInstances 58
+M7 upstream steady, 10^5 rows, 3 fallback columns   20.95 ms

@@ -1,0 +1,4 @@
+M7 forks2   1: Int, pooled, String7                199.6 ms, compile   195.3 ms, CodeInstances 68
+M7 forks2   2: pooled, Symbol, Int, String7        104.8 ms, compile    98.9 ms, CodeInstances 32
+M7 forks2   3: String7, Symbol, pooled, pooled       4.4 ms, compile     0.0 ms, CodeInstances 0
+M7 forks2   steady, 10^5 rows, 3 fallback columns   40.07 ms

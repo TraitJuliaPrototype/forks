@@ -1,0 +1,100 @@
+ Count  Overhead File                                                                 Line Function
+ =====  ======== ====                                                                 ==== ========
+    60        60 @Base/essentials.jl                                                    ? _renderblock(cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer, prefix::Vector{UInt8})
+    62        62 @Base/array.jl                                                      1538 resize!(a::Vector{Int64}, nl_::Int64)
+    64         0 @Base/abstractarray.jl                                              1255 _iterate_abstractarray
+    64        64 @Base/promotion.jl                                                   641 ==
+    73         0 @CSV/src/write.jl                                                    979 _appendtaggedcell!
+    80         3 @CSV/src/write.jl                                                    393 _appendudec!
+    82         0 @CSV/src/ColumnParsers.jl                                            162 stagecells!(st::CSV.ColStage, c::Tables.ColumnCore.Column{String7} at Vector{String7}, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing})
+    82         0 @CSV/src/write.jl                                                    269 _appendraw!
+    83         0 @CSV/src/write.jl                                                    263 _needsquotebytes
+    83         0 @Base/reducedim.jl                                                  1010 any
+    83         0 @Base/reducedim.jl                                                  1010 #any#766
+    87        87 @Base/int.jl                                                          87 +
+    90         5 @Base/array.jl                                                      1412 append!
+    96         1 @CSV/src/write.jl                                                    338 _appendint!
+    98        98 @Base/Base_compiler.jl                                                57 getproperty
+   108         0 @CSV/src/write.jl                                                    678 _appendcell!
+   115         0 @Base/abstractarray.jl                                              1247 iterate
+   120         5 @CSV/src/write.jl                                                    989 _writeblock
+   145        14 @CSV/src/write.jl                                                    287 _appendbytes!(out::CSV._WriteBuffer, bytes::Ptr{UInt8}, n::Int64, o::CSV.WriteOpts{Nothing, Nothing}, stringcell::Bool)
+   150         0 @TraitWorld/src/trait_module.jl                                     1131 macro expansion
+   150         0 @TraitWorld/src/untyped.jl                                           264 _pentry
+   155         0 @CSV/src/write.jl                                                    934 _appendtaggedcell!
+   156        35 @CSV/src/write.jl                                                   1032 _renderblock(cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer, prefix::Vector{UInt8})
+   166         0 @Base/array.jl                                                       260 unsafe_copyto!
+   173         0 @CSV/src/write.jl                                                    212 ColStage
+   173         0 @Base/array.jl                                                       436 getindex
+   173       149 @Base/boot.jl                                                        649 Array
+   176         0 @Base/array.jl                                                       704 _array_for
+   176         0 @Base/array.jl                                                       701 _array_for_inner
+   176         0 @Base/abstractarray.jl                                               876 similar
+   176         0 @Base/array.jl                                                       409 similar
+   176         0 @Base/abstractarray.jl                                               877 similar
+   176         0 @Base/boot.jl                                                        671 Array
+   176         0 @Base/boot.jl                                                        661 Array
+   176         0 @Base/boot.jl                                                        648 Array
+   183       179 @Base/cmem.jl                                                         28 memmove
+   195         0 @Base/array.jl                                                      1101 array_new_memory
+   206         0 @Base/array.jl                                                       384 copy
+   215         0 @Base/array.jl                                                      1020 setindex!
+   215       201 @Base/array.jl                                                      1025 _setindex!
+   227         0 @CSV/src/write.jl                                                    966 _appendtaggedcell!
+   239         0 @CSV/src/write.jl                                                    268 _appendraw!
+   251         7 @CSV/src/write.jl                                                    224 _room!
+   267       267 @Base/essentials.jl                                                  979 getindex
+   269         0 @Base/Base.jl                                                         45 array_new_memory
+   278       278 @Base/strings/string.jl                                              130 unsafe_string
+   280         0 @Base/strings/io.jl                                                  188 string
+   280         0 @Base/strings/string.jl                                              145 String
+   323         0 @Base/array.jl                                                      1411 append!
+   324         6 @CSV/src/write.jl                                                    215 _reset!
+   339         0 @CSV/src/ColumnParsers.jl                                            158 stagecells!(st::CSV.ColStage, c::Tables.ColumnCore.Column{String7} at Vector{String7}, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing})
+   413         0 @CSV/src/write.jl                                                    265 _appendraw!
+   436         0 @Base/array.jl                                                      1545 resize!(a::Vector{UInt8}, nl_::Int64)
+   446       446 @Base/genericmemory.jl                                               143 unsafe_copyto!
+   449         0 @Base/array.jl                                                       385 copy
+   454        25 @CSV/src/write.jl                                                    312 _appendstringbytes!
+   479         0 @Base/array.jl                                                      1181 _growend_internal!(a::Vector{UInt8}, delta::Int64, len::Int64)
+   494         0 @CSV/src/write.jl                                                    316 _appendstring!
+   581         1 @CSV/src/write.jl                                                    273 _appendbytes!
+   612         0 @CSV/src/write.jl                                                    308 _appendstring!
+   613         1 @CSV/src/write.jl                                                   1011 _writerow_direct!
+   633         0 @CSV/src/write.jl                                                    687 _appendcell!
+   706        21 @Base/array.jl                                                      1205 _growend!
+   738         0 @CSV/src/write.jl                                                    291 _appendbytes!(out::Vector{UInt8}, bytes::Ptr{UInt8}, n::Int64, o::CSV.WriteOpts{Nothing, Nothing}, stringcell::Bool)
+   753         0 @CSV/src/write.jl                                                    639 _appendcell!
+   773         0 @CSV/src/write.jl                                                   1040 _renderblock(cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer, prefix::Vector{UInt8})
+   832       832 @Base/boot.jl                                                        588 GenericMemory
+  1245         0 @CSV/src/write.jl                                                    629 _stagecell!
+  1276         0 @CSV/src/ColumnParsers.jl                                            161 stagecells!(st::CSV.ColStage, c::Tables.ColumnCore.Column{String7} at Vector{String7}, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing})
+  1773        27 @TraitWorld/src/checks.jl                                            303 macro expansion
+  1798        16 @TraitWorld/src/checks.jl                                            321 checked_call(f::typeof(CSV.ColumnParsers.stagecells!), a1::CSV.ColStage, a2::Tables.ColumnCore.Column{String7} at Vector{String7}, a3::Int64, a4::Int64, a5::CSV.WriteOpts{No…
+  2089      2082 @Base/array.jl                                                       386 copy
+  2708       877 none                                                                   ? (::CSV.ColumnParsers.var"##tw_untyped_stagecells!#4365")(b#4366::implementation of Tables.ColumnCore.Column{String7} at Vector{String7}, xa#4370::TraitWorld.XAny, xa#4371::T…
+  2747         0 @CSV/src/write.jl                                                   1029 _renderblock(cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer, prefix::Vector{UInt8})
+  2771        36 @TraitWorld/src/untyped.jl                                           186 (::TraitWorld._UWrap)(o::TraitWorld._UCall{CSV.ColumnParsers.var"##tw_untyped_stagecells!#4365", implementation of Tables.ColumnCore.Column{String7} at Vector{String7}}, a1:…
+  3322       549 @TraitWorld/src/trait_module.jl                                     1134 macro expansion
+  3476         0 none                                                                   ? stagecells!
+  3913         6 @CSV/src/write.jl                                                   1030 _renderblock(cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer, prefix::Vector{UInt8})
+  7744        10 @CSV/src/write.jl                                                   1027 _renderblock
+  7864         0 @CSV/src/write.jl                                                   1262 _renderwrite_identity!(io::IOBuffer, cols::CSV._WriterColumns, lo::Int64, hi::Int64, o::CSV.WriteOpts{Nothing, Nothing}, out::CSV._WriteBuffer)
+  7888         5 @CSV/src/write.jl                                                   1300 _emitrowblocks!(io::IOBuffer, cols::CSV._WriterColumns, nrows::Int64, blockrows::Int64, o::CSV.WriteOpts{Nothing, Nothing}, transform::typeof(CSV._identity_transform), ntask…
+  7913         0 @CSV/src/write.jl                                                   1719 #write#244
+  7913         0 @CSV/src/write.jl                                                   1626 (::CSV._ColumnEmitter{CSV._WriterColumns, CSV.WriteOpts{Nothing, Nothing}, typeof(CSV._identity_transform), Val{true}, Val{false}})(io::IOBuffer)
+  7939         0 @CSV/src/write.jl                                                   1640 write(sink::IOBuffer, table::DataFrame)
+  7940         0 @Base/Base.jl                                                        356 (::Base.var"#start_profile_listener##0#start_profile_listener##1"{Base.AsyncCondition})()
+  7940         0 @Base/Base.jl                                                        336 profile_printing_listener(cond::Base.AsyncCondition)
+  7940         0 @Base/asyncevent.jl                                                  186 _trywait(t::Base.AsyncCondition)
+  7940         0 @Base/condition.jl                                                   136 wait
+  7940         0 @Base/condition.jl                                                   141 wait(c::Base.GenericCondition{Base.Threads.SpinLock}; first::Bool)
+  7940      7939 @Base/task.jl                                                       1297 wait()
+  7940         0 @Base/client.jl                                                      577 _start()
+  7940         0 @Base/client.jl                                                      344 exec_options(opts::Base.JLOptions)
+  7940         0 @Base/Base.jl                                                        310 include(mod::Module, _path::String)
+  7940         0 @Base/loading.jl                                                    3105 _include(mapexpr::Function, mod::Module, _path::String)
+  7940         0 @Base/loading.jl                                                    3045 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+  7940         0 @Base/boot.jl                                                        489 eval(m::Module, e::Any)
+  7940         1 /home/hellmann/Repos/julia-trait-bound/forks/scripts/m7_profile.jl     9 top-level scope
+Total snapshots: 15880. Utilization: 50% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.

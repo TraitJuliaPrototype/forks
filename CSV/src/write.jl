@@ -716,15 +716,9 @@ end
 
 # the monomorphic driver: `col` is concretely typed here, so `col[r]` and the
 # `_stagecell!` branches resolve statically for the common element types
-function _stagecolumn!(st::ColStage, col::AbstractVector, lo::Int, hi::Int, o::WriteOpts)
-    _reset!(st, hi - lo + 1)
-    k = 0
-    @inbounds for r in lo:hi
-        _stagecell!(st, col[r], o)
-        _endcell!(st, k += 1)
-    end
-    return st
-end
+# A column's staging is the `Column` kernel `ColumnParsers.stagecells!` (E-217); this is its plain entry.
+_stagecolumn!(st::ColStage, col::AbstractVector, lo::Int, hi::Int, o::WriteOpts) =
+    ColumnParsers.stagecells!(st, compiled_for(Tables.ColumnCore.tocolumn(col)), lo, hi, o)
 
 # --- row-block rendering (the parallel unit) --------------------------------
 
@@ -773,11 +767,37 @@ end
     elseif T <: Dates.TimeType && o.dateformat === nothing
         _encodedbound(64, o.bufsize)
     else
-        # Any/custom values and custom format strings can produce up to the
-        # enforced row cap. Use that cap rather than guessing from a sample.
-        o.bufsize
+        # Any/custom values and custom format strings have no width known from
+        # their type. The bound only sizes the row blocks (each rendered row is
+        # still checked against `bufsize`), so it is estimated: twice the widest
+        # of up to 64 cells spread over the column, rendered as the writer would.
+        # A cell that cannot be rendered is skipped here: its error is raised
+        # where the block holding it is rendered. The cap itself made blocks of
+        # two rows (E-217).
+        _sampledcellbound(col, o)
     end
     return max(bound, valuebound)
+end
+
+function _sampledcellbound(col::AbstractVector, o::WriteOpts)
+    n = length(col)
+    n == 0 && return 0
+    st = ColStage()
+    k = min(n, 64)
+    _reset!(st, k)
+    w = 0; ok = 0
+    for i in round.(Int, range(firstindex(col), lastindex(col); length = k))
+        before = length(st.bytes)
+        try
+            @inbounds _stagecell!(st, col[i], o)
+        catch
+            resize!(st.bytes, before)
+            continue
+        end
+        _endcell!(st, ok += 1)
+        w = max(w, length(st.bytes) - before)
+    end
+    return ok == 0 ? o.bufsize : min(2w + 2, o.bufsize)
 end
 
 # `rowbound` is the byte bound of one rendered row, saturated at `bufsize`.
@@ -873,20 +893,19 @@ for S in (Int8, Int16, Int32, UInt8, UInt16, UInt32)
     @eval _isdirect(::Type{Vector{Union{Missing, $S}}}) = true
 end
 
-# A fallback column (pooled, InlineString, narrow integer, custom scalar, ...)
-# stages once per block through a call that is typed on that column only.
-struct _Stager{V <: AbstractVector}
-    col::V
-end
-# `stagers` holds one typed stager per fallback column, in `fallback` order;
-# it is the empty tuple for every table of common column types, so the
-# descriptor type (and everything compiled for it) is shared across schemas.
-struct _WriterColumns{P <: Tuple}
+# A fallback column (pooled, InlineString, custom scalar, ...) stages once per block
+# through the `Column` kernel `ColumnParsers.stagecells!`, compiled per column type
+# (forks, E-217). `stagers` holds them as `Dynamic{Column}`, in `fallback` order, so
+# the descriptor container's type (and everything compiled for it) is shared by
+# every schema, whatever its fallback columns.
+struct _WriterColumns
     original::Vector{AbstractVector}   # the transform path reads cells here
     direct::Vector{_WriteColumn}
     fallback::Vector{Int}
-    stagers::P
+    stagers::Vector{Dynamic{Tables.ColumnCore.Column}}
 end
+_stagers(original::Vector{AbstractVector}, fallback::Vector{Int}) =
+    Dynamic{Tables.ColumnCore.Column}[Tables.ColumnCore.tocolumn(original[j]) for j in fallback]
 
 _fallbackindices(direct::Vector{_WriteColumn}) = findall(col -> col.tag == 0x00, direct)
 @noinline _lengthmismatch() =
@@ -919,9 +938,8 @@ end
         push!(ex.args, :(rowbound = _accumulatebound(
             rowbound, _setdescriptor!(direct, original, $i, cols[$i], nrows, o), o.bufsize)))
     end
-    stagers = Expr(:tuple, (:(_Stager(cols[$i])) for i in 1:n
-                            if !_isdirect(cols.parameters[i]))...)
-    push!(ex.args, :(return _WriterColumns(original, direct, _fallbackindices(direct), $stagers),
+    push!(ex.args, :(fallback = _fallbackindices(direct)))
+    push!(ex.args, :(return _WriterColumns(original, direct, fallback, _stagers(original, fallback)),
                      rowbound))
     return ex
 end
@@ -936,8 +954,7 @@ function _preparewritecolumns(cols::Vector{AbstractVector}, nrows::Int, o::Write
                                     o.bufsize)
     end
     fallback = _fallbackindices(direct)
-    stagers = Tuple(_Stager(cols[j]) for j in fallback)
-    return _WriterColumns(original, direct, fallback, stagers), rowbound
+    return _WriterColumns(original, direct, fallback, _stagers(original, fallback)), rowbound
 end
 
 @inline function _appendtaggedcell!(out::_WriteOutput, col::_WriteColumn, r::Int, k::Int, o::WriteOpts)
@@ -1038,7 +1055,7 @@ function _renderblock(cols::_WriterColumns, lo::Int, hi::Int, o::WriteOpts,
     prepared = cols.direct
     if !isempty(cols.fallback)
         prepared = copy(cols.direct)
-        stages = map(s -> _stagecolumn!(ColStage(), s.col, lo, hi, o), cols.stagers)
+        stages = ColumnParsers.stageblock(cols.stagers, lo, hi, o)
         for (i, j) in enumerate(cols.fallback)
             @inbounds prepared[j] = _WriteColumn(0x00, _EMPTY_WRITECOLUMNS..., stages[i])
         end

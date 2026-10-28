@@ -1,0 +1,442 @@
+     Testing CSV
+      Status `/tmp/claude-1000/jl_GgGu6V/Project.toml`
+  [4c88cf16] Aqua v0.8.18
+  [336ed68f] CSV v1.1.0 `~/Repos/julia-trait-bound/forks/CSV`
+  [944b1d66] CodecZlib v0.7.9
+  [3e2245cb] DataDecimals v1.1.0
+  [48204bd6] DataStrings v1.1.0
+  [41ac09f5] Durations v1.4.1
+  [48062228] FilePathsBase v0.9.24
+⌃ [842dd82b] InlineStrings v1.4.6
+  [69de0a69] Parsers v3.0.0
+  [2dfb63ee] PooledArrays v1.4.3
+  [aea7be01] PrecompileTools v1.3.4
+  [bd369af6] Tables v1.14.0 `~/Repos/julia-trait-bound/forks/Tables`
+  [ade2ca70] Dates v1.11.0
+  [a63ad114] Mmap v1.11.0
+  [9a3f8284] Random v1.11.0
+  [8dfed614] Test v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+      Status `/tmp/claude-1000/jl_GgGu6V/Manifest.toml`
+  [4c88cf16] Aqua v0.8.18
+  [336ed68f] CSV v1.1.0 `~/Repos/julia-trait-bound/forks/CSV`
+  [944b1d66] CodecZlib v0.7.9
+  [34da2185] Compat v4.18.1
+  [9a962f9c] DataAPI v1.16.0
+  [3e2245cb] DataDecimals v1.1.0
+  [48204bd6] DataStrings v1.1.0
+  [e2d170a0] DataValueInterfaces v1.0.0
+  [41ac09f5] Durations v1.4.1
+  [48062228] FilePathsBase v0.9.24
+⌃ [842dd82b] InlineStrings v1.4.6
+  [82899510] IteratorInterfaceExtensions v1.0.0
+  [bac558e1] OrderedCollections v2.0.3
+  [69de0a69] Parsers v3.0.0
+  [2dfb63ee] PooledArrays v1.4.3
+  [aea7be01] PrecompileTools v1.3.4
+⌃ [21216c6a] Preferences v1.6.0
+  [3783bdb8] TableTraits v1.0.1
+  [bd369af6] Tables v1.14.0 `~/Repos/julia-trait-bound/forks/Tables`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [3bb67fe8] TranscodingStreams v0.11.3
+  [0dad84c5] ArgTools v1.1.2
+  [56f22d72] Artifacts v1.11.0
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [f43a241f] Downloads v1.7.0
+  [7b1f6079] FileWatching v1.11.0
+  [9fa8497b] Future v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [b27032c2] LibCURL v1.0.0
+  [76f85450] LibGit2 v1.11.0
+  [8f399da3] Libdl v1.11.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [a63ad114] Mmap v1.11.0
+  [ca575930] NetworkOptions v1.3.0
+  [44cfe95a] Pkg v1.13.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [f489334b] StyledStrings v1.11.0
+  [fa267f1f] TOML v1.0.3
+  [a4e569a6] Tar v1.10.0
+  [8dfed614] Test v1.11.0
+  [cf7118a7] UUIDs v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+  [e66e0078] CompilerSupportLibraries_jll v1.5.5+2
+  [deac9b47] LibCURL_jll v8.22.0+0
+  [e37daf67] LibGit2_jll v1.9.7+0
+  [29816b5a] LibSSH2_jll v1.11.104+0
+  [14a3606d] MozillaCACerts_jll v2026.8.13
+  [458c3c95] OpenSSL_jll v3.5.8+0
+  [efcefdf7] PCRE2_jll v10.46.0+0
+  [83775a58] Zlib_jll v1.3.2+0
+  [3161d3a3] Zstd_jll v1.5.7+1
+  [8e850ede] nghttp2_jll v1.70.0+0
+  [3f19e933] p7zip_jll v17.8.3+0
+        Info Packages marked with ⌃ have new versions available and may be upgradable.
+Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
+   1.2 s  ✓ CSV → CSVDataDecimalsExt
+   1.1 s  ✓ CSV → CSVFilePathsBaseExt
+  2 dependencies successfully precompiled in 1 seconds. 63 already precompiled.
+     Testing Running tests...
+
+CSV writer: Test Failed at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:338
+  Expression: String(take!(prefixed)) == "prefix\n" * repeat("ok\n", W.WRITE_BLOCK_ROWS)
+   Evaluated: "prefix\n" == "prefix\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\nok\n"
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:104
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:338 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+CSV writer: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:399
+  Test threw exception
+  Expression: str((io->begin
+                #= /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:399 =#
+                W.write(io, (a = [nothing],); transform = ((_, value)->begin
+                                #= /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:400 =#
+                                something(value, missing)
+                            end))
+            end)) == "a\n\n"
+  ArgumentError: a `nothing` cell is not printable; use transform=(column, value) -> something(value, missing) or replace it before writing
+  Stacktrace:
+    [1] _nothingerror()
+      @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:198
+    [2] _appendcell!
+      @ ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:637 [inlined]
+    [3] _stagecell!(st::CSV.ColStage, x::Nothing, o::CSV.WriteOpts{Nothing, Nothing})
+      @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:629
+    [4] _sampledcellbound(col::Vector{Nothing}, o::CSV.WriteOpts{Nothing, Nothing})
+      @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:787
+    [5] _columncellbound(col::Vector{Nothing}, o::CSV.WriteOpts{Nothing, Nothing})
+      @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:773
+    [6] _setdescriptor!(direct::Vector{CSV._WriteColumn}, original::Vector{AbstractVector}, i::Int64, col::Vector{Nothing}, nrows::Int64, o::CSV.WriteOpts{Nothing, Nothing})
+      @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:913
+    [7] macro expansion
+      @ ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:926 [inlined]
+    [8] _preparewritecolumns
+      @ ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:921 [inlined]
+    [9] #write#244
+      @ ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:1706 [inlined]
+   [10] write
+      @ ~/Repos/julia-trait-bound/forks/CSV/src/write.jl:1659 [inlined]
+   [11] (::var"#1090#1091")(io::IOBuffer)
+      @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:399
+   [12] str(f::var"#1090#1091")
+      @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:9
+   [13] top-level scope
+      @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:104
+   [14] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [15] macro expansion
+      @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:399 [inlined]
+   [16] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+CSV writer: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:440
+  Test threw exception
+  Expression: transcode(GzipDecompressor, take!(gziperror)) == codeunits(repeat("ok\n", W.WRITE_BLOCK_ROWS))
+  ZlibError: the compressed stream may be truncated
+  Stacktrace:
+    [1] unsafe_transcode!(output::TranscodingStreams.Buffer, codec::GzipDecompressor, input::TranscodingStreams.Buffer)
+      @ TranscodingStreams ~/.julia/packages/TranscodingStreams/O3BYF/src/transcode.jl:190
+    [2] transcode!
+      @ ~/.julia/packages/TranscodingStreams/O3BYF/src/transcode.jl:128 [inlined]
+    [3] transcode
+      @ ~/.julia/packages/TranscodingStreams/O3BYF/src/transcode.jl:108 [inlined]
+    [4] transcode
+      @ ~/.julia/packages/TranscodingStreams/O3BYF/src/transcode.jl:107 [inlined]
+    [5] transcode(::GzipDecompressor, ::Vector{UInt8})
+      @ TranscodingStreams ~/.julia/packages/TranscodingStreams/O3BYF/src/transcode.jl:196
+    [6] transcode(::Type{GzipDecompressor}, args::Vector{UInt8})
+      @ TranscodingStreams ~/.julia/packages/TranscodingStreams/O3BYF/src/transcode.jl:36
+    [7] top-level scope
+      @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:104
+    [8] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [9] macro expansion
+      @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:440 [inlined]
+   [10] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:781
+  Test threw exception
+  Expression: render(x) == string(x)
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:50 [inlined]
+   [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+     @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:781 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:781
+  Test threw exception
+  Expression: render(x) == string(x)
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:50 [inlined]
+   [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+     @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:781 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:781
+  Test threw exception
+  Expression: render(x) == string(x)
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:50 [inlined]
+   [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+     @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:781 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:781
+  Test threw exception
+  Expression: render(x) == string(x)
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:50 [inlined]
+   [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+     @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:781 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:781
+  Test threw exception
+  Expression: render(x) == string(x)
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:50 [inlined]
+   [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+     @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:781 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:781
+  Test threw exception
+  Expression: render(x) == string(x)
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:50 [inlined]
+   [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+     @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:781 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:781
+  Test threw exception
+  Expression: render(x) == string(x)
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:50 [inlined]
+   [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+     @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:781 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:781
+  Test threw exception
+  Expression: render(x) == string(x)
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:50 [inlined]
+   [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+     @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:781 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+staged renderer: direct paths are byte-identical to the Base spellings: Error During Test at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/write.jl:767
+  Got exception outside of a @test
+  UndefVarError: `_stagecolumn!` not defined in `CSV`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+    [1] getproperty
+      @ ./Base_compiler.jl:50 [inlined]
+    [2] (::var"#render#render##0"{CSV.WriteOpts{Nothing, Nothing}})(x::Int8)
+      @ Main ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:772
+    [3] top-level scope
+      @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:768
+    [4] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] macro expansion
+      @ ~/Repos/julia-trait-bound/forks/CSV/test/write.jl:787 [inlined]
+    [6] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:311
+    [7] top-level scope
+      @ ~/Repos/julia-trait-bound/forks/CSV/test/runtests.jl:12
+    [8] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [9] macro expansion
+      @ ~/Repos/julia-trait-bound/forks/CSV/test/runtests.jl:17 [inlined]
+   [10] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:311
+   [11] top-level scope
+      @ none:6
+   [12] eval(m::Module, e::Any)
+      @ Core ./boot.jl:489
+   [13] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:310
+   [14] _start()
+      @ Base ./client.jl:577
+Test Summary:                                                                         |   Pass  Fail  Error   Total     Time
+CSV                                                                                   | 153380     1     11  153392  6m53.5s
+  CPU feature dispatch                                                                |      7                    7     0.9s
+  reader task budget includes string conversion                                       |    100                  100     4.5s
+  worker cleanup on every exit                                                        |     10                   10     0.3s
+  unrepresentable date-times do not collide with Bool                                 |      4                    4     0.9s
+  CSV parser core                                                                     | 127159               127159    26.8s
+  Scan reader uses the Tables API                                                     |      8                    8     3.6s
+  CSV readers                                                                         |   1246                 1246  1m57.6s
+  transposed diagnostics                                                              |    104                  104     0.2s
+  gzip, typemap, dateformat/pool Dicts, downcast, transpose, deprecations             |    140                  140    19.3s
+  DataString hash + stringtype extension hook                                         |     21                   21     0.2s
+  InlineStrings extension                                                             |     36                   36     3.4s
+  RowWriter                                                                           |     10                   10     0.9s
+  stringtype × pool matrix: File / Rows / Chunks agree                                |     53                   53     3.1s
+  Chunks: schema stable across batches                                                |     15                   15     0.7s
+  wide batches merge diagnostics in source order                                      |     48                   48     3.0s
+ERROR: LoadError: Some tests did not pass: 153380 passed, 1 failed, 11 errored, 0 broken.
+in expression starting at /home/hellmann/Repos/julia-trait-bound/forks/CSV/test/runtests.jl:11
+  vector of sources + source= column                                                  |     50                   50     3.9s
+  FilePathsBase extension                                                             |     14                   14     3.5s
+  Multiple sources release completed diagnostic logs                                  |     45                   45     0.4s
+  Multiple sources share a bounded task budget                                        |      8                    8     0.4s
+  ParseError, on_error=:warn, and problem display                                     |     33                   33     0.8s
+  reader option fixes: footerskip anchor, decimal, DateFormat, selection              |     22                   22     4.7s
+  types=String names the output type                                                  |     30                   30     2.2s
+  requested text output across readers and pools                                      |    320                  320     2.9s
+  prepared option combinations                                                        |     13                   13     2.9s
+  bare quotes: the index repairs itself under the lenient rule                        |     29                   29     1.4s
+  string columns own their bytes                                                      |     28                   28     0.7s
+  on_error=:warn is the eager default; Char and Symbol types; scan windows            |     63                   63     2.3s
+  short chunk samples (main #1199/#1200)                                              |     99                   99     0.5s
+  date-times infer as Timestamp{Nanosecond}                                           |     20                   20     1.5s
+  timestamp range widening preserves earlier precision                                |    124                  124     4.0s
+  typed timestamp resolutions across readers                                          |     20                   20     2.5s
+  Date and DateTime reject out-of-range years                                         |     58                   58     0.4s
+  timestamp conversion rejects overflowing civil years                                |     50                   50     3.7s
+  timestamp calendar validation and checked tick boundaries                           |   3180                 3180     0.3s
+  a kept empty row is all-missing, not a short-row problem                            |     27                   27     1.2s
+  Decimal schemas require concrete scalar types                                       |     16                   16     1.3s
+  Explicit decimal schemas                                                            |     31                   31     9.1s
+  DataStrings column ownership                                                        |      3                    3     0.0s
+  Decimal spelling boundaries                                                         |     24                   24     3.4s
+  Decimal writer dialect                                                              |      9                    9     0.3s
+  CSV writer                                                                          |    264     1      2     267    15.5s
+  contiguous string bytes preserve quoting                                            |     32                   32     0.6s
+  date syntax obeys the quote policy                                                  |     18                   18     0.6s
+  float syntax obeys the quote policy                                                 |     44                   44     1.5s
+  Time columns use the shared clock renderer                                          |     10                   10     1.7s
+  bounded ordered writer scheduler                                                    |      5                    5     0.2s
+  staged renderer: direct paths are byte-identical to the Base spellings              |      1            9      10     0.4s
+  DataString cells write the same bytes as String cells                               |     13                   13     1.2s
+  writer renderer corpus parity                                                       |    492                  492    24.2s
+  parallel gzip members, widened narrow integers, in-place float formats, row sources |     23                   23     3.7s
+  deterministic parser fuzz                                                           |   2688                 2688     2.2s
+  D1/D2 adversarial kernels                                                           |  16036                16036     5.6s
+  Tables.Scan pushdown                                                                |    441                  441    11.9s
+  Scan bounds and reference-valued columns                                            |     13                   13     1.6s
+  Scan source forms (File(src; scan=))                                                |     23                   23     1.9s
+RNG of the outermost testset: Xoshiro(0x06393ef3b8e32f6f, 0x005dbaf5ba94c62e, 0xd3286ee881804208, 0x61521dfb72525d8a, 0xd05b6c3f90635ae7)
+ERROR: Package CSV errored during testing
+Stacktrace:
+  [1] pkgerror(msg::String)
+    @ Pkg.Types ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:68
+  [2] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Nothing, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3319
+  [3] test
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+  [4] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Nothing, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+  [5] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+  [6] test(pkgs::Vector{PackageSpec})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+  [7] test(pkgs::Vector{String}; kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:160
+  [8] test
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:160 [inlined]
+  [9] test(pkg::String)
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:159
+ [10] top-level scope
+    @ none:1
+ [11] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [12] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [13] _start()
+    @ Base ./client.jl:577
