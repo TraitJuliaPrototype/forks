@@ -3,6 +3,9 @@ uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
 authors = ["quinnj <quinn.jacobd@gmail.com>"]
 version = "1.16.0"
 
+[deps]
+TraitWorld = "7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14"
+
 [compat]
 julia = "1"
 
@@ -11,3 +14,6 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
 test = ["Test"]
+
+[sources]
+TraitWorld = {path = "../../TraitWorld"}

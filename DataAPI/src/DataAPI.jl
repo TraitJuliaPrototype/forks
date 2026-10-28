@@ -1,5 +1,11 @@
 module DataAPI
 
+# E-212 (porting 0.1a): Tables gives DataAPI's functions their meaning for Base's `NamedTuple`s
+# (`nrow`, `ncol` of a column table and a row table). DataAPI, the function's owner, names it a joint owner
+# (traits §10.1), so those methods are no pirates in Tables' trait module.
+using TraitWorld: @joint_owners
+@joint_owners Tables
+
 """
     defaultarray(T, N)
 
