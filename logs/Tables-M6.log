@@ -1,5 +1,5 @@
      Testing Tables
-      Status `/tmp/claude-1000/jl_EqSpX1/Project.toml`
+      Status `/tmp/claude-1000/jl_py1NOo/Project.toml`
   [9a962f9c] DataAPI v1.16.0
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
@@ -11,7 +11,7 @@
   [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
   [2f01184e] SparseArrays v1.13.0
   [8dfed614] Test v1.11.0
-      Status `/tmp/claude-1000/jl_EqSpX1/Manifest.toml`
+      Status `/tmp/claude-1000/jl_py1NOo/Manifest.toml`
   [9a962f9c] DataAPI v1.16.0
   [864edb3b] DataStructures v0.19.6
   [e2d170a0] DataValueInterfaces v1.0.0
@@ -53,13 +53,8 @@
   [8e850b90] libblastrampoline_jll v5.15.0+0
         Info Packages marked with ⌃ have new versions available and may be upgradable.
 Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
-   0.7 s  ✓ DataValues
-   1.0 s  ✓ StructUtils
-   0.7 s  ✓ StructUtils → StructUtilsTablesExt
-   5.8 s  ✓ JSON
-   0.5 s  ✓ TableShowUtils
-   1.0 s  ✓ QueryOperators
-  6 dependencies successfully precompiled in 8 seconds. 27 already precompiled.
+   0.6 s  ✓ StructUtils → StructUtilsTablesExt
+  1 dependency successfully precompiled in 1 seconds. 32 already precompiled.
      Testing Running tests...
 ┌ Warning: All(args...) is deprecated, use Cols(args...) instead
 │   caller = macro expansion at scan.jl:326 [inlined]
@@ -68,50 +63,50 @@ Precompiling for configuration --code-coverage=none --color=auto --warn-overwrit
 │   caller = macro expansion at scan.jl:327 [inlined]
 └ @ Core ~/Repos/julia-trait-bound/forks/Tables/test/scan.jl:327
 Test Summary: | Pass  Total  Time
-utils.jl      |   65     65  2.9s
+utils.jl      |   65     65  1.6s
 Test Summary:  | Pass  Total  Time
-namedtuples.jl |   54     54  6.2s
+namedtuples.jl |   54     54  4.5s
 Test Summary: | Pass  Total  Time
 Materializer  |    8      8  0.4s
 Test Summary:      | Pass  Total  Time
-Matrix integration |   53     53  3.2s
+Matrix integration |   53     53  2.0s
 Tables.Schema:
  :a  Int64
  :b  Float64Test Summary:       | Pass  Total  Time
-Tables.jl interface |   26     26  2.1s
+Tables.jl interface |   26     26  1.2s
 Test Summary: | Pass  Total  Time
 isless        |    6      6  0.2s
 Test Summary:           | Pass  Total  Time
-TableTraits integration |   18     18  1.7s
+TableTraits integration |   18     18  0.9s
 Test Summary: | Pass  Total  Time
-AbstractDict  |   25     25  3.5s
+AbstractDict  |   25     25  2.4s
 Row:
  :a  1
  :b   missing
  :c   "hey"Test Summary: | Pass  Total  Time
-AbstractRow   |   26     26  1.3s
+AbstractRow   |   26     26  0.9s
 TestColumns with 2 rows, 3 columns, and an unknown schema.Test Summary:   | Pass  Total  Time
-AbstractColumns |   25     25  0.4s
+AbstractColumns |   25     25  0.2s
 Test Summary:  | Pass  Total  Time
-Tables.Columns |    9      9  0.2s
+Tables.Columns |    9      9  0.1s
 Test Summary:     | Pass  Total  Time
 Tables.isrowtable |    4      4  0.3s
 Test Summary:     | Pass  Total  Time
 Tables.partitions |    5      5  0.0s
 Test Summary: | Pass  Total  Time
-Dict tables   |   36     36  3.1s
+Dict tables   |   36     36  2.3s
 Test Summary: |   Pass   Total  Time
-wide tables   | 465762  465762  8.2s
+wide tables   | 465762  465762  7.1s
 Test Summary: | Pass  Total  Time
-ByRow         |   15     15  1.6s
+ByRow         |   15     15  1.9s
 Test Summary:           | Pass  Total  Time
-istable on dictionaries |   25     25  0.7s
+istable on dictionaries |   25     25  0.5s
 Test Summary:      | Pass  Total  Time
 test nrow and ncol |   36     36  0.2s
 Test Summary: | Pass  Total  Time
-#357          |    3      3  1.0s
+#357          |    3      3  0.7s
 Test Summary: | Pass  Total  Time
-Issue #361    |    2      2  0.5s
-Test Summary: | Pass  Total   Time
-scan.jl       |  162    162  11.4s
+Issue #361    |    2      2  0.2s
+Test Summary: | Pass  Total  Time
+scan.jl       |  162    162  7.7s
      Testing Tables tests passed 

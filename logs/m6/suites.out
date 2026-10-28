@@ -1,0 +1,8 @@
+Tables exit 0 52 s
+CSV exit 0 433 s
+     Testing CSV tests passed 
+DataFrames exit 0 1450 s
+env_forks exit 0
+upstream exit 0
+digests equal: 26 steps
+repl exit 0; marks 20; errors 0

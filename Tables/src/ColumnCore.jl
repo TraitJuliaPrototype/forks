@@ -16,7 +16,7 @@
 @trait_module module ColumnCore
 using TraitWorld
 using DataAPI
-export Column, nrows, cell, emptycells, take, vector, tocolumn, PooledColumn, nlevels, levelcode, level,
+export Column, nrows, cell, emptycells, take, vector, tocolumn, byrow, PooledColumn, nlevels, levelcode, level,
        TableSource, tablenames, tablecolumn, tablerows
 
 """
@@ -88,5 +88,33 @@ end
     tablecolumn(t, i) = Dynamic{Column}(t[i])
     tablerows(t) = isempty(t) ? 0 : length(t[1])
 end
+
+
+"""
+`ByRow(f)` over one column (or two): `f` called once per row with the cells, in order, as upstream's
+`map`. The function is a `Callable` at the cells' types, its result type inferred at the entry (traits
+reference §5.8): `Dynamic` by `Callable`'s default, so this loop is compiled once per cell type and
+result type, and a new closure compiles only its own body; `compiled_for(f)` compiles it per function.
+Where the inferred result type is not concrete, the result's element type is narrowed from the values,
+as `map` gives it.
+"""
+function byrow(f::Callable{Tuple{T}, S}, c::Column{T}) where {T, S}
+    n = nrows(c)
+    out = Vector{S}(undef, n)
+    for i in 1:n
+        out[i] = f(cell(c, i))
+    end
+    return isconcretetype(S) ? out : _narrowed(out)
+end
+function byrow(f::Callable{Tuple{T1, T2}, S}, a::Column{T1}, b::Column{T2}) where {T1, T2, S}
+    n = nrows(a)
+    out = Vector{S}(undef, n)
+    for i in 1:n
+        out[i] = f(cell(a, i), cell(b, i))
+    end
+    return isconcretetype(S) ? out : _narrowed(out)
+end
+"The values of `v` in a vector whose element type is what `collect` gives them (`map`'s widening)."
+_narrowed(v::Vector) = [x for x in v]
 
 end

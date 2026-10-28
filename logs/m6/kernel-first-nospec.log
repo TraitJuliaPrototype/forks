@@ -1,0 +1,6 @@
+M6K byrow kernel, new closure   6.84 ms
+M6K byrow kernel, new closure   6.24 ms
+M6K map, new closure            18.37 ms
+M6K ByRow(f)(v), new closure    16.91 ms
+M6K transform, new closure      24.98 ms
+M6K transform, new closure      23.95 ms

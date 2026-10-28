@@ -1,0 +1,4 @@
+M6K map, new closure            17.98 ms
+M6K ByRow(f)(v), new closure    60.4 ms
+M6K transform, new closure      33.54 ms
+M6K transform, new closure      24.86 ms

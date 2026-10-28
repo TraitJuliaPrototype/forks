@@ -225,10 +225,17 @@ function (f::ByRow)(cols::AbstractVector...)
     if !(all(col -> ==(length(first(cols)))(length(col)) && firstindex(col) == 1, cols))
         throw(ArgumentError("All passed vectors must have the same length and use 1-based indexing"))
     end
+    # forks (E-216): one or two columns through the trait core, the function a `Callable` at the cells' types,
+    # passed on unspecialized, so no plain code here is compiled per function
+    length(cols) == 1 && return _byrow(f.fun, cols[1])
+    length(cols) == 2 && return _byrow(f.fun, cols[1], cols[2])
     return invoke(map,
                   Tuple{typeof(f.fun), ntuple(i -> AbstractVector, length(cols))...},
                   f.fun, cols...)
 end
+
+_byrow(@nospecialize(fun), a::AbstractVector) = ColumnCore.byrow(fun, a)
+_byrow(@nospecialize(fun), a::AbstractVector, b::AbstractVector) = ColumnCore.byrow(fun, a, b)
 
 function (f::ByRow)(table::ColumnTable)
     if !(all(col -> ==(length(first(table)))(length(col)) && firstindex(col) == 1, table))

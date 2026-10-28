@@ -1,0 +1,9 @@
+M6 forks    first  Int -> Int                  74.07 ms
+M6 forks    first  Float64 -> Float64          99.24 ms
+M6 forks    first  String -> String           157.65 ms
+M6 forks    first  Int -> Bool                132.13 ms
+M6 forks    first  (Int, Float64) -> F64       40.34 ms
+M6 forks    steady Int -> Int                  12.17 ms
+M6 forks    steady Float64 -> Float64            9.4 ms
+M6 forks    steady (Int, Float64) -> F64        6.45 ms
+M6 forks    eltype of a widening result: Real, of a narrow one: Int64
