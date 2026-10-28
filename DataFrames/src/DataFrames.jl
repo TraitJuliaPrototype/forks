@@ -20,7 +20,7 @@ using Base.Sort,
 @reexport using Missings, InvertedIndices
 
 using Tables: ByRow
-using TraitWorld: TraitWorld, Dynamic, @trait_module, @implement, conforms
+using TraitWorld: TraitWorld, Dynamic, @trait_module, @implement, conforms, compiled_for
 import Dates
 using Tables.ColumnCore: Column, tocolumn, TableSource
 

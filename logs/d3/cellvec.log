@@ -1,0 +1,9 @@
+D3 cellvec  sort Int                       68.07 ms     58.2 MiB
+D3 cellvec  sort String, Float64          314.05 ms     65.8 MiB
+D3 cellvec  groupby-sum Int key             4.35 ms     15.3 MiB
+D3 cellvec  groupby-sum two keys            7.13 ms     23.2 MiB
+D3 cellvec  groupby-sum pooled key          4.22 ms     15.3 MiB
+D3 cellvec  groupby-mean skipmissing        1.59 ms      0.0 MiB
+D3 cellvec  describe                       77.18 ms     53.5 MiB
+D3 cellvec  innerjoin Int key              26.06 ms    107.4 MiB
+D3 cellvec  combine SubDataFrame fn         2.46 ms      0.3 MiB

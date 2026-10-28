@@ -631,7 +631,7 @@ function _sortperm_columns(df::AbstractDataFrame, cols, rev)
     length(revs) == length(cs) || return nothing
     perm = collect(1:nrow(df))
     for k in length(cs):-1:1
-        refine!(perm, _dcolumn(df, cs[k]), revs[k])
+        refine!(perm, compiled_for(_dcolumn(df, cs[k])), revs[k])   # opened: a worker per column type (E-214)
     end
     return perm
 end

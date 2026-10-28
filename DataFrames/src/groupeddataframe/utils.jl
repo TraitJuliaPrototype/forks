@@ -518,7 +518,7 @@ function _group_rows!(cols::Vector{Dynamic{Column}}, groups::Vector{Int},
     if sort !== false
         # upstream's path for columns with reference pools (integer columns of a narrow range,
         # pooled and categorical columns): groups in the order of the pools' codes
-        rcs = Union{Nothing, Tuple{Vector{Int}, Int, Bool}}[refcodes(c, skipmissing, sort === true) for c in cols]
+        rcs = Union{Nothing, Tuple{Vector{Int}, Int, Bool}}[refcodes(compiled_for(c), skipmissing, sort === true) for c in cols]   # opened (E-214)
         if all(!isnothing, rcs)
             codes = Vector{Int}[rc[1] for rc in rcs]
             ngs = Int[rc[2] for rc in rcs]
@@ -562,12 +562,13 @@ function _group_rows!(cols::Vector{Dynamic{Column}}, groups::Vector{Int},
     end
     # upstream's hashing path: groups in order of first appearance of the rows
     codes = [Vector{Int}(undef, n) for _ in 1:N]
-    ns = Int[firstcodes!(codes[k], cols[k], skipmissing) for k in 1:N]
+    ns = Int[firstcodes!(codes[k], compiled_for(cols[k]), skipmissing) for k in 1:N]   # opened (E-214)
     if N == 1
         copyto!(groups, codes[1])
         return ns[1], false
     end
-    ngroups = 0
+    # a counter of its own: a variable the closures below assigned would be boxed in the whole function
+    ng = Ref(0)
     if prod(big.(ns .+ 1)) <= typemax(Int)
         strides = ones(Int, N)
         for k in N-1:-1:1
@@ -586,7 +587,7 @@ function _group_rows!(cols::Vector{Dynamic{Column}}, groups::Vector{Int},
             if skip
                 groups[i] = 0
             else
-                groups[i] = get!(() -> (ngroups += 1), d, key)
+                groups[i] = get!(() -> (ng[] += 1), d, key)
             end
         end
     else
@@ -596,9 +597,9 @@ function _group_rows!(cols::Vector{Dynamic{Column}}, groups::Vector{Int},
             if any(==(0), key)
                 groups[i] = 0
             else
-                groups[i] = get!(() -> (ngroups += 1), dv, key)
+                groups[i] = get!(() -> (ng[] += 1), dv, key)
             end
         end
     end
-    return ngroups, false
+    return ng[], false
 end

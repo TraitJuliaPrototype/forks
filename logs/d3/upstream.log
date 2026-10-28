@@ -1,0 +1,9 @@
+D3 upstream sort Int                      141.14 ms    167.4 MiB
+D3 upstream sort String, Float64          302.87 ms    114.8 MiB
+D3 upstream groupby-sum Int key             2.62 ms      7.7 MiB
+D3 upstream groupby-sum two keys             3.3 ms      8.0 MiB
+D3 upstream groupby-sum pooled key          1.77 ms      7.6 MiB
+D3 upstream groupby-mean skipmissing        1.71 ms      0.0 MiB
+D3 upstream describe                       52.92 ms     39.7 MiB
+D3 upstream innerjoin Int key              26.84 ms    107.4 MiB
+D3 upstream combine SubDataFrame fn          2.0 ms      0.3 MiB

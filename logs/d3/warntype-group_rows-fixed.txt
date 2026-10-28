@@ -1,0 +1,802 @@
+MethodInstance for DataFrames._group_rows!(::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}, ::Vector{Int64}, ::Bool, ::Nothing)
+  from _group_rows!(cols::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}, groups::Vector{Int64}, skipmissing::Bool, sort::Union{Nothing, Bool}) @ DataFrames ~/Repos/julia-trait-bound/forks/DataFrames/src/groupeddataframe/utils.jl:514
+Arguments
+  #self#::Core.Const(DataFrames._group_rows!)
+  cols::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}
+  groups::Vector{Int64}
+  skipmissing::Bool
+  sort::Core.Const(nothing)
+Locals
+  @_6::UNION{NOTHING, TUPLE{INT64, INT64}}
+  val@_7::Nothing
+  @_8::UNION{NOTHING, TUPLE{INT64, INT64}}
+  val@_9::Nothing
+  @_10::UNION{NOTHING, TUPLE{INT64, INT64}}
+  #565::DataFrames.var"#_group_rows!##0#_group_rows!##1"{Int64}
+  @_12::UNION{NOTHING, TUPLE{INT64, INT64}}
+  val@_13::Nothing
+  @_14::UNION{NOTHING, TUPLE{INT64, INT64}}
+  val@_15::Nothing
+  @_16::UNION{NOTHING, TUPLE{INT64, INT64}}
+  val@_17::Nothing
+  @_18::UNION{NOTHING, TUPLE{INT64, INT64}}
+  dv::Dict{Vector{Int64}, Int64}
+  d::Dict{Int64, Int64}
+  strides::Vector{Int64}
+  ng::Base.RefValue{Int64}
+  ns::Vector{Int64}
+  codes::Vector{Vector{Int64}}
+  ngroups::Int64
+  remap::Vector{Int64}
+  seen::Vector{Bool}
+  ngs::Vector{Int64}
+  rcs::Vector{Union{Nothing, Tuple{Vector{Int64}, Int64, Bool}}}
+  N::Int64
+  n::Int64
+  @_32::UNION{NOTHING, TUPLE{TRAITWORLD.DYNAMIC{TABLES.COLUMNCORE.COLUMN}, INT64}}
+  @_33::Int64
+  c::TraitWorld.Dynamic{Tables.ColumnCore.Column}
+  @_35::UNION{NOTHING, TUPLE{UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}, INT64}}
+  @_36::Int64
+  rc@_37::UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}
+  @_38::UNION{NOTHING, TUPLE{UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}, INT64}}
+  @_39::Int64
+  rc@_40::UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}
+  k@_41::Int64
+  @_42::UNION{NOTHING, TUPLE{INT64, INT64}}
+  i@_43::Int64
+  neg::Bool
+  j::Int64
+  x@_46::Int64
+  k@_47::Int64
+  i@_48::Int64
+  gix::Int64
+  i@_50::Int64
+  @_51::UNION{NOTHING, TUPLE{INT64, INT64}}
+  @_52::Int64
+  k@_53::Int64
+  k@_54::Int64
+  #566::DataFrames.var"#_group_rows!##2#_group_rows!##3"{Base.RefValue{Int64}}
+  @_56::UNION{NOTHING, TUPLE{INT64, INT64}}
+  skip::Bool
+  key@_58::Int64
+  i@_59::Int64
+  k@_60::Int64
+  x@_61::Int64
+  #567::DataFrames.var"#_group_rows!##4#_group_rows!##5"{Base.RefValue{Int64}}
+  i@_63::Int64
+  key@_64::Vector{Int64}
+  @_65::UNION{NOTHING, TUPLE{INT64, INT64}}
+  @_66::Int64
+  k@_67::Int64
+  @_68::Bool
+  @_69::Int64
+  @_70::Tuple{Int64, Bool}
+  @_71::Tuple{Int64, Bool}
+  @_72::Tuple{Int64, Bool}
+Body::Tuple{Int64, Bool}
+1 ──        Core.NewvarNode(:(@_6))
+│           Core.NewvarNode(:(val@_7))
+│           Core.NewvarNode(:(@_8))
+│           Core.NewvarNode(:(val@_9))
+│           Core.NewvarNode(:(@_10))
+│           Core.NewvarNode(:(#565))
+│           Core.NewvarNode(:(@_12))
+│           Core.NewvarNode(:(val@_13))
+│           Core.NewvarNode(:(@_14))
+│           Core.NewvarNode(:(val@_15))
+│           Core.NewvarNode(:(@_16))
+│           Core.NewvarNode(:(val@_17))
+│           Core.NewvarNode(:(@_18))
+│           Core.NewvarNode(:(dv))
+│           Core.NewvarNode(:(d))
+│           Core.NewvarNode(:(strides))
+│           Core.NewvarNode(:(ng))
+│           Core.NewvarNode(:(ns))
+│           Core.NewvarNode(:(codes))
+│           Core.NewvarNode(:(ngroups))
+│           Core.NewvarNode(:(remap))
+│           Core.NewvarNode(:(seen))
+│           Core.NewvarNode(:(ngs))
+│           Core.NewvarNode(:(rcs))
+│    %25  = DataFrames.Tuple::Core.Const(Tuple)
+│    %26  = DataFrames.Int::Core.Const(Int64)
+│    %27  = DataFrames.Bool::Core.Const(Bool)
+│    %28  = Core.apply_type(%25, %26, %27)::Core.Const(Tuple{Int64, Bool})
+│    %29  = DataFrames.length::Core.Const(length)
+│           (n = (%29)(groups))
+│    %31  = DataFrames.length::Core.Const(length)
+│           (N = (%31)(cols))
+│    %33  = DataFrames.:!==::Core.Const(!==)
+│    %34  = (%33)(sort, false)::Core.Const(true)
+└───        goto #50 if not %34
+2 ── %36  = cols::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}
+│    %37  = Base.IteratorSize(%36)::Core.Const(Base.HasShape{1}())
+│    %38  = (%37 isa Base.SizeUnknown)::Core.Const(false)
+│    %39  = DataFrames.Union::Core.Const(Union)
+│    %40  = DataFrames.Nothing::Core.Const(Nothing)
+│    %41  = DataFrames.Tuple::Core.Const(Tuple)
+│    %42  = DataFrames.Vector::Core.Const(Vector)
+│    %43  = DataFrames.Int::Core.Const(Int64)
+│    %44  = Core.apply_type(%42, %43)::Core.Const(Vector{Int64})
+│    %45  = DataFrames.Int::Core.Const(Int64)
+│    %46  = DataFrames.Bool::Core.Const(Bool)
+│    %47  = Core.apply_type(%41, %44, %45, %46)::Core.Const(Tuple{Vector{Int64}, Int64, Bool})
+│    %48  = Core.apply_type(%39, %40, %47)::Core.Const(Union{Nothing, Tuple{Vector{Int64}, Int64, Bool}})
+│    %49  = Base._array_for(%48, %36, %37)::Vector{Union{Nothing, Tuple{Vector{Int64}, Int64, Bool}}}
+│    %50  = Base.LinearIndices(%49)::LinearIndices{1, Tuple{Base.OneTo{Int64}}}
+│           (@_33 = Base.first(%50))
+│           (@_32 = Base.iterate(%36))
+│    %53  = @_32::UNION{NOTHING, TUPLE{TRAITWORLD.DYNAMIC{TABLES.COLUMNCORE.COLUMN}, INT64}}
+│    %54  = (%53 === nothing)::Bool
+│    %55  = Base.not_int(%54)::Bool
+└───        goto #7 if not %55
+3 ┄─ %57  = @_32::Tuple{TraitWorld.Dynamic{Tables.ColumnCore.Column}, Int64}
+│           (c = Core.getfield(%57, 1))
+│    %59  = Core.getfield(%57, 2)::Int64
+│    %60  = DataFrames.refcodes::Core.Const(DataFrames.ColumnKernels.refcodes)
+│    %61  = DataFrames.compiled_for::Core.Const(TraitWorld.compiled_for)
+│    %62  = c::TraitWorld.Dynamic{Tables.ColumnCore.Column}
+│    %63  = (%61)(%62)::TraitWorld.Compiled{Tables.ColumnCore.Column}
+│    %64  = DataFrames.:(===)::Core.Const(===)
+│    %65  = (%64)(sort, true)::Core.Const(false)
+│    %66  = (%60)(%63, skipmissing, %65)::ANY
+│           nothing
+└───        goto #5 if not %38
+4 ──        Core.Const(:(Base.push!(%49, %66)))
+└───        Core.Const(:(goto %73))
+5 ┄─ %71  = @_33::Int64
+│           Base.setindex!(%49, %66, %71)
+│           nothing
+│    %74  = @_33::Int64
+│           (@_33 = Base.add_int(%74, 1))
+│           (@_32 = Base.iterate(%36, %59))
+│    %77  = @_32::UNION{NOTHING, TUPLE{TRAITWORLD.DYNAMIC{TABLES.COLUMNCORE.COLUMN}, INT64}}
+│    %78  = (%77 === nothing)::Bool
+│    %79  = Base.not_int(%78)::Bool
+└───        goto #7 if not %79
+6 ──        goto #3
+7 ┄─        (rcs = %49)
+│    %83  = DataFrames.all::Core.Const(all)
+│    %84  = DataFrames.:!::Core.Const(!)
+│    %85  = DataFrames.isnothing::Core.Const(isnothing)
+│    %86  = (%84)(%85)::Core.Const(!isnothing)
+│    %87  = rcs::Vector{Union{Nothing, Tuple{Vector{Int64}, Int64, Bool}}}
+│    %88  = (%83)(%86, %87)::Bool
+└───        goto #50 if not %88
+8 ── %90  = rcs::Vector{Union{Nothing, Tuple{Vector{Int64}, Int64, Bool}}}
+│    %91  = Base.IteratorSize(%90)::Core.Const(Base.HasShape{1}())
+│    %92  = (%91 isa Base.SizeUnknown)::Core.Const(false)
+│    %93  = DataFrames.Vector::Core.Const(Vector)
+│    %94  = DataFrames.Int::Core.Const(Int64)
+│    %95  = Core.apply_type(%93, %94)::Core.Const(Vector{Int64})
+│    %96  = Base._array_for(%95, %90, %91)::Vector{Vector{Int64}}
+│    %97  = Base.LinearIndices(%96)::LinearIndices{1, Tuple{Base.OneTo{Int64}}}
+│           (@_36 = Base.first(%97))
+│           (@_35 = Base.iterate(%90))
+│    %100 = @_35::UNION{NOTHING, TUPLE{UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}, INT64}}
+│    %101 = (%100 === nothing)::Bool
+│    %102 = Base.not_int(%101)::Bool
+└───        goto #13 if not %102
+9 ┄─ %104 = @_35::TUPLE{UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}, INT64}
+│           (rc@_37 = Core.getfield(%104, 1))
+│    %106 = Core.getfield(%104, 2)::Int64
+│    %107 = rc@_37::UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}
+│    %108 = Base.getindex(%107, 1)::Vector{Int64}
+│           nothing
+└───        goto #11 if not %92
+10 ─        Core.Const(:(Base.push!(%96, %108)))
+└───        Core.Const(:(goto %115))
+11 ┄ %113 = @_36::Int64
+│           Base.setindex!(%96, %108, %113)
+│           nothing
+│    %116 = @_36::Int64
+│           (@_36 = Base.add_int(%116, 1))
+│           (@_35 = Base.iterate(%90, %106))
+│    %119 = @_35::UNION{NOTHING, TUPLE{UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}, INT64}}
+│    %120 = (%119 === nothing)::Bool
+│    %121 = Base.not_int(%120)::Bool
+└───        goto #13 if not %121
+12 ─        goto #9
+13 ┄        (codes = %96)
+│    %125 = rcs::Vector{Union{Nothing, Tuple{Vector{Int64}, Int64, Bool}}}
+│    %126 = Base.IteratorSize(%125)::Core.Const(Base.HasShape{1}())
+│    %127 = (%126 isa Base.SizeUnknown)::Core.Const(false)
+│    %128 = DataFrames.Int::Core.Const(Int64)
+│    %129 = Base._array_for(%128, %125, %126)::Vector{Int64}
+│    %130 = Base.LinearIndices(%129)::LinearIndices{1, Tuple{Base.OneTo{Int64}}}
+│           (@_39 = Base.first(%130))
+│           (@_38 = Base.iterate(%125))
+│    %133 = @_38::UNION{NOTHING, TUPLE{UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}, INT64}}
+│    %134 = (%133 === nothing)::Bool
+│    %135 = Base.not_int(%134)::Bool
+└───        goto #18 if not %135
+14 ┄ %137 = @_38::TUPLE{UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}, INT64}
+│           (rc@_40 = Core.getfield(%137, 1))
+│    %139 = Core.getfield(%137, 2)::Int64
+│    %140 = rc@_40::UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}
+│    %141 = Base.getindex(%140, 2)::Int64
+│           nothing
+└───        goto #16 if not %127
+15 ─        Core.Const(:(Base.push!(%129, %141)))
+└───        Core.Const(:(goto %148))
+16 ┄ %146 = @_39::Int64
+│           Base.setindex!(%129, %141, %146)
+│           nothing
+│    %149 = @_39::Int64
+│           (@_39 = Base.add_int(%149, 1))
+│           (@_38 = Base.iterate(%125, %139))
+│    %152 = @_38::UNION{NOTHING, TUPLE{UNION{NOTHING, TUPLE{VECTOR{INT64}, INT64, BOOL}}, INT64}}
+│    %153 = (%152 === nothing)::Bool
+│    %154 = Base.not_int(%153)::Bool
+└───        goto #18 if not %154
+17 ─        goto #14
+18 ┄        (ngs = %129)
+│    %158 = DataFrames.:!::Core.Const(!)
+│    %159 = DataFrames.:>::Core.Const(>)
+│    %160 = DataFrames.prod::Core.Const(prod)
+│    %161 = DataFrames.big::Core.Const(big)
+│    %162 = ngs::Vector{Int64}
+│    %163 = Base.broadcasted(%161, %162)::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(big), Tuple{Vector{Int64}}}
+│    %164 = Base.materialize(%163)::Vector{BigInt}
+│    %165 = (%160)(%164)::BigInt
+│    %166 = DataFrames.typemax::Core.Const(typemax)
+│    %167 = DataFrames.Int::Core.Const(Int64)
+│    %168 = (%166)(%167)::Core.Const(9223372036854775807)
+│    %169 = (%159)(%165, %168)::Bool
+└───        goto #20 if not %169
+19 ─        (@_68 = %169)
+└───        goto #21
+20 ─ %173 = DataFrames.:>::Core.Const(>)
+│    %174 = DataFrames.prod::Core.Const(prod)
+│    %175 = ngs::Vector{Int64}
+│    %176 = (%174)(%175)::Int64
+│    %177 = DataFrames.:*::Core.Const(*)
+│    %178 = DataFrames.Int64::Core.Const(Int64)
+│    %179 = (%178)(2)::Core.Const(2)
+│    %180 = n::Int64
+│    %181 = (%177)(%179, %180)::Int64
+└───        (@_68 = (%173)(%176, %181))
+21 ┄ %183 = @_68::Bool
+│    %184 = (%158)(%183)::Bool
+└───        goto #50 if not %184
+22 ─ %186 = DataFrames.prod::Core.Const(prod)
+│    %187 = ngs::Vector{Int64}
+│           (ngroups = (%186)(%187))
+│    %189 = DataFrames.ones::Core.Const(ones)
+│    %190 = DataFrames.Int::Core.Const(Int64)
+│    %191 = N::Int64
+│           (strides = (%189)(%190, %191))
+│    %193 = DataFrames.:(:)::Core.Const(Colon())
+│    %194 = DataFrames.:-::Core.Const(-)
+│    %195 = N::Int64
+│    %196 = (%194)(%195, 1)::Int64
+│    %197 = (%193)(%196, -1, 1)::Core.PartialStruct(StepRange{Int64, Int64}, Union{Nothing, Bool}[0, 0, 0], Any[Int64, Core.Const(-1), Int64])
+│           (@_18 = Base.iterate(%197))
+│    %199 = @_18::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %200 = (%199 === nothing)::Bool
+│    %201 = Base.not_int(%200)::Bool
+└───        goto #25 if not %201
+23 ┄ %203 = @_18::Tuple{Int64, Int64}
+│           (k@_41 = Core.getfield(%203, 1))
+│    %205 = Core.getfield(%203, 2)::Int64
+│    %206 = DataFrames.:*::Core.Const(*)
+│    %207 = strides::Vector{Int64}
+│    %208 = DataFrames.:+::Core.Const(+)
+│    %209 = k@_41::Int64
+│    %210 = (%208)(%209, 1)::Int64
+│    %211 = Base.getindex(%207, %210)::Int64
+│    %212 = ngs::Vector{Int64}
+│    %213 = DataFrames.:+::Core.Const(+)
+│    %214 = k@_41::Int64
+│    %215 = (%213)(%214, 1)::Int64
+│    %216 = Base.getindex(%212, %215)::Int64
+│    %217 = (%206)(%211, %216)::Int64
+│    %218 = strides::Vector{Int64}
+│    %219 = k@_41::Int64
+│           Base.setindex!(%218, %217, %219)
+│           (@_18 = Base.iterate(%197, %205))
+│    %222 = @_18::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %223 = (%222 === nothing)::Bool
+│    %224 = Base.not_int(%223)::Bool
+└───        goto #25 if not %224
+24 ─        goto #23
+25 ┄ %227 = DataFrames.fill::Core.Const(fill)
+│    %228 = ngroups::Int64
+│           (seen = (%227)(false, %228))
+│           nothing
+│    %231 = DataFrames.:(:)::Core.Const(Colon())
+│    %232 = n::Int64
+│    %233 = (%231)(1, %232)::Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])
+│           (@_16 = Base.iterate(%233))
+│    %235 = @_16::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %236 = (%235 === nothing)::Bool
+│    %237 = Base.not_int(%236)::Bool
+└───        goto #35 if not %237
+26 ┄ %239 = @_16::Tuple{Int64, Int64}
+│           (i@_43 = Core.getfield(%239, 1))
+│    %241 = Core.getfield(%239, 2)::Int64
+│           (j = 1)
+│           (neg = false)
+│    %244 = DataFrames.:(:)::Core.Const(Colon())
+│    %245 = N::Int64
+│    %246 = (%244)(1, %245)::Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])
+│           (@_42 = Base.iterate(%246))
+│    %248 = @_42::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %249 = (%248 === nothing)::Bool
+│    %250 = Base.not_int(%249)::Bool
+└───        goto #29 if not %250
+27 ┄ %252 = @_42::Tuple{Int64, Int64}
+│           (k@_47 = Core.getfield(%252, 1))
+│    %254 = Core.getfield(%252, 2)::Int64
+│    %255 = codes::Vector{Vector{Int64}}
+│    %256 = k@_47::Int64
+│    %257 = Base.getindex(%255, %256)::Vector{Int64}
+│    %258 = i@_43::Int64
+│           (x@_46 = Base.getindex(%257, %258))
+│    %260 = DataFrames.:|::Core.Const(|)
+│    %261 = neg::Bool
+│    %262 = DataFrames.:<::Core.Const(<)
+│    %263 = x@_46::Int64
+│    %264 = (%262)(%263, 0)::Bool
+│           (neg = (%260)(%261, %264))
+│    %266 = DataFrames.:+::Core.Const(+)
+│    %267 = j::Int64
+│    %268 = DataFrames.:*::Core.Const(*)
+│    %269 = x@_46::Int64
+│    %270 = strides::Vector{Int64}
+│    %271 = k@_47::Int64
+│    %272 = Base.getindex(%270, %271)::Int64
+│    %273 = (%268)(%269, %272)::Int64
+│           (j = (%266)(%267, %273))
+│           (@_42 = Base.iterate(%246, %254))
+│    %276 = @_42::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %277 = (%276 === nothing)::Bool
+│    %278 = Base.not_int(%277)::Bool
+└───        goto #29 if not %278
+28 ─        goto #27
+29 ┄        goto #32 if not skipmissing
+30 ─ %282 = neg::Bool
+└───        goto #32 if not %282
+31 ─ %284 = i@_43::Int64
+│           Base.setindex!(groups, 0, %284)
+└───        goto #33
+32 ┄ %287 = true::Core.Const(true)
+│    %288 = seen::Vector{Bool}
+│    %289 = j::Int64
+│           Base.setindex!(%288, %287, %289)
+│    %291 = j::Int64
+│    %292 = i@_43::Int64
+└───        Base.setindex!(groups, %291, %292)
+33 ┄        (@_16 = Base.iterate(%233, %241))
+│    %295 = @_16::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %296 = (%295 === nothing)::Bool
+│    %297 = Base.not_int(%296)::Bool
+└───        goto #35 if not %297
+34 ─        goto #26
+35 ┄        (val@_17 = nothing)
+│           nothing
+│           val@_17
+│    %303 = DataFrames.:<::Core.Const(<)
+│    %304 = DataFrames.sum::Core.Const(sum)
+│    %305 = seen::Vector{Bool}
+│    %306 = (%304)(%305)::Int64
+│    %307 = DataFrames.length::Core.Const(length)
+│    %308 = seen::Vector{Bool}
+│    %309 = (%307)(%308)::Int64
+│    %310 = (%303)(%306, %309)::Bool
+└───        goto #46 if not %310
+36 ─ %312 = DataFrames.zeros::Core.Const(zeros)
+│    %313 = DataFrames.Int::Core.Const(Int64)
+│    %314 = ngroups::Int64
+│           (remap = (%312)(%313, %314))
+│           (ngroups = 0)
+│           nothing
+│    %318 = DataFrames.eachindex::Core.Const(eachindex)
+│    %319 = remap::Vector{Int64}
+│    %320 = seen::Vector{Bool}
+│    %321 = (%318)(%319, %320)::Base.OneTo{Int64}
+│           (@_14 = Base.iterate(%321))
+│    %323 = @_14::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %324 = (%323 === nothing)::Bool
+│    %325 = Base.not_int(%324)::Bool
+└───        goto #39 if not %325
+37 ┄ %327 = @_14::Tuple{Int64, Int64}
+│           (i@_48 = Core.getfield(%327, 1))
+│    %329 = Core.getfield(%327, 2)::Int64
+│    %330 = DataFrames.:+::Core.Const(+)
+│    %331 = ngroups::Int64
+│    %332 = seen::Vector{Bool}
+│    %333 = i@_48::Int64
+│    %334 = Base.getindex(%332, %333)::Bool
+│           (ngroups = (%330)(%331, %334))
+│    %336 = remap::Vector{Int64}
+│    %337 = ngroups::Int64
+│    %338 = i@_48::Int64
+│           Base.setindex!(%336, %337, %338)
+│           (@_14 = Base.iterate(%321, %329))
+│    %341 = @_14::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %342 = (%341 === nothing)::Bool
+│    %343 = Base.not_int(%342)::Bool
+└───        goto #39 if not %343
+38 ─        goto #37
+39 ┄        (val@_15 = nothing)
+│           nothing
+│           val@_15
+│           nothing
+│    %350 = DataFrames.eachindex::Core.Const(eachindex)
+│    %351 = (%350)(groups)::Base.OneTo{Int64}
+│           (@_12 = Base.iterate(%351))
+│    %353 = @_12::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %354 = (%353 === nothing)::Bool
+│    %355 = Base.not_int(%354)::Bool
+└───        goto #45 if not %355
+40 ┄ %357 = @_12::Tuple{Int64, Int64}
+│           (i@_50 = Core.getfield(%357, 1))
+│    %359 = Core.getfield(%357, 2)::Int64
+│    %360 = i@_50::Int64
+│           (gix = Base.getindex(groups, %360))
+│    %362 = DataFrames.:>::Core.Const(>)
+│    %363 = gix::Int64
+│    %364 = (%362)(%363, 0)::Bool
+└───        goto #42 if not %364
+41 ─ %366 = remap::Vector{Int64}
+│    %367 = gix::Int64
+│           (@_69 = Base.getindex(%366, %367))
+└───        goto #43
+42 ─        (@_69 = 0)
+43 ┄ %371 = @_69::Int64
+│    %372 = i@_50::Int64
+│           Base.setindex!(groups, %371, %372)
+│           (@_12 = Base.iterate(%351, %359))
+│    %375 = @_12::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %376 = (%375 === nothing)::Bool
+│    %377 = Base.not_int(%376)::Bool
+└───        goto #45 if not %377
+44 ─        goto #40
+45 ┄        (val@_13 = nothing)
+│           nothing
+└───        val@_13
+46 ┄ %383 = ngroups::Int64
+│    %384 = DataFrames.:(===)::Core.Const(===)
+│    %385 = (%384)(sort, true)::Core.Const(false)
+│    %386 = Core.tuple(%383, %385)::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+│           (@_70 = %386)
+│    %388 = @_70::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+│    %389 = (%388 isa %28)::Core.Const(true)
+└───        goto #48 if not %389
+47 ─        goto #49
+48 ─        Core.Const(:(@_70))
+│           Core.Const(:(Base.convert(%28, %392)))
+└───        Core.Const(:(@_70 = Core.typeassert(%393, %28)))
+49 ┄ %395 = @_70::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+└───        return %395
+50 ┄ %397 = DataFrames.:(var"#_group_rows!##0#_group_rows!##1")::Core.Const(DataFrames.var"#_group_rows!##0#_group_rows!##1")
+│    %398 = n::Int64
+│    %399 = Core._typeof_captured_variable(%398)::Core.Const(Int64)
+│    %400 = Core.apply_type(%397, %399)::Core.Const(DataFrames.var"#_group_rows!##0#_group_rows!##1"{Int64})
+│    %401 = n::Int64
+│           (#565 = %new(%400, %401))
+│    %403 = #565::DataFrames.var"#_group_rows!##0#_group_rows!##1"{Int64}
+│    %404 = DataFrames.:(:)::Core.Const(Colon())
+│    %405 = N::Int64
+│    %406 = (%404)(1, %405)::Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])
+│    %407 = Base.Generator(%403, %406)::Core.PartialStruct(Base.Generator{UnitRange{Int64}, DataFrames.var"#_group_rows!##0#_group_rows!##1"{Int64}}, Union{Nothing, Bool}[0, 0], Any[DataFrames.var"#_group_rows!##0#_group_rows!##1"{Int64}, Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])])
+│           (codes = Base.collect(%407))
+│    %409 = DataFrames.:(:)::Core.Const(Colon())
+│    %410 = N::Int64
+│    %411 = (%409)(1, %410)::Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])
+│    %412 = Base.IteratorSize(%411)::Core.Const(Base.HasShape{1}())
+│    %413 = (%412 isa Base.SizeUnknown)::Core.Const(false)
+│    %414 = DataFrames.Int::Core.Const(Int64)
+│    %415 = Base._array_for(%414, %411, %412)::Vector{Int64}
+│    %416 = Base.LinearIndices(%415)::LinearIndices{1, Tuple{Base.OneTo{Int64}}}
+│           (@_52 = Base.first(%416))
+│           (@_51 = Base.iterate(%411))
+│    %419 = @_51::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %420 = (%419 === nothing)::Bool
+│    %421 = Base.not_int(%420)::Bool
+└───        goto #55 if not %421
+51 ┄ %423 = @_51::Tuple{Int64, Int64}
+│           (k@_53 = Core.getfield(%423, 1))
+│    %425 = Core.getfield(%423, 2)::Int64
+│    %426 = DataFrames.firstcodes!::Core.Const(DataFrames.ColumnKernels.firstcodes!)
+│    %427 = codes::Vector{Vector{Int64}}
+│    %428 = k@_53::Int64
+│    %429 = Base.getindex(%427, %428)::Vector{Int64}
+│    %430 = DataFrames.compiled_for::Core.Const(TraitWorld.compiled_for)
+│    %431 = k@_53::Int64
+│    %432 = Base.getindex(cols, %431)::TraitWorld.Dynamic{Tables.ColumnCore.Column}
+│    %433 = (%430)(%432)::TraitWorld.Compiled{Tables.ColumnCore.Column}
+│    %434 = (%426)(%429, %433, skipmissing)::ANY
+│           nothing
+└───        goto #53 if not %413
+52 ─        Core.Const(:(Base.push!(%415, %434)))
+└───        Core.Const(:(goto %441))
+53 ┄ %439 = @_52::Int64
+│           Base.setindex!(%415, %434, %439)
+│           nothing
+│    %442 = @_52::Int64
+│           (@_52 = Base.add_int(%442, 1))
+│           (@_51 = Base.iterate(%411, %425))
+│    %445 = @_51::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %446 = (%445 === nothing)::Bool
+│    %447 = Base.not_int(%446)::Bool
+└───        goto #55 if not %447
+54 ─        goto #51
+55 ┄        (ns = %415)
+│    %451 = DataFrames.:(==)::Core.Const(==)
+│    %452 = N::Int64
+│    %453 = (%451)(%452, 1)::Bool
+└───        goto #60 if not %453
+56 ─ %455 = DataFrames.copyto!::Core.Const(copyto!)
+│    %456 = codes::Vector{Vector{Int64}}
+│    %457 = Base.getindex(%456, 1)::Vector{Int64}
+│           (%455)(groups, %457)
+│    %459 = ns::Vector{Int64}
+│    %460 = Base.getindex(%459, 1)::Int64
+│    %461 = Core.tuple(%460, false)::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+│           (@_71 = %461)
+│    %463 = @_71::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+│    %464 = (%463 isa %28)::Core.Const(true)
+└───        goto #58 if not %464
+57 ─        goto #59
+58 ─        Core.Const(:(@_71))
+│           Core.Const(:(Base.convert(%28, %467)))
+└───        Core.Const(:(@_71 = Core.typeassert(%468, %28)))
+59 ┄ %470 = @_71::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+└───        return %470
+60 ─ %472 = DataFrames.Ref::Core.Const(Ref)
+│           (ng = (%472)(0))
+│    %474 = DataFrames.:<=::Core.Const(<=)
+│    %475 = DataFrames.prod::Core.Const(prod)
+│    %476 = DataFrames.big::Core.Const(big)
+│    %477 = DataFrames.:+::Core.Const(+)
+│    %478 = ns::Vector{Int64}
+│    %479 = Base.broadcasted(%477, %478, 1)::Core.PartialStruct(Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(+), Tuple{Vector{Int64}, Int64}}, Union{Nothing, Bool}[0, 0, 0, 0], Any[Core.Const(Base.Broadcast.DefaultArrayStyle{1}()), Core.Const(+), Core.PartialStruct(Tuple{Vector{Int64}, Int64}, Union{Nothing, Bool}[0, 0], Any[Vector{Int64}, Core.Const(1)]), Core.Const(nothing)])
+│    %480 = Base.broadcasted(%476, %479)::Core.PartialStruct(Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(big), Tuple{Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(+), Tuple{Vector{Int64}, Int64}}}}, Union{Nothing, Bool}[0, 0, 0, 0], Any[Core.Const(Base.Broadcast.DefaultArrayStyle{1}()), Core.Const(big), Core.PartialStruct(Tuple{Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(+), Tuple{Vector{Int64}, Int64}}}, Union{Nothing, Bool}[0], Any[Core.PartialStruct(Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(+), Tuple{Vector{Int64}, Int64}}, Union{Nothing, Bool}[0, 0, 0, 0], Any[Core.Const(Base.Broadcast.DefaultArrayStyle{1}()), Core.Const(+), Core.PartialStruct(Tuple{Vector{Int64}, Int64}, Union{Nothing, Bool}[0, 0], Any[Vector{Int64}, Core.Const(1)]), Core.Const(nothing)])]), Core.Const(nothing)])
+│    %481 = Base.materialize(%480)::Vector{BigInt}
+│    %482 = (%475)(%481)::BigInt
+│    %483 = DataFrames.typemax::Core.Const(typemax)
+│    %484 = DataFrames.Int::Core.Const(Int64)
+│    %485 = (%483)(%484)::Core.Const(9223372036854775807)
+│    %486 = (%474)(%482, %485)::Bool
+└───        goto #74 if not %486
+61 ─ %488 = DataFrames.ones::Core.Const(ones)
+│    %489 = DataFrames.Int::Core.Const(Int64)
+│    %490 = N::Int64
+│           (strides = (%488)(%489, %490))
+│    %492 = DataFrames.:(:)::Core.Const(Colon())
+│    %493 = DataFrames.:-::Core.Const(-)
+│    %494 = N::Int64
+│    %495 = (%493)(%494, 1)::Int64
+│    %496 = (%492)(%495, -1, 1)::Core.PartialStruct(StepRange{Int64, Int64}, Union{Nothing, Bool}[0, 0, 0], Any[Int64, Core.Const(-1), Int64])
+│           (@_10 = Base.iterate(%496))
+│    %498 = @_10::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %499 = (%498 === nothing)::Bool
+│    %500 = Base.not_int(%499)::Bool
+└───        goto #64 if not %500
+62 ┄ %502 = @_10::Tuple{Int64, Int64}
+│           (k@_54 = Core.getfield(%502, 1))
+│    %504 = Core.getfield(%502, 2)::Int64
+│    %505 = DataFrames.:*::Core.Const(*)
+│    %506 = strides::Vector{Int64}
+│    %507 = DataFrames.:+::Core.Const(+)
+│    %508 = k@_54::Int64
+│    %509 = (%507)(%508, 1)::Int64
+│    %510 = Base.getindex(%506, %509)::Int64
+│    %511 = DataFrames.:+::Core.Const(+)
+│    %512 = ns::Vector{Int64}
+│    %513 = DataFrames.:+::Core.Const(+)
+│    %514 = k@_54::Int64
+│    %515 = (%513)(%514, 1)::Int64
+│    %516 = Base.getindex(%512, %515)::Int64
+│    %517 = (%511)(%516, 1)::Int64
+│    %518 = (%505)(%510, %517)::Int64
+│    %519 = strides::Vector{Int64}
+│    %520 = k@_54::Int64
+│           Base.setindex!(%519, %518, %520)
+│           (@_10 = Base.iterate(%496, %504))
+│    %523 = @_10::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %524 = (%523 === nothing)::Bool
+│    %525 = Base.not_int(%524)::Bool
+└───        goto #64 if not %525
+63 ─        goto #62
+64 ┄ %528 = DataFrames.Dict::Core.Const(Dict)
+│    %529 = DataFrames.Int::Core.Const(Int64)
+│    %530 = DataFrames.Int::Core.Const(Int64)
+│    %531 = Core.apply_type(%528, %529, %530)::Core.Const(Dict{Int64, Int64})
+│           (d = (%531)())
+│    %533 = DataFrames.sizehint!::Core.Const(sizehint!)
+│    %534 = d::Dict{Int64, Int64}
+│    %535 = DataFrames.min::Core.Const(min)
+│    %536 = n::Int64
+│    %537 = DataFrames.prod::Core.Const(prod)
+│    %538 = ns::Vector{Int64}
+│    %539 = (%537)(%538)::Int64
+│    %540 = (%535)(%536, %539)::Int64
+│           (%533)(%534, %540)
+│           nothing
+│    %543 = DataFrames.:(:)::Core.Const(Colon())
+│    %544 = n::Int64
+│    %545 = (%543)(1, %544)::Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])
+│           (@_8 = Base.iterate(%545))
+│    %547 = @_8::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %548 = (%547 === nothing)::Bool
+│    %549 = Base.not_int(%548)::Bool
+└───        goto #73 if not %549
+65 ┄        Core.NewvarNode(:(#566))
+│    %552 = @_8::Tuple{Int64, Int64}
+│           (i@_59 = Core.getfield(%552, 1))
+│    %554 = Core.getfield(%552, 2)::Int64
+│           (key@_58 = 0)
+│           (skip = false)
+│    %557 = DataFrames.:(:)::Core.Const(Colon())
+│    %558 = N::Int64
+│    %559 = (%557)(1, %558)::Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])
+│           (@_56 = Base.iterate(%559))
+│    %561 = @_56::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %562 = (%561 === nothing)::Bool
+│    %563 = Base.not_int(%562)::Bool
+└───        goto #68 if not %563
+66 ┄ %565 = @_56::Tuple{Int64, Int64}
+│           (k@_60 = Core.getfield(%565, 1))
+│    %567 = Core.getfield(%565, 2)::Int64
+│    %568 = codes::Vector{Vector{Int64}}
+│    %569 = k@_60::Int64
+│    %570 = Base.getindex(%568, %569)::Vector{Int64}
+│    %571 = i@_59::Int64
+│           (x@_61 = Base.getindex(%570, %571))
+│    %573 = DataFrames.:|::Core.Const(|)
+│    %574 = skip::Bool
+│    %575 = DataFrames.:(==)::Core.Const(==)
+│    %576 = x@_61::Int64
+│    %577 = (%575)(%576, 0)::Bool
+│           (skip = (%573)(%574, %577))
+│    %579 = DataFrames.:+::Core.Const(+)
+│    %580 = key@_58::Int64
+│    %581 = DataFrames.:*::Core.Const(*)
+│    %582 = x@_61::Int64
+│    %583 = strides::Vector{Int64}
+│    %584 = k@_60::Int64
+│    %585 = Base.getindex(%583, %584)::Int64
+│    %586 = (%581)(%582, %585)::Int64
+│           (key@_58 = (%579)(%580, %586))
+│           (@_56 = Base.iterate(%559, %567))
+│    %589 = @_56::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %590 = (%589 === nothing)::Bool
+│    %591 = Base.not_int(%590)::Bool
+└───        goto #68 if not %591
+67 ─        goto #66
+68 ┄ %594 = skip::Bool
+└───        goto #70 if not %594
+69 ─ %596 = i@_59::Int64
+│           Base.setindex!(groups, 0, %596)
+└───        goto #71
+70 ─ %599 = DataFrames.get!::Core.Const(get!)
+│    %600 = DataFrames.:(var"#_group_rows!##2#_group_rows!##3")::Core.Const(DataFrames.var"#_group_rows!##2#_group_rows!##3")
+│    %601 = ng::Core.PartialStruct(Base.RefValue{Int64}, Union{Nothing, Bool}[0], Any[Int64])
+│    %602 = Core._typeof_captured_variable(%601)::Core.Const(Base.RefValue{Int64})
+│    %603 = Core.apply_type(%600, %602)::Core.Const(DataFrames.var"#_group_rows!##2#_group_rows!##3"{Base.RefValue{Int64}})
+│    %604 = ng::Core.PartialStruct(Base.RefValue{Int64}, Union{Nothing, Bool}[0], Any[Int64])
+│           (#566 = %new(%603, %604))
+│    %606 = #566::Core.PartialStruct(DataFrames.var"#_group_rows!##2#_group_rows!##3"{Base.RefValue{Int64}}, Union{Nothing, Bool}[0], Any[Core.PartialStruct(Base.RefValue{Int64}, Union{Nothing, Bool}[0], Any[Int64])])
+│    %607 = d::Dict{Int64, Int64}
+│    %608 = key@_58::Int64
+│    %609 = (%599)(%606, %607, %608)::Int64
+│    %610 = i@_59::Int64
+└───        Base.setindex!(groups, %609, %610)
+71 ┄        (@_8 = Base.iterate(%545, %554))
+│    %613 = @_8::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %614 = (%613 === nothing)::Bool
+│    %615 = Base.not_int(%614)::Bool
+└───        goto #73 if not %615
+72 ─        goto #65
+73 ┄        (val@_9 = nothing)
+│           nothing
+│           val@_9
+└───        goto #86
+74 ─ %622 = DataFrames.Dict::Core.Const(Dict)
+│    %623 = DataFrames.Vector::Core.Const(Vector)
+│    %624 = DataFrames.Int::Core.Const(Int64)
+│    %625 = Core.apply_type(%623, %624)::Core.Const(Vector{Int64})
+│    %626 = DataFrames.Int::Core.Const(Int64)
+│    %627 = Core.apply_type(%622, %625, %626)::Core.Const(Dict{Vector{Int64}, Int64})
+│           (dv = (%627)())
+│           nothing
+│    %630 = DataFrames.:(:)::Core.Const(Colon())
+│    %631 = n::Int64
+│    %632 = (%630)(1, %631)::Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])
+│           (@_6 = Base.iterate(%632))
+│    %634 = @_6::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %635 = (%634 === nothing)::Bool
+│    %636 = Base.not_int(%635)::Bool
+└───        goto #85 if not %636
+75 ┄        Core.NewvarNode(:(#567))
+│           Core.NewvarNode(:(key@_64))
+│    %640 = @_6::Tuple{Int64, Int64}
+│           (i@_63 = Core.getfield(%640, 1))
+│    %642 = Core.getfield(%640, 2)::Int64
+│    %643 = DataFrames.:(:)::Core.Const(Colon())
+│    %644 = N::Int64
+│    %645 = (%643)(1, %644)::Core.PartialStruct(UnitRange{Int64}, Union{Nothing, Bool}[0, 0], Any[Core.Const(1), Int64])
+│    %646 = Base.IteratorSize(%645)::Core.Const(Base.HasShape{1}())
+│    %647 = (%646 isa Base.SizeUnknown)::Core.Const(false)
+│    %648 = DataFrames.Int::Core.Const(Int64)
+│    %649 = Base._array_for(%648, %645, %646)::Vector{Int64}
+│    %650 = Base.LinearIndices(%649)::LinearIndices{1, Tuple{Base.OneTo{Int64}}}
+│           (@_66 = Base.first(%650))
+│           (@_65 = Base.iterate(%645))
+│    %653 = @_65::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %654 = (%653 === nothing)::Bool
+│    %655 = Base.not_int(%654)::Bool
+└───        goto #80 if not %655
+76 ┄ %657 = @_65::Tuple{Int64, Int64}
+│           (k@_67 = Core.getfield(%657, 1))
+│    %659 = Core.getfield(%657, 2)::Int64
+│    %660 = codes::Vector{Vector{Int64}}
+│    %661 = k@_67::Int64
+│    %662 = Base.getindex(%660, %661)::Vector{Int64}
+│    %663 = i@_63::Int64
+│    %664 = Base.getindex(%662, %663)::Int64
+│           nothing
+└───        goto #78 if not %647
+77 ─        Core.Const(:(Base.push!(%649, %664)))
+└───        Core.Const(:(goto %671))
+78 ┄ %669 = @_66::Int64
+│           Base.setindex!(%649, %664, %669)
+│           nothing
+│    %672 = @_66::Int64
+│           (@_66 = Base.add_int(%672, 1))
+│           (@_65 = Base.iterate(%645, %659))
+│    %675 = @_65::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %676 = (%675 === nothing)::Bool
+│    %677 = Base.not_int(%676)::Bool
+└───        goto #80 if not %677
+79 ─        goto #76
+80 ┄        (key@_64 = %649)
+│    %681 = DataFrames.any::Core.Const(any)
+│    %682 = DataFrames.:(==)::Core.Const(==)
+│    %683 = (%682)(0)::Core.Const(Base.Fix2{typeof(==), Int64}(==, 0))
+│    %684 = key@_64::Vector{Int64}
+│    %685 = (%681)(%683, %684)::Bool
+└───        goto #82 if not %685
+81 ─ %687 = i@_63::Int64
+│           Base.setindex!(groups, 0, %687)
+└───        goto #83
+82 ─ %690 = DataFrames.get!::Core.Const(get!)
+│    %691 = DataFrames.:(var"#_group_rows!##4#_group_rows!##5")::Core.Const(DataFrames.var"#_group_rows!##4#_group_rows!##5")
+│    %692 = ng::Core.PartialStruct(Base.RefValue{Int64}, Union{Nothing, Bool}[0], Any[Int64])
+│    %693 = Core._typeof_captured_variable(%692)::Core.Const(Base.RefValue{Int64})
+│    %694 = Core.apply_type(%691, %693)::Core.Const(DataFrames.var"#_group_rows!##4#_group_rows!##5"{Base.RefValue{Int64}})
+│    %695 = ng::Core.PartialStruct(Base.RefValue{Int64}, Union{Nothing, Bool}[0], Any[Int64])
+│           (#567 = %new(%694, %695))
+│    %697 = #567::Core.PartialStruct(DataFrames.var"#_group_rows!##4#_group_rows!##5"{Base.RefValue{Int64}}, Union{Nothing, Bool}[0], Any[Core.PartialStruct(Base.RefValue{Int64}, Union{Nothing, Bool}[0], Any[Int64])])
+│    %698 = dv::Dict{Vector{Int64}, Int64}
+│    %699 = key@_64::Vector{Int64}
+│    %700 = (%690)(%697, %698, %699)::Int64
+│    %701 = i@_63::Int64
+└───        Base.setindex!(groups, %700, %701)
+83 ┄        (@_6 = Base.iterate(%632, %642))
+│    %704 = @_6::UNION{NOTHING, TUPLE{INT64, INT64}}
+│    %705 = (%704 === nothing)::Bool
+│    %706 = Base.not_int(%705)::Bool
+└───        goto #85 if not %706
+84 ─        goto #75
+85 ┄        (val@_7 = nothing)
+│           nothing
+└───        val@_7
+86 ┄ %712 = ng::Core.PartialStruct(Base.RefValue{Int64}, Union{Nothing, Bool}[0], Any[Int64])
+│    %713 = Base.getindex(%712)::Int64
+│    %714 = Core.tuple(%713, false)::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+│           (@_72 = %714)
+│    %716 = @_72::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+│    %717 = (%716 isa %28)::Core.Const(true)
+└───        goto #88 if not %717
+87 ─        goto #89
+88 ─        Core.Const(:(@_72))
+│           Core.Const(:(Base.convert(%28, %720)))
+└───        Core.Const(:(@_72 = Core.typeassert(%721, %28)))
+89 ┄ %723 = @_72::Core.PartialStruct(Tuple{Int64, Bool}, Union{Nothing, Bool}[0, 0], Any[Int64, Core.Const(false)])
+└───        return %723
+

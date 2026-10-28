@@ -1,0 +1,18 @@
+D4 forks    1: a::Int b::Float64 c::String             367.4 ms, compile 323.5 ms, CodeInstances 195
+D4 forks        Base                                       137
+D4 forks        DataFrames                                  14
+D4 forks        Core                                        12
+D4 forks        TraitWorld                                   9
+D4 forks        Compiler                                     8
+D4 forks        CSV                                          6
+D4 forks        Main                                         4
+D4 forks        TranscodingStreams                           2
+D4 forks        CodecZlib                                    2
+D4 forks        Tables                                       1
+D4 forks    2: c::String x::Int y::Float64 (renamed)   77.6 ms, compile 63.2 ms, CodeInstances 54
+D4 forks        Base                                        48
+D4 forks        Core                                         5
+D4 forks        TraitWorld                                   1
+D4 forks          TraitWorld: Tuple{TraitWorld._DynOp{Tables.ColumnCore.Column, typeof(Tables.ColumnCore.vector)}, Vector{String}}
+D4 forks    3: five columns, the same types            50.9 ms, compile 21.2 ms, CodeInstances 14
+D4 forks        Base                                        14

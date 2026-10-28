@@ -1,0 +1,47 @@
+ Count  Overhead File                                                                         Line Function
+ =====  ======== ====                                                                         ==== ========
+    30         0 @DataFrames/src/groupeddataframe/utils.jl                                    536 _group_rows!(cols::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}, groups::Vector{Int64}, skipmissing::Bool, sort::Nothing)
+    36        36 @Base/promotion.jl                                                           641 ==
+    39        39 @Base/int.jl                                                                  83 <
+    40         0 @Base/set.jl                                                                 933 _replace!(new::Base.var"#new#replace_pairs!##0"{Tuple{Pair{Int64, Missing}}}, res::Vector{Union{Missing, Int64}}, A::Vector{Int64}, count::Int64)
+    41        15 @Base/array.jl                                                              1020 setindex!(A::Vector{Bool}, x::Bool, i::Int64)
+    41         0 @DataFrames/src/groupeddataframe/utils.jl                                      ? _group_rows!(cols::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}, groups::Vector{Int64}, skipmissing::Bool, sort::Nothing)
+    42        42 @Base/essentials.jl                                                          979 getindex
+    49         0 @DataFrames/src/other/kernels.jl                                             248 _integercodes(c::Tables.ColumnCore.Column{Int64} at Vector{Int64}, skipmissing::Bool)
+    51         0 @DataFrames/src/groupeddataframe/utils.jl                                    537 _group_rows!(cols::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}, groups::Vector{Int64}, skipmissing::Bool, sort::Nothing)
+    59         0 @Base/set.jl                                                                 745 replace_pairs!
+   102         0 @DataFrames/src/other/kernels.jl                                             245 _integercodes(c::Tables.ColumnCore.Column{Int64} at Vector{Int64}, skipmissing::Bool)
+   128         0 @Base/array.jl                                                              1020 setindex!
+   129       128 @Base/array.jl                                                              1025 _setindex!
+   221         0 @DataFrames/src/groupeddataframe/utils.jl                                    521 _group_rows!(cols::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}, groups::Vector{Int64}, skipmissing::Bool, sort::Nothing)
+   221         0 none                                                                           ? refcodes
+   221         0 @TraitWorld/src/trait_module.jl                                             1090 macro expansion
+   221         0 @TraitWorld/src/checks.jl                                                    321 checked_call(f::typeof(DataFrames.ColumnKernels.refcodes), a1::Tables.ColumnCore.Column{Int64} at Vector{Int64}, a2::Bool, a3::Bool)
+   221         0 @TraitWorld/src/checks.jl                                                    303 macro expansion
+   221         0 @DataFrames/src/other/kernels.jl                                             157 refcodes
+   279         0 @Base/set.jl                                                                 701 _similar_or_copy
+   279         0 @Base/array.jl                                                               404 similar
+   338         0 @DataFrames/src/groupeddataframe/groupeddataframe.jl                         430 groupindices
+   338         0 @Base/set.jl                                                                 815 replace
+   338         0 @Base/set.jl                                                                 819 #replace#311
+   397         0 @DataFrames/src/groupeddataframe/groupeddataframe.jl                         249 groupby(df::DataFrame, cols::Symbol; sort::Nothing, skipmissing::Bool)
+   778         0 @Base/boot.jl                                                                648 Array
+   778       778 @Base/boot.jl                                                                588 GenericMemory
+  1581      1540 @DataFrames/src/groupeddataframe/utils.jl                                    543 _group_rows!(cols::Vector{TraitWorld.Dynamic{Tables.ColumnCore.Column}}, groups::Vector{Int64}, skipmissing::Bool, sort::Nothing)
+  1997         0 @DataFrames/src/groupeddataframe/groupeddataframe.jl                         251 groupby(df::DataFrame, cols::Symbol; sort::Nothing, skipmissing::Bool)
+  2394         0 @DataFrames/src/groupeddataframe/groupeddataframe.jl                         218 groupby(df::DataFrame, cols::Symbol)
+  2733         0 @Base/client.jl                                                              577 _start()
+  2733         0 @Base/client.jl                                                              344 exec_options(opts::Base.JLOptions)
+  2733         0 @Base/Base.jl                                                                310 include(mod::Module, _path::String)
+  2733         0 @Base/loading.jl                                                            3105 _include(mapexpr::Function, mod::Module, _path::String)
+  2733         0 @Base/loading.jl                                                            3045 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+  2733         0 @Base/boot.jl                                                                489 eval(m::Module, e::Any)
+  2733         0 /home/hellmann/Repos/julia-trait-bound/forks/scripts/d3_profile_groupby.jl     9 top-level scope
+  2733         1 /home/hellmann/Repos/julia-trait-bound/forks/scripts/d3_profile_groupby.jl     6 g()
+  2733         0 @Base/Base.jl                                                                356 (::Base.var"#start_profile_listener##0#start_profile_listener##1"{Base.AsyncCondition})()
+  2733         0 @Base/Base.jl                                                                336 profile_printing_listener(cond::Base.AsyncCondition)
+  2733         0 @Base/asyncevent.jl                                                          186 _trywait(t::Base.AsyncCondition)
+  2733         0 @Base/condition.jl                                                           136 wait
+  2733         0 @Base/condition.jl                                                           141 wait(c::Base.GenericCondition{Base.Threads.SpinLock}; first::Bool)
+  2733      2732 @Base/task.jl                                                               1297 wait()
+Total snapshots: 5466. Utilization: 50% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.

@@ -1,0 +1,9 @@
+D3 fixed    sort Int                       69.43 ms     58.2 MiB
+D3 fixed    sort String, Float64          320.22 ms     65.8 MiB
+D3 fixed    groupby-sum Int key              5.8 ms     22.9 MiB
+D3 fixed    groupby-sum two keys           10.97 ms     30.9 MiB
+D3 fixed    groupby-sum pooled key          5.19 ms     22.9 MiB
+D3 fixed    groupby-mean skipmissing         3.8 ms      8.6 MiB
+D3 fixed    describe                       95.36 ms    100.2 MiB
+D3 fixed    innerjoin Int key              31.79 ms    107.4 MiB
+D3 fixed    combine SubDataFrame fn         2.53 ms      0.3 MiB

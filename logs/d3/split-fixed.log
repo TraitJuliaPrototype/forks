@@ -1,0 +1,5 @@
+D3 fixed    groupby Int key                 3.57 ms     15.3 MiB
+D3 fixed    groupby Int, rows               5.18 ms     23.8 MiB
+D3 fixed    groupby pooled, rows            5.91 ms     23.8 MiB
+D3 fixed    combine sum (gd built)          3.48 ms      7.7 MiB
+D3 fixed    combine sum pooled gd           1.85 ms      7.6 MiB

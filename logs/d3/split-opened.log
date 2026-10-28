@@ -1,0 +1,5 @@
+D3 opened   groupby Int key                28.26 ms     22.7 MiB
+D3 opened   groupby Int, rows               31.3 ms     31.3 MiB
+D3 opened   groupby pooled, rows           20.96 ms     23.8 MiB
+D3 opened   combine sum (gd built)          2.01 ms      7.7 MiB
+D3 opened   combine sum pooled gd            1.7 ms      7.6 MiB

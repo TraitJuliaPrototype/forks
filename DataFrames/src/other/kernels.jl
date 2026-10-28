@@ -28,6 +28,19 @@ function cells(c::Column)
     return v
 end
 
+"""
+A column seen as an `AbstractVector{T}` of its cells, for plain code that reads a vector (Statistics,
+upstream's `groupreduce`): no copy. The parameter is bounded by the trait (traits reference §7.4): a
+column opened by `compiled_for` is kept as the user's object, and code over the view is compiled per
+column type; a `Dynamic` one is kept as `Dynamic{Column{T}}`, and that code is compiled per cell type.
+"""
+struct CellVector{T, C <: Column{T}} <: AbstractVector{T}
+    c::C
+end
+Base.size(v::CellVector) = (nrows(v.c),)
+Base.IndexStyle(::Type{<:CellVector}) = IndexLinear()
+Base.@propagate_inbounds Base.getindex(v::CellVector, i::Int) = cell(v.c, i)
+
 "The type of the cells of `c` (`T` of `Column{T}`), as a constant of the worker."
 celltype(c::Column) = eltype(emptycells(c, 0))
 
@@ -40,7 +53,7 @@ statistics are those of `skipmissing` of the cells.
 """
 function colstats(c::Column, stats::Vector{Symbol})::Dict{Symbol, Any}
     n = nrows(c)
-    v = cells(c)
+    v = CellVector(c)                                   # read in place; `_stats` copies only for the quantiles
     d = eltype(v) >: Missing ? _stats(skipmissing(v), stats) : _stats(v, stats)
     if :nmissing in stats
         k = 0
@@ -100,10 +113,10 @@ end
 """
 A fast aggregate whose result does not depend on the column's kind (`Reduce`: `sum`, `prod`,
 `mean`, with or without `skipmissing`; `var`, `std`, `length`) of one column per group of
-`gd`: upstream's `groupreduce` over the cells, a plain `Vector{T}`, so its code is compiled per
-cell type and aggregate, not per column type. A worker per column type.
+`gd`: upstream's `groupreduce` over the cells, read in place through a `CellVector`. A worker per
+column type; the caller opens the column (`compiled_for`), so `groupreduce` is compiled per column type.
 """
-aggregate(c::Column, agg, gd)::AbstractVector = agg(cells(c), gd)
+aggregate(c::Column, agg, gd)::AbstractVector = agg(CellVector(c), gd)
 
 # --- sorting --------------------------------------------------------------------------------
 

@@ -1,0 +1,25 @@
+D4 upstream 1: a::Int b::Float64 c::String             5084.0 ms, compile 5047.3 ms, CodeInstances 1574
+D4 upstream     Base                                      1066
+D4 upstream     CSV                                        138
+D4 upstream     SortingAlgorithms                          114
+D4 upstream     DataFrames                                 112
+D4 upstream     Core                                        72
+D4 upstream     DataStructures                              33
+D4 upstream     Tables                                      11
+D4 upstream     Parsers                                      6
+D4 upstream     CodecZlib                                    5
+D4 upstream     TranscodingStreams                           5
+D4 upstream     DataStrings                                  4
+D4 upstream     DataAPI                                      4
+D4 upstream     Main                                         4
+D4 upstream 2: c::String x::Int y::Float64 (renamed)   113.1 ms, compile 108.4 ms, CodeInstances 55
+D4 upstream     Base                                        48
+D4 upstream     Core                                         5
+D4 upstream     DataFrames                                   2
+D4 upstream       DataFrames: Tuple{typeof(DataFrames.check_aggregate), typeof(length), Vector{String}}
+D4 upstream       DataFrames: Tuple{DataFrames.Aggregate{typeof(length), Nothing}, Vector{String}, GroupedDataFrame{DataFrame}}
+D4 upstream 3: five columns, the same types            113.8 ms, compile 68.2 ms, CodeInstances 16
+D4 upstream     Base                                        14
+D4 upstream     DataFrames                                   2
+D4 upstream       DataFrames: Tuple{typeof(DataFrames.check_aggregate), typeof(length), Vector{Float64}}
+D4 upstream       DataFrames: Tuple{DataFrames.Aggregate{typeof(length), Nothing}, Vector{Float64}, GroupedDataFrame{DataFrame}}

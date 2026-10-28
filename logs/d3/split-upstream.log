@@ -1,0 +1,5 @@
+D3 upstream groupby Int key                 1.26 ms      7.6 MiB
+D3 upstream groupby Int, rows                3.0 ms     16.2 MiB
+D3 upstream groupby pooled, rows            2.43 ms     16.2 MiB
+D3 upstream combine sum (gd built)          0.66 ms      0.0 MiB
+D3 upstream combine sum pooled gd           0.66 ms      0.0 MiB
