@@ -1,6 +1,8 @@
 # BaseTraits' BoundedText in CSV's writer: per column, the sampled estimate (64 cells) against the bound
 # from `textbound` over every cell, and the time of each (minimum of 5).
 #     julia --project=env_forks scripts/bt_bounds.jl
+# It ran against a writer change that was not kept (`_boundedtext`, `_textboundmax` in CSV/src/write.jl, shown in
+# open issue 109); on the forks as committed it fails at those names. Its log: logs/bt/bounds.log.
 using CSV, DataFrames
 include(joinpath(@__DIR__, "bt_write.jl"))   # builds `df` (and prints its write digests)
 o = CSV._writeopts(; bufsize = 2^22)
