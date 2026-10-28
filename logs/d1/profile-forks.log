@@ -1,0 +1,110 @@
+LOAD 6.946 s
+ Count  Overhead File                                     Line Function
+ =====  ======== ====                                     ==== ========
+    40         0 @Base/util.jl                            528 _crc32c(io::IOStream, nb::Int64, crc::UInt32)
+    40         0 @Base/iostream.jl                        575 readbytes!
+    40         0 @Base/iostream.jl                        576 #readbytes!#655
+    40        40 @Base/boot.jl                            649 Array
+    40         0 @Compiler/src/ssair/inlining.jl         1403 process_simple!(todo::Vector{Pair{Int64, Any}}, ir::Compiler.IRCode, idx::Int64, flag::UInt32, state::Compiler.InliningState{Compiler.NativeInterpreter})
+    40         0 @Compiler/src/ssair/inlining.jl         1338 add_inst_flag!
+    40         0 @Compiler/src/ssair/inlining.jl         1341 add_inst_flag!
+    40         0 @Compiler/src/optimize.jl                469 recompute_effects_flags
+    40         0 @Compiler/src/optimize.jl                410 stmt_effect_flags(𝕃ₒ::Compiler.PartialsLattice{Compiler.ConstsLattice}, stmt::Any, rt::Any, src::Compiler.IRCode)
+    41         0 @Compiler/src/ssair/inlining.jl         1790 assemble_inline_todo!(ir::Compiler.IRCode, state::Compiler.InliningState{Compiler.NativeInterpreter})
+    41        41 @Compiler/src/abstractinterpretation.jl 3145 RTEffects
+    42         0 @Compiler/src/optimize.jl                497 argextype
+    42         0 @Compiler/src/abstractinterpretation.jl 3776 scan_specified_partitions(query::typeof(Compiler.abstract_eval_partition_load), walk_binding_partition::typeof(Compiler.walk_binding_partition), interp::Compiler.Nativ…
+    42         0 @Compiler/src/abstractinterpretation.jl 3735 abstract_eval_partition_load
+    43         0 @Compiler/src/ssair/inlining.jl           86 ssa_inlining_pass!
+    43         0 @Compiler/src/optimize.jl                536 argextype(x::Any, src::Compiler.IncrementalCompact, sptypes::Vector{Compiler.VarState}, slottypes::Vector{Any})
+    43         0 @Compiler/src/abstractinterpretation.jl 3683 abstract_eval_globalref_type
+    43         0 @Compiler/src/abstractinterpretation.jl 3812 abstract_load_all_consistent_leaf_partitions
+    43         0 @Compiler/src/abstractinterpretation.jl 3797 scan_leaf_partitions
+    43         0 @TraitWorld/src/implement.jl            1045 _check_member(X::Any, U::Any)
+    44         0 @Compiler/src/ssair/inlining.jl           83 ssa_inlining_pass!
+    45        41 @TraitWorld/src/entry.jl                 671 _builder_for(needed::Vector{Any}, U::Any)
+    47        41 @TraitWorld/src/entry.jl                 669 _builder_for(needed::Vector{Any}, U::Any)
+    47         6 @TraitWorld/src/implement.jl             917 macro expansion
+    48         0 @Compiler/src/typeinfer.jl              1386 typeinf_ext(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, source_mode::UInt8)
+    51         0 @Base/loading.jl                        2114 _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String, build_id::UInt128, stalecheck::Bool; reasons::Dict{String, Int64}, DEPOT_PATH::Vector{String})
+    51         0 @TraitWorld/src/hooks.jl                  48 _on_image_methods_hook(ms::Vector{Any}, pkg::String)
+    51         0 @TraitWorld/src/compiler.jl               97 _latest
+    51         0 @TraitWorld/src/implement.jl             912 _member_fix!(reg::Base.RefValue{IdDict{Any, Any}}, X::Any, U::Any, w::UInt64)
+    56         0 @Compiler/src/typeinfer.jl              1449 typeinf_type(interp::Compiler.NativeInterpreter, match::Core.MethodMatch)
+    56         0 @Compiler/src/typeinfer.jl              1452 typeinf_type
+    59         0 @Compiler/src/reinfer.jl                 239 verify_method(codeinst::Core.CodeInstance, validation_world::UInt64, workspace::Base.Compiler.ReinferUtils.VerifyMethodWorkspace)
+    64         0 @Base/reflection.jl                      667 infer_return_type(f::Any, types::Any; world::UInt64, interp::Compiler.NativeInterpreter)
+    66         0 @Compiler/src/reinfer.jl                 340 verify_method(codeinst::Core.CodeInstance, validation_world::UInt64, workspace::Base.Compiler.ReinferUtils.VerifyMethodWorkspace)
+    67        49 @TraitWorld/src/hooks.jl                 131 _index_builder!(X::Any, U::Any, b::implementation of Tables.ColumnCore.Column{Union{Missing, InlineStrings.String15}} at Vector{Union{Missing, InlineStrings.String15}})
+    68         0 @Base/loading.jl                        4385 stale_cachefile(modkey::Base.PkgId, build_id::UInt128, modpath::String, cachefile::String; ignore_loaded::Bool, requested_flags::Base.CacheFlags, reasons::Dict{String,…
+    68         0 @Base/loading.jl                        3545 isvalid_pkgimage_crc(f::IOStream, ocachefile::String)
+    68         0 @Base/io.jl                              426 open
+    68         0 @Base/io.jl                              429 #open#323
+    68         0 @Base/util.jl                            535 _crc32c
+    70        11 @Base/reflection.jl                      293 invoke_in_typeinf_world(::Function, ::Vararg{Any})
+    72         0 @Base/reflection.jl                      651 kwcall(::@NamedTuple{world::UInt64, interp::Compiler.NativeInterpreter}, ::typeof(Base.infer_return_type), f::Any, types::Any)
+    72         1 @Base/reflection.jl                      310 invoke_interp_compiler(::Compiler.NativeInterpreter, ::Symbol, ::Compiler.NativeInterpreter, ::Core.MethodMatch)
+    73         0 @TraitWorld/src/implement.jl             269 conformance_problems(X::Any, R::Any, ops::Any)
+    74         0 @Base/loading.jl                        4211 stale_cachefile
+    92         0 @TraitWorld/src/entry.jl                 137 _conformance_builder(X::Any, T::Any)
+    93         0 @TraitWorld/src/implement.jl            1053 _family_builder(X::Any, U::Any)
+    96         0 @Compiler/src/typeinfer.jl              1657 typeinf_ext_toplevel
+    98         0 @TraitWorld/src/implement.jl             910 _member_fix!(reg::Base.RefValue{IdDict{Any, Any}}, X::Any, U::Any, w::UInt64)
+   102         0 @Compiler/src/optimize.jl               1039 optimize(interp::Compiler.NativeInterpreter, opt::Compiler.OptimizationState{Compiler.NativeInterpreter}, caller::Compiler.InferenceResult)
+   102         0 @Compiler/src/optimize.jl               1066 run_passes_ipo_safe
+   102         0 @Compiler/src/optimize.jl               1053 run_passes_ipo_safe(ci::Core.CodeInfo, sv::Compiler.OptimizationState{Compiler.NativeInterpreter}, optimize_until::Nothing)
+   103         0 @Compiler/src/typeinfer.jl               231 finish_nocycle(::Compiler.NativeInterpreter, frame::Compiler.InferenceState, time_before::UInt64)
+   107         0 @Compiler/src/reinfer.jl                 233 verify_method(codeinst::Core.CodeInstance, validation_world::UInt64, workspace::Base.Compiler.ReinferUtils.VerifyMethodWorkspace)
+   112        20 @TraitWorld/src/implement.jl            1010 _member_problems(X::Any, U::Any)
+   113         0 @Base/loading.jl                        2630 _require_prelocked(uuidkey::Base.PkgId, env::String)
+   113         0 @Compiler/src/typeinfer.jl              1668 typeinf_ext_toplevel(mi::Core.MethodInstance, world::UInt64, source_mode::UInt8, trim_mode::UInt8, owner::Any)
+   113         0 @Compiler/src/abstractinterpretation.jl 4603 typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   124         0 @Base/loading.jl                        1487 run_package_callbacks(modkey::Base.PkgId)
+   124         0 @Base/loading.jl                        1677 run_extension_callbacks(pkgid::Base.PkgId)
+   124         0 @Base/loading.jl                        1640 run_extension_callbacks(extid::Base.ExtensionId)
+   124         0 @Base/loading.jl                        2616 _require_prelocked
+   139         0 @Compiler/src/reinfer.jl                 581 verify_call(sig::Any, expecteds::Core.SimpleVector, i::Int64, n::Int64, world::UInt64, fully_covers::Bool, matches::Vector{Any})
+   143       143 @Base/runtime_internals.jl              1609 _methods_by_ftype
+   147         0 @Compiler/src/typeinfer.jl              1430 typeinf_ext(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, source_mode::UInt8)
+   150         0 @TraitWorld/src/implement.jl            1043 _check_member(X::Any, U::Any)
+   248        18 @TraitWorld/src/compiler.jl               97 _latest(::Function, ::Type, ::Vararg{Type})
+   273         0 @Base/loading.jl                        2196 _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String, build_id::UInt128, stalecheck::Bool; reasons::Dict{String, Int64}, DEPOT_PATH::Vector{String})
+   275       200 @TraitWorld/src/implement.jl             920 _member_fix!(reg::Base.RefValue{IdDict{Any, Any}}, X::Any, U::Any, w::UInt64)
+   434       383 @Base/loading.jl                        1327 _include_from_serialized(pkg::Base.PkgId, path::String, ocachepath::String, depmods::Vector{Any}; register::Bool)
+   664         0 @TraitWorld/src/implement.jl             974 _member_fold(::Compiler.AtLoad, reg::Base.RefValue{IdDict{Any, Any}}, X::Any, U::Any)
+   664         0 @TraitWorld/src/implement.jl             965 _member_fold_at_load(reg::Base.RefValue{IdDict{Any, Any}}, X::Any, U::Any)
+   664        26 @TraitWorld/src/implement.jl             909 _member_fix!(reg::Base.RefValue{IdDict{Any, Any}}, X::Any, U::Any)
+   674         0 @Compiler/src/reinfer.jl                 246 verify_method(codeinst::Core.CodeInstance, validation_world::UInt64, workspace::Base.Compiler.ReinferUtils.VerifyMethodWorkspace)
+   674         9 @Compiler/src/facts.jl                   570 fold_holds(rec::Compiler.FoldRecord, world::UInt64)
+   999         0 @Compiler/src/reinfer.jl                 101 verify_method_graph(codeinst::Core.CodeInstance, validation_world::UInt64, workspace::Base.Compiler.ReinferUtils.VerifyMethodWorkspace)
+  1001         0 @Compiler/src/reinfer.jl                  87 scan_new_code!(internal_methods::Vector{Any}, workspace::Base.Compiler.ReinferUtils.VerifyMethodWorkspace)
+  1013         0 @Compiler/src/reinfer.jl                  77 insert_backedges(internal_methods::Vector{Any})
+  1021         0 @Base/loading.jl                        1344 _include_from_serialized(pkg::Base.PkgId, path::String, ocachepath::String, depmods::Vector{Any}; register::Bool)
+  1021         0 @Compiler/src/reinfer.jl                 664 insert_backedges_typeinf
+  1185         0 @Base/loading.jl                        2209 _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String, build_id::UInt128, stalecheck::Bool; reasons::Dict{String, Int64}, DEPOT_PATH::Vector{String})
+  1458         0 @Base/loading.jl                        1303 _include_from_serialized
+  1546         0 @Base/loading.jl                        2622 _require_prelocked(uuidkey::Base.PkgId, env::Nothing)
+  1546         0 @Base/loading.jl                        2754 __require_prelocked(pkg::Base.PkgId, env::Nothing)
+  1546         0 @Base/loading.jl                        2094 _require_search_from_serialized
+  1548         0 @Base/module.jl                          137 _eval_using(to::Module, path::Expr)
+  1548         0 @Base/module.jl                           60 eval_import_path_all(at::Module, path::Expr, keyword::String)
+  1548         0 @Base/module.jl                           36 eval_import_path
+  1548         0 @Base/loading.jl                        2490 require
+  1548         0 @Base/loading.jl                        2514 __require(into::Module, mod::Symbol)
+  1548        46 @Base/lock.jl                            376 macro expansion
+  1548         0 @Base/loading.jl                        2550 macro expansion
+  1550         0 @Base/client.jl                          577 _start()
+  1550         0 @Base/client.jl                          344 exec_options(opts::Base.JLOptions)
+  1550         0 @Base/Base.jl                            310 include(mod::Module, _path::String)
+  1550         0 @Base/loading.jl                        3105 _include(mapexpr::Function, mod::Module, _path::String)
+  1550         0 @Base/loading.jl                        3045 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+  1550         0 @Base/boot.jl                            489 eval(m::Module, e::Any)
+  1550         0 @Base/timing.jl                          463 top-level scope
+  1550         2 @Profile/src/Profile.jl                   60 macro expansion
+  1553         0 @Base/Base.jl                            356 (::Base.var"#start_profile_listener##0#start_profile_listener##1"{Base.AsyncCondition})()
+  1553         0 @Base/Base.jl                            336 profile_printing_listener(cond::Base.AsyncCondition)
+  1553         0 @Base/asyncevent.jl                      186 _trywait(t::Base.AsyncCondition)
+  1553         0 @Base/condition.jl                       136 wait
+  1553         0 @Base/condition.jl                       141 wait(c::Base.GenericCondition{Base.Threads.SpinLock}; first::Bool)
+  1553      1553 @Base/task.jl                           1297 wait()
+Total snapshots: 3103. Utilization: 50% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.

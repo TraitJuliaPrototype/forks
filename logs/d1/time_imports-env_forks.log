@@ -1,0 +1,70 @@
+      0.2 ms  DataValueInterfaces
+      0.4 ms  DataAPI
+      0.1 ms  IteratorInterfaceExtensions
+      0.1 ms  TableTraits
+      2.6 ms  OrderedCollections
+      0.5 ms  Printf
+     11.7 ms  Dates
+      1.5 ms  TOML
+      0.5 ms  Preferences
+      0.1 ms  PrecompileTools
+      0.6 ms  Serialization
+               ┌ 0.1 ms TraitWorld.__init__() 
+     90.5 ms  TraitWorld 13.68% compilation time
+     35.0 ms  Tables 75.06% compilation time (23% recompilation)
+               ┌ 0.0 ms Durations.__init__() 
+      4.7 ms  Durations
+               ┌ 0.0 ms Parsers.__init__() 
+     13.4 ms  Parsers
+      2.0 ms  DataStrings
+      0.3 ms  Unicode
+      0.5 ms  Mmap
+      0.1 ms  Future
+      3.9 ms  PooledArrays
+      0.4 ms  Tables → TablesPooledArraysExt
+      1.8 ms  TranscodingStreams
+               ┌ 0.0 ms Zlib_jll.__init__() 
+      0.3 ms  Zlib_jll
+      0.7 ms  CodecZlib
+      0.5 ms  NetworkOptions
+      5.8 ms  ArgTools
+               ┌ 0.1 ms nghttp2_jll.__init__() 
+      0.2 ms  nghttp2_jll
+               ┌ 0.4 ms OpenSSL_jll.__init__() 
+      0.5 ms  OpenSSL_jll
+               ┌ 0.1 ms LibSSH2_jll.__init__() 
+      0.2 ms  LibSSH2_jll
+               ┌ 0.0 ms Zstd_jll.__init__() 
+      0.2 ms  Zstd_jll
+               ┌ 0.1 ms LibCURL_jll.__init__() 
+      0.2 ms  LibCURL_jll
+               ┌ 0.0 ms MozillaCACerts_jll.__init__() 
+      0.1 ms  MozillaCACerts_jll
+               ┌ 0.0 ms LibCURL.__init__() 
+      1.3 ms  LibCURL
+               ┌ 0.5 ms Downloads.Curl.__init__() 
+      6.8 ms  Downloads
+               ┌ 0.0 ms CSV.__init__() 
+    531.3 ms  CSV 57.52% compilation time (20% recompilation)
+      1.3 ms  Statistics
+      0.2 ms  Reexport
+     13.9 ms  DataStructures
+      0.7 ms  SortingAlgorithms
+      0.2 ms  UUIDs
+      0.2 ms  Compat
+      0.1 ms  Compat → CompatLinearAlgebraExt
+      4.0 ms  StringManipulation
+               ┌ 0.0 ms Crayons.__init__() 
+      2.3 ms  Crayons
+      0.6 ms  LaTeXStrings
+     47.0 ms  PrettyTables
+      2.2 ms  Missings
+      1.2 ms  InvertedIndices
+      7.8 ms  SentinelArrays
+      3.4 ms  InlineStrings
+    556.4 ms  DataFrames 53.27% compilation time (<1% recompilation)
+     10.7 ms  CSV → CSVInlineStringsExt
+      0.1 ms  InlineStrings → ParsersExt
+     42.4 ms  CSV → CSVDataFramesExt 47.53% compilation time (<1% recompilation)
+     71.0 ms  CSV → CSVDataFramesInlineStringsExt 73.58% compilation time
+TOTAL 1.591903221

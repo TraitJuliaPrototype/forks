@@ -1,0 +1,30 @@
+LOAD 1.378 s; members fixed at load: 28; override index built: true
+TIME check 252.5 ms, builder 94.6 ms, index 160.9 ms
+MEMBER Tables.ColumnCore.Column  Vector{Union{Missing, Bool}}
+MEMBER Tables.ColumnCore.Column  Vector{Union{Missing, Durations.Timestamp{Nanosecond}}}
+MEMBER Tables.ColumnCore.Column  Vector{Union{Missing, Date}}
+MEMBER Tables.ColumnCore.Column  Vector{Union{Missing, Float64}}
+MEMBER Tables.ColumnCore.Column  Vector{Union{Missing, Int64}}
+MEMBER Tables.ColumnCore.Column  Vector{Bool}
+MEMBER Tables.ColumnCore.Column  Vector{Int64}
+MEMBER Tables.ColumnCore.Column  Vector{String}
+MEMBER Tables.ColumnCore.Column  PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}
+MEMBER Tables.ColumnCore.Column  Vector{Float64}
+MEMBER Tables.ColumnCore.Column  Vector{InlineStrings.String15}
+MEMBER Tables.ColumnCore.Column  Vector{DateTime}
+MEMBER Tables.ColumnCore.Column  Vector{Date}
+MEMBER Tables.ColumnCore.Column  Vector{Union{Missing, String}}
+MEMBER Tables.ColumnCore.Column  Vector{Type}
+MEMBER Tables.ColumnCore.Column  Vector{DataType}
+MEMBER Tables.ColumnCore.Column  Vector{Any}
+MEMBER Tables.ColumnCore.Column  Vector{Union{Nothing, Float64}}
+MEMBER Tables.ColumnCore.Column  Vector{Symbol}
+MEMBER Tables.ColumnCore.Column  PooledArrays.PooledVector{Union{Missing, String}, UInt32, Vector{UInt32}}
+MEMBER Tables.ColumnCore.Column  Vector{Vector{Int64}}
+MEMBER Tables.ColumnCore.PooledColumn  PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}
+MEMBER Tables.ColumnCore.Column  Vector{UInt32}
+MEMBER Tables.ColumnCore.Column  DataStrings.StringVector{DataStrings.DataString}
+MEMBER Tables.ColumnCore.Column  Vector{DataStrings.DataString}
+MEMBER Tables.ColumnCore.Column  Vector{InlineStrings.String3}
+MEMBER Tables.ColumnCore.Column  Vector{InlineStrings.String7}
+MEMBER Tables.ColumnCore.Column  Vector{Union{Missing, InlineStrings.String15}}

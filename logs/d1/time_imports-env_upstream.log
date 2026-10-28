@@ -1,0 +1,64 @@
+      0.2 ms  DataValueInterfaces
+      0.4 ms  DataAPI
+      0.1 ms  IteratorInterfaceExtensions
+      0.1 ms  TableTraits
+      3.0 ms  OrderedCollections
+      5.4 ms  Tables
+      0.5 ms  Printf
+     12.5 ms  Dates
+               ┌ 0.0 ms Durations.__init__() 
+     16.0 ms  Durations 76.51% compilation time
+      1.5 ms  TOML
+      0.5 ms  Preferences
+      0.2 ms  PrecompileTools
+               ┌ 0.0 ms Parsers.__init__() 
+     13.9 ms  Parsers
+      1.7 ms  DataStrings
+      0.2 ms  Unicode
+      0.3 ms  Mmap
+      0.1 ms  Future
+      3.9 ms  PooledArrays
+      1.4 ms  TranscodingStreams
+               ┌ 0.0 ms Zlib_jll.__init__() 
+      0.2 ms  Zlib_jll
+      0.5 ms  CodecZlib
+      0.3 ms  NetworkOptions
+      5.5 ms  ArgTools
+               ┌ 0.1 ms nghttp2_jll.__init__() 
+      0.2 ms  nghttp2_jll
+               ┌ 0.4 ms OpenSSL_jll.__init__() 
+      0.5 ms  OpenSSL_jll
+               ┌ 0.1 ms LibSSH2_jll.__init__() 
+      0.2 ms  LibSSH2_jll
+               ┌ 0.0 ms Zstd_jll.__init__() 
+      0.2 ms  Zstd_jll
+               ┌ 0.1 ms LibCURL_jll.__init__() 
+      0.2 ms  LibCURL_jll
+               ┌ 0.0 ms MozillaCACerts_jll.__init__() 
+      0.1 ms  MozillaCACerts_jll
+               ┌ 0.0 ms LibCURL.__init__() 
+      1.1 ms  LibCURL
+               ┌ 0.5 ms Downloads.Curl.__init__() 
+      6.3 ms  Downloads
+               ┌ 0.0 ms CSV.__init__() 
+     48.6 ms  CSV
+      0.8 ms  Statistics
+      0.1 ms  Reexport
+     11.4 ms  DataStructures
+      0.5 ms  SortingAlgorithms
+      0.1 ms  UUIDs
+      0.2 ms  Compat
+      0.1 ms  Compat → CompatLinearAlgebraExt
+      4.0 ms  StringManipulation
+               ┌ 0.0 ms Crayons.__init__() 
+      2.3 ms  Crayons
+      0.4 ms  LaTeXStrings
+     47.7 ms  PrettyTables
+      1.8 ms  Missings
+      0.9 ms  InvertedIndices
+      6.7 ms  SentinelArrays
+      2.9 ms  InlineStrings
+    196.9 ms  DataFrames
+      0.8 ms  CSV → CSVInlineStringsExt
+      0.2 ms  InlineStrings → ParsersExt
+TOTAL 0.46241666
