@@ -4,6 +4,8 @@
 #     scripts/measure_session.sh [runs] [configs]       # default 5 runs, configs "py up-stock up-patched"
 #
 # Configs: py (pandas), up-stock / up-patched (upstream CSV + DataFrames, env_upstream),
+#          up-wrapped (upstream, each package wrapped as a trait module: branch `wrapped`, env_wrapped),
+#          up-all (upstream under the test bed `all`: the facts system image, the depot of its own),
 #          fk-stock / fk-patched / fk-image (the forks, env_forks; fk-image with the TraitWorld system image).
 # Julia runs in a real REPL on a pseudo-terminal (`script`), fed scripts/session.jl; $LOADS (e.g.
 # "OffsetArrays StatsBase Unitful") are loaded first, $LATE after the first part (before step 2_*).
@@ -18,7 +20,8 @@ PYENV=${PYENV:-/tmp/claude-1000/pyenv}
 STOCK=${STOCK:-$HOME/.julia/juliaup/julia-1.13.2+0.x64.linux.gnu/bin/julia}
 PATCHED=${PATCHED:-$ROOT/julia-1.13/julia}
 IMAGE=${IMAGE:-${TMPDIR:-/tmp}/systw/systw.so}
-LOCK=${JULIA_LOCK:-/tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6c8f1719-6fc1-42fb-a8dc-c45452eef443/scratchpad/julia.lock}
+FACTSIMAGE=$ROOT/julia-1.13/usr/lib/julia/facts/sys.so
+LOCK=${JULIA_LOCK:-/tmp/claude-1000/julia-review.lock}
 OUT=${TMPDIR:-/tmp}/forks_session; mkdir -p "$OUT"
 export JULIA_PKG_OFFLINE=true DATA=$PWD/data LINES=40 COLUMNS=120
 
@@ -42,19 +45,22 @@ for c in $CONFIGS; do
         py) ;;
         up-stock) J=$STOCK; env=env_upstream; flags="" ;;
         up-patched) J=$PATCHED; env=env_upstream; flags="" ;;
+        up-wrapped) J=$PATCHED; env=env_wrapped; flags="" ;;
+        up-all) J=$PATCHED; env=env_upstream; flags="-J $FACTSIMAGE" ;;
         fk-stock) J=$STOCK; env=env_forks; flags="" ;;
         fk-patched) J=$PATCHED; env=env_forks; flags="" ;;
         fk-image) J=$PATCHED; env=env_forks; flags="-J $IMAGE" ;;
         *) echo "unknown config $c"; exit 1 ;;
     esac
+    if [ $c = up-all ]; then export JULIA_DEPOT_PATH=/tmp/claude-1000/depot-facts:$HOME/.julia:; else unset JULIA_DEPOT_PATH; fi
     for i in $(seq "$RUNS"); do
         load=$(cut -d' ' -f1 /proc/loadavg)
         s=$(date +%s.%N)
         if [ $c = py ]; then
-            flock "$LOCK" nice -n 10 "$PYENV/bin/python" scripts/session.py > "$OUT/$c.out" 2>&1
+            flock "$LOCK" nice -n 19 "$PYENV/bin/python" scripts/session.py > "$OUT/$c.out" 2>&1
         else
             session > "$OUT/session.jl"
-            flock "$LOCK" nice -n 10 script -qec "$J $flags ${JFLAGS:-} --startup-file=no -i --banner=no --project=$env" /dev/null \
+            flock "$LOCK" nice -n 19 script -qec "$J $flags ${JFLAGS:-} --startup-file=no -i --banner=no --project=$env" /dev/null \
                 < "$OUT/session.jl" > "$OUT/$c.out" 2>&1
         fi
         e=$(date +%s.%N)
