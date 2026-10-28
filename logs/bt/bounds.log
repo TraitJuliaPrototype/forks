@@ -1,0 +1,13 @@
+BT write default       1526673 bytes 0x87ddb6d204646584
+BT write floatfmt      error ArgumentError
+BT write delim;        1546673 bytes 0x76476633ddcb12db
+BT write small bufsize error ArgumentError
+BT bound sym  Symbol                BoundedText true  sampled     8 (2.5 µs)  textbound     8 (31.3 µs)
+BT bound chr  Char                  BoundedText true  sampled     4 (2.1 µs)  textbound     4 (0.0 µs)
+BT bound rat  Rational{Int64}       BoundedText true  sampled    16 (9.3 µs)  textbound    90 (0.0 µs)
+BT bound big  BigInt                BoundedText true  sampled    82 (19.0 µs)  textbound    84 (1933.1 µs)
+BT bound cpx  ComplexF64            BoundedText true  sampled    62 (23.9 µs)  textbound   118 (0.0 µs)
+BT bound bfl  BigFloat              BoundedText true  sampled   164 (117.2 µs)  textbound   216 (42.8 µs)
+BT bound anyc Any                   BoundedText false sampled    14 (3.9 µs)  textbound    -1
+BT bound pt   Pt                    BoundedText false sampled    30 (17.4 µs)  textbound    -1
+BT bound msym Symbol                BoundedText true  sampled    14 (2.0 µs)  textbound    14 (19.9 µs)

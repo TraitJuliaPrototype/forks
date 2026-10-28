@@ -1,0 +1,4 @@
+BT write default       1526673 bytes 0x87ddb6d204646584
+BT write floatfmt      error ArgumentError
+BT write delim;        1546673 bytes 0x76476633ddcb12db
+BT write small bufsize error ArgumentError
