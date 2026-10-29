@@ -742,7 +742,7 @@ function _describe(df::AbstractDataFrame, stats::AbstractVector)
     # functions, called as upstream does
     dcols = _dcolumns(df)
     col_stats_dicts = map(eachindex(dcols)) do i
-        d = colstats(compiled_for(dcols[i]), predefined_funs_local)   # opened (E-214)
+        d = colstats(dcols[i], predefined_funs_local)   # opened by the kernel's bound (E-214)
         if !isempty(custom_funs)
             col = df[!, i]
             get_stats!(d, eltype(col) >: Missing ? skipmissing(col) : col, custom_funs)

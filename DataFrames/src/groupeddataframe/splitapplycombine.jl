@@ -238,7 +238,7 @@ function _combine_process_agg((cs_i,)::Ref{Any},
     # forks: an aggregate whose result does not depend on the column's kind runs over the
     # cells (ColumnKernels.aggregate); maximum, minimum, first and last keep the column's kind
     # (`similar(incol)`) and stay upstream's
-    outcol = _cellaggregate(agg) ? aggregate(compiled_for(_dcolumn(parentdf, in_col_idx)), agg, gd) : agg(incol, gd)
+    outcol = _cellaggregate(agg) ? aggregate(_dcolumn(parentdf, in_col_idx), agg, gd) : agg(incol, gd)
 
     return function()
         if haskey(seen_cols, out_col_name)

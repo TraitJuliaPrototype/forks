@@ -1,0 +1,9 @@
+D3 opened-boundsort Int                       71.32 ms     58.2 MiB
+D3 opened-boundsort String, Float64           303.6 ms     65.8 MiB
+D3 opened-boundgroupby-sum Int key             4.44 ms     15.3 MiB
+D3 opened-boundgroupby-sum two keys            7.13 ms     23.2 MiB
+D3 opened-boundgroupby-sum pooled key           4.1 ms     15.3 MiB
+D3 opened-boundgroupby-mean skipmissing        1.55 ms      0.0 MiB
+D3 opened-bounddescribe                       73.05 ms     53.5 MiB
+D3 opened-boundinnerjoin Int key              18.52 ms    107.4 MiB
+D3 opened-boundcombine SubDataFrame fn         2.37 ms      0.3 MiB

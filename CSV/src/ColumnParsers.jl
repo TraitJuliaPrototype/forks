@@ -147,7 +147,7 @@ end
 type): rows `lo:hi` rendered cell by cell into the stage `st`, each cell's bytes ended. A worker per
 column type (the writer opens the column), so no code is compiled per schema (E-217).
 """
-function stagecells!(st::_CSV.ColStage, c::Column, lo::Int, hi::Int, o::_CSV.WriteOpts)
+function stagecells!(st::_CSV.ColStage, c::Opened{Column}, lo::Int, hi::Int, o::_CSV.WriteOpts)
     _CSV._reset!(st, hi - lo + 1)
     k = 0
     for r in lo:hi
@@ -158,7 +158,7 @@ function stagecells!(st::_CSV.ColStage, c::Column, lo::Int, hi::Int, o::_CSV.Wri
 end
 "The stages of rows `lo:hi` of the writer's fallback columns: each column opened, its stage made by its worker."
 function stageblock(cs::Vector{Column}, lo::Int, hi::Int, o::_CSV.WriteOpts)::Vector{_CSV.ColStage}
-    return _CSV.ColStage[stagecells!(_CSV.ColStage(), compiled_for(c), lo, hi, o) for c in cs]
+    return _CSV.ColStage[stagecells!(_CSV.ColStage(), c, lo, hi, o) for c in cs]
 end
 
 end
