@@ -1,0 +1,65 @@
+UpstreamRepeatedVector{Int64}                                 length::Any    getindex::Any                          WIDER    REFUSED
+    `nrows` at Tuple{UpstreamRepeatedVector{Int64}} returns `Any`, declared `Int64`
+    `cell` at Tuple{UpstreamRepeatedVector{Int64}, Int64} returns `Any`, declared `Int64`
+UpstreamStackedVector{Int64}                                  length::Any    getindex::Int64                        WIDER    REFUSED
+    `nrows` at Tuple{UpstreamStackedVector{Int64}} returns `Any`, declared `Int64`
+    `cell` at Tuple{UpstreamStackedVector{Int64}, Int64} returns `Any`, declared `Int64`
+Vector{Int64}                                                 length::Int64  getindex::Int64                        contract member ok
+Vector{Float64}                                               length::Int64  getindex::Float64                      contract member ok
+Vector{String}                                                length::Int64  getindex::String                       contract member ok
+Vector{Symbol}                                                length::Int64  getindex::Symbol                       contract member ok
+Vector{Any}                                                   length::Int64  getindex::Any                          contract member ok
+Vector{Union{Missing, Int64}}                                 length::Int64  getindex::Union{Missing, Int64}        contract member ok
+Vector{Date}                                                  length::Int64  getindex::Date                         contract member ok
+Vector{String15}                                              length::Int64  getindex::String15                     contract member ok
+UnitRange{Int64}                                              length::Int64  getindex::Int64                        contract member ok
+OneTo{Int64}                                                  length::Int64  getindex::Int64                        contract member ok
+StepRange{Int64, Int64}                                       length::Int64  getindex::Int64                        contract member ok
+StepRangeLen{Float64, TwicePrecision{Float64}, TwicePreci...  length::Int64  getindex::Float64                      contract member ok
+SubArray{Int64, 1, Vector{Int64}, Tuple{UnitRange{Int64}}...  length::Int64  getindex::Int64                        contract member ok
+SubArray{Int64, 1, Vector{Int64}, Tuple{Vector{Int64}}, f...  length::Int64  getindex::Int64                        contract member ok
+BitVector                                                     length::Int64  getindex::Bool                         contract member ok
+PooledVector{String, UInt32, Vector{UInt32}}                  length::Int64  getindex::String                       contract member ok
+PooledVector{Union{Missing, String}, UInt32, Vector{UInt32}}  length::Int64  getindex::Union{Missing, String}       contract member ok
+SubArray{String, 1, PooledVector{String, UInt32, Vector{U...  length::Int64  getindex::String                       contract member ok
+CategoricalVector{String, UInt32, String, CategoricalValu...  length::Int64  getindex::CategoricalValue{String, UInt32} contract member ok
+CategoricalVector{Union{Missing, String}, UInt32, String,...  length::Int64  getindex::Union{Missing, CategoricalValue{String, UInt32}} contract member ok
+SubArray{CategoricalValue{String, UInt32}, 1, Categorical...  length::Int64  getindex::CategoricalValue{String, UInt32} contract member ok
+ChainedVector{Int64, Vector{Int64}}                           length::Int64  getindex::Int64                        contract member ok
+MissingVector                                                 length::Int64  getindex::Missing                      contract member ok
+SentinelVector{Int64, Int64, Missing, Vector{Int64}}          length::Int64  getindex::Union{Missing, Int64}        contract member ok
+RepeatedVector{Int64, Vector{Int64}}                          length::Int64  getindex::Int64                        contract member ok
+RepeatedVector{CategoricalValue{String, UInt32}, Categori...  length::Int64  getindex::CategoricalValue{String, UInt32} contract member ok
+RepeatedVector{Int64, SubArray{Int64, 1, Vector{Int64}, T...  length::Int64  getindex::Int64                        contract member ok
+StackedVector{Int64}                                          length::Int64  getindex::Int64                        contract member ok
+StringVector{DataString}                                      length::Int64  getindex::DataStrings.DataString       contract member ok
+Vector{Union{Missing, Float64}}                               length::Int64  getindex::Union{Missing, Float64}      contract member ok
+Vector{Bool}                                                  length::Int64  getindex::Bool                         contract member ok
+SubArray{DataString, 1, StringVector{DataString}, Tuple{V...  length::Int64  getindex::DataStrings.DataString       contract member ok
+SubArray{Union{Missing, Int64}, 1, Vector{Union{Missing, ...  length::Int64  getindex::Union{Missing, Int64}        contract member ok
+SubArray{Union{Missing, Float64}, 1, Vector{Union{Missing...  length::Int64  getindex::Union{Missing, Float64}      contract member ok
+SubArray{Date, 1, Vector{Date}, Tuple{Vector{Int64}}, false}  length::Int64  getindex::Date                         contract member ok
+SubArray{Bool, 1, Vector{Bool}, Tuple{Vector{Int64}}, false}  length::Int64  getindex::Bool                         contract member ok
+SubArray{DataString, 1, StringVector{DataString}, Tuple{U...  length::Int64  getindex::DataStrings.DataString       contract member ok
+SubArray{Union{Missing, Int64}, 1, Vector{Union{Missing, ...  length::Int64  getindex::Union{Missing, Int64}        contract member ok
+SubArray{Union{Missing, Float64}, 1, Vector{Union{Missing...  length::Int64  getindex::Union{Missing, Float64}      contract member ok
+SubArray{Date, 1, Vector{Date}, Tuple{UnitRange{Int64}}, ...  length::Int64  getindex::Date                         contract member ok
+SubArray{Bool, 1, Vector{Bool}, Tuple{UnitRange{Int64}}, ...  length::Int64  getindex::Bool                         contract member ok
+Vector{Timestamp{Nanosecond}}                                 length::Int64  getindex::Durations.Timestamp{Nanosecond} contract member ok
+SubArray{Float64, 1, Vector{Float64}, Tuple{Vector{Int64}...  length::Int64  getindex::Float64                      contract member ok
+SubArray{Timestamp{Nanosecond}, 1, Vector{Timestamp{Nanos...  length::Int64  getindex::Durations.Timestamp{Nanosecond} contract member ok
+SubArray{Float64, 1, Vector{Float64}, Tuple{UnitRange{Int...  length::Int64  getindex::Float64                      contract member ok
+SubArray{Timestamp{Nanosecond}, 1, Vector{Timestamp{Nanos...  length::Int64  getindex::Durations.Timestamp{Nanosecond} contract member ok
+SubArray{String15, 1, Vector{String15}, Tuple{Vector{Int6...  length::Int64  getindex::String15                     contract member ok
+SubArray{String15, 1, Vector{String15}, Tuple{UnitRange{I...  length::Int64  getindex::String15                     contract member ok
+RepeatedVector{String, Vector{String}}                        length::Int64  getindex::String                       contract member ok
+StackedVector{Float64}                                        length::Int64  getindex::Float64                      contract member ok
+RepeatedVector{Symbol, Vector{Symbol}}                        length::Int64  getindex::Symbol                       contract member ok
+OffsetVector{Int64, Vector{Int64}}                            length::Int64  getindex::Int64                        contract member ok
+ShiftedVector{Int64, Missing, Vector{Int64}}                  length::Int64  getindex::Union{Missing, Int64}        contract member ok
+CircShiftedVector{Int64, Vector{Int64}}                       length::Int64  getindex::Int64                        contract member ok
+DataValueVector{Int64}                                        length::Int64  getindex::DataValues.DataValue{Int64}  contract member ok
+SparseVector{Float64, Int64}                                  length::Int64  getindex::Float64                      contract member ok
+Fill{Int64, 1, Tuple{OneTo{Int64}}}                           length::Int64  getindex::Int64                        contract member ok
+Zeros{Float64, 1, Tuple{OneTo{Int64}}}                        length::Int64  getindex::Float64                      contract member ok
+60 types; refused by the member check: 2

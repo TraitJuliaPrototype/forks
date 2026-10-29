@@ -1,0 +1,10 @@
+D2 PooledVector{String}       stored: Dynamic, refcodes: ([0, 1, 0, 2], 3, false)
+D2 CategoricalVector{String}  stored: Dynamic, refcodes: ([1, 0, 1, 2], 3, false)
+D2 Vector{String}             stored: Dynamic, refcodes: nothing (no pool)
+D2 groupby on a pooled column: 3×2 DataFrame
+ Row │ k       s
+     │ String  Int64
+─────┼───────────────
+   1 │ a           2
+   2 │ b           4
+   3 │ c           4

@@ -43,10 +43,8 @@ for a column stored as a `Dynamic{Column}` (traits reference §6.5).
     vector(c::Column)::AbstractVector
 end
 @implement Column A where {A <: AbstractVector} begin
-    # Base's contract for every vector, asserted: `length` is an `Int`, a cell is of the element type (a vector
-    # that keeps its data at an abstract type, as DataFrames' `RepeatedVector`, infers neither)
-    nrows(c) = length(c)::Int
-    cell(c, i) = (@inbounds c[firstindex(c) + i - 1])::eltype(c)
+    nrows(c) = length(c)
+    cell(c, i) = @inbounds c[firstindex(c) + i - 1]
     emptycells(c, n) = Vector{eltype(c)}(undef, n)
     take(c, rows) = c[rows]
     vector(c) = c

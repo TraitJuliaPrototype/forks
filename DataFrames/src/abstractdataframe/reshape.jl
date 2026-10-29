@@ -686,15 +686,21 @@ end
 
 Base.IndexStyle(::Type{StackedVector}) = Base.IndexLinear()
 Base.size(v::StackedVector) = (length(v),)
-Base.length(v::StackedVector) = sum(map(length, v.components))
+function Base.length(v::StackedVector)
+    n = 0
+    for x in v.components
+        n += length(x)::Int
+    end
+    return n
+end
 Base.eltype(v::Type{StackedVector{T}}) where {T} = T
 Base.similar(v::StackedVector, T::Type, dims::Union{Integer, AbstractUnitRange}...) =
     similar(v.components[1], T, dims...)
 
 """
-    RepeatedVector{T} <: AbstractVector{T}
+    RepeatedVector{T, P<:AbstractVector{T}} <: AbstractVector{T}
 
-An AbstractVector that is a view into another AbstractVector with
+An AbstractVector that is a view into another AbstractVector of type `P` with
 repeated elements
 
 NOTE: Not exported.
@@ -720,11 +726,14 @@ RepeatedVector([1, 2], 1, 3)   # [1, 2, 1, 2, 1, 2]
 RepeatedVector([1, 2], 2, 2)   # [1, 1, 2, 2, 1, 1, 2, 2]
 ```
 """
-struct RepeatedVector{T} <: AbstractVector{T}
-    parent::AbstractVector{T}
+struct RepeatedVector{T, P<:AbstractVector{T}} <: AbstractVector{T}
+    parent::P
     inner::Int
     outer::Int
 end
+
+RepeatedVector(parent::AbstractVector{T}, inner::Integer, outer::Integer) where {T} =
+    RepeatedVector{T, typeof(parent)}(parent, inner, outer)
 
 Base.parent(v::RepeatedVector) = v.parent
 
@@ -737,7 +746,7 @@ end
 Base.IndexStyle(::Type{<:RepeatedVector}) = Base.IndexLinear()
 Base.size(v::RepeatedVector) = (length(v),)
 Base.length(v::RepeatedVector) = v.inner * v.outer * length(parent(v))
-Base.eltype(v::Type{RepeatedVector{T}}) where {T} = T
+Base.eltype(v::Type{<:RepeatedVector{T}}) where {T} = T
 Base.reverse(v::RepeatedVector) = RepeatedVector(reverse(parent(v)), v.inner, v.outer)
 Base.similar(v::RepeatedVector, T::Type, dims::Dims) = similar(parent(v), T, dims)
 Base.unique(v::RepeatedVector) = unique(parent(v))
