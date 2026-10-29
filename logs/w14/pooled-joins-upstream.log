@@ -1,0 +1,20 @@
+E232 upstream String/String           inner [:k]       first     7.8 ms (compile    7.5)  steady    36.6 ms  900120 0xc82a120fcbabecad
+E232 upstream String/String           inner [:k, :a]   first     0.2 ms (compile    0.0)  steady    56.6 ms  900120 0x79fc97cc69163ad9
+E232 upstream String/String           left  [:k]       first     0.6 ms (compile    0.0)  steady    36.6 ms  1000000 0xba4283a69b97fa0c
+E232 upstream String/String           left  [:k, :a]   first     0.3 ms (compile    0.0)  steady    59.9 ms  1000000 0x735d8437770f8976
+E232 upstream pooled/pooled           inner [:k]       first   332.8 ms (compile  332.3)  steady    12.1 ms  900120 0xc82a120fcbabecad
+E232 upstream pooled/pooled           inner [:k, :a]   first   213.3 ms (compile  213.0)  steady    45.7 ms  900120 0x79fc97cc69163ad9
+E232 upstream pooled/pooled           left  [:k]       first   122.6 ms (compile  122.2)  steady    14.5 ms  1000000 0xba4283a69b97fa0c
+E232 upstream pooled/pooled           left  [:k, :a]   first     0.3 ms (compile    0.0)  steady    51.1 ms  1000000 0x735d8437770f8976
+E232 upstream pooled/String           inner [:k]       first    54.4 ms (compile   54.2)  steady    11.6 ms  900120 0xc82a120fcbabecad
+E232 upstream pooled/String           inner [:k, :a]   first     0.2 ms (compile    0.0)  steady    39.9 ms  900120 0x79fc97cc69163ad9
+E232 upstream pooled/String           left  [:k]       first     0.2 ms (compile    0.0)  steady    14.7 ms  1000000 0xba4283a69b97fa0c
+E232 upstream pooled/String           left  [:k, :a]   first     0.3 ms (compile    0.0)  steady    42.3 ms  1000000 0x735d8437770f8976
+E232 upstream String/pooled           inner [:k]       first    46.4 ms (compile   46.1)  steady    26.2 ms  900120 0xc82a120fcbabecad
+E232 upstream String/pooled           inner [:k, :a]   first   216.7 ms (compile  216.4)  steady    47.7 ms  900120 0x79fc97cc69163ad9
+E232 upstream String/pooled           left  [:k]       first     0.2 ms (compile    0.0)  steady    28.4 ms  1000000 0xba4283a69b97fa0c
+E232 upstream String/pooled           left  [:k, :a]   first     0.3 ms (compile    0.0)  steady    48.6 ms  1000000 0x735d8437770f8976
+E232 upstream categorical/categorical inner [:k]       first   129.9 ms (compile  129.2)  steady    13.4 ms  900120 0xc82a120fcbabecad
+E232 upstream categorical/categorical inner [:k, :a]   first     0.3 ms (compile    0.0)  steady    46.2 ms  900120 0x79fc97cc69163ad9
+E232 upstream categorical/categorical left  [:k]       first   562.6 ms (compile  562.3)  steady    16.9 ms  1000000 0xba4283a69b97fa0c
+E232 upstream categorical/categorical left  [:k, :a]   first     0.4 ms (compile    0.0)  steady    50.3 ms  1000000 0x735d8437770f8976

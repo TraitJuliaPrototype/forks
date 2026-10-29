@@ -1,0 +1,20 @@
+E232 forks    String/String           inner [:k]       first     7.9 ms (compile    7.7)  steady    40.2 ms  900120 0xc82a120fcbabecad
+E232 forks    String/String           inner [:k, :a]   first     0.3 ms (compile    0.0)  steady    51.2 ms  900120 0x79fc97cc69163ad9
+E232 forks    String/String           left  [:k]       first     0.3 ms (compile    0.0)  steady    30.8 ms  1000000 0xba4283a69b97fa0c
+E232 forks    String/String           left  [:k, :a]   first     0.3 ms (compile    0.0)  steady    58.3 ms  1000000 0x735d8437770f8976
+E232 forks    pooled/pooled           inner [:k]       first     5.0 ms (compile    4.5)  steady    20.6 ms  900120 0xc82a120fcbabecad
+E232 forks    pooled/pooled           inner [:k, :a]   first   178.3 ms (compile  174.8)  steady    45.9 ms  900120 0x79fc97cc69163ad9
+E232 forks    pooled/pooled           left  [:k]       first   104.9 ms (compile  104.5)  steady    22.1 ms  1000000 0xba4283a69b97fa0c
+E232 forks    pooled/pooled           left  [:k, :a]   first     0.4 ms (compile    0.0)  steady    48.7 ms  1000000 0x735d8437770f8976
+E232 forks    pooled/String           inner [:k]       first    58.9 ms (compile   58.6)  steady    18.7 ms  900120 0xc82a120fcbabecad
+E232 forks    pooled/String           inner [:k, :a]   first     0.3 ms (compile    0.0)  steady    41.3 ms  900120 0x79fc97cc69163ad9
+E232 forks    pooled/String           left  [:k]       first     0.3 ms (compile    0.0)  steady    21.8 ms  1000000 0xba4283a69b97fa0c
+E232 forks    pooled/String           left  [:k, :a]   first     0.3 ms (compile    0.0)  steady    49.0 ms  1000000 0x735d8437770f8976
+E232 forks    String/pooled           inner [:k]       first     6.3 ms (compile    6.0)  steady    26.2 ms  900120 0xc82a120fcbabecad
+E232 forks    String/pooled           inner [:k, :a]   first     6.5 ms (compile    6.2)  steady    45.8 ms  900120 0x79fc97cc69163ad9
+E232 forks    String/pooled           left  [:k]       first     0.3 ms (compile    0.0)  steady    29.5 ms  1000000 0xba4283a69b97fa0c
+E232 forks    String/pooled           left  [:k, :a]   first     0.3 ms (compile    0.0)  steady    48.1 ms  1000000 0x735d8437770f8976
+E232 forks    categorical/categorical inner [:k]       first   182.8 ms (compile  181.3)  steady    20.4 ms  900120 0xc82a120fcbabecad
+E232 forks    categorical/categorical inner [:k, :a]   first     0.3 ms (compile    0.0)  steady    40.2 ms  900120 0x79fc97cc69163ad9
+E232 forks    categorical/categorical left  [:k]       first   524.6 ms (compile  524.2)  steady    22.4 ms  1000000 0xba4283a69b97fa0c
+E232 forks    categorical/categorical left  [:k, :a]   first     0.3 ms (compile    0.0)  steady    49.7 ms  1000000 0x735d8437770f8976

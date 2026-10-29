@@ -436,4 +436,27 @@ end
     @test_throws ArgumentError DataFrame([1=>2, 3=>4], [:a, :b])
 end
 
+# forks: a column whose type does not conform to `Column` is refused at `DataFrame(...)` with the
+# member check's error, naming the operation and both types; it is not copied (the user, 2026-10-29,
+# decisions §8; the memo writeup/plans/2026-10-28-dataframes-lean-core.md §7, question 2). Stored as
+# given (`copycols = false`), the vector itself is the column; by default the frame stores a copy
+# (upstream's `copycols`), a `Vector`, which conforms.
+struct AnyLengthVector <: AbstractVector{Int}
+    n::Any                                   # `length` infers `Any`
+end
+Base.size(v::AnyLengthVector) = (v.n,)
+Base.length(v::AnyLengthVector) = v.n
+Base.getindex(v::AnyLengthVector, i::Int) = i
+@testset "forks: a column that does not conform to Column" begin
+    v = AnyLengthVector(3)
+    err = try DataFrame([v], [:x]; copycols = false); nothing catch e; e end
+    @test err isa DataFrames.TraitWorld.ImplementError
+    msg = sprint(showerror, err)
+    @test occursin("AnyLengthVector", msg) && occursin("Column", msg)
+    @test occursin("`nrows` at Tuple{$(AnyLengthVector)} returns `Any`, declared `Int64`", msg)
+    @test_throws DataFrames.TraitWorld.ImplementError DataFrame([:x => v]; copycols = false)
+    df = DataFrame(x = v)                    # the default: a copy is stored
+    @test df.x isa Vector{Int} && df.x == [1, 2, 3]
+end
+
 end # module
