@@ -101,6 +101,20 @@ The memo's question 1: is the pool through DataAPI enough for joins, or do joins
 - **First joins:** both compile per key type, similar amounts (forks 5–525 ms, upstream 54–563 ms per new case).
 - **The answer: no capability of its own.** A capability for both sides' pools would give the kernel what the preprocessing already gives it.
 
+## Phase 2's starting point: the session against pandas (2026-10-29, E-233, E-234)
+
+julia-1.13 bfca89decc, TraitWorld ca92f22, forks 115c208; `scripts/measure_session.sh 3 "py fk-patched up-patched"`, a warm-up and 2 runs; pandas 3.0.6 on the same machine; load average 0.1 before the runs. Logs and the breakdown: `../experiments/phase2-round/` (its README). Current numbers: [the evidence](../writeup/design/evidence.md) §3.
+
+| | start | imports | steps | exit | wall |
+|---|---|---|---|---|---|
+| pandas | 0.010 s | 0.20 s | 0.30 s | 0.03 s | **0.54 s** |
+| forks | 0.58–0.59 s | 1.86–2.00 s | 2.11–2.15 s | 0.13 s | **4.71–4.83 s** |
+| upstream | 0.34–0.59 s | 1.22–1.23 s | 10.9 s | 0.09–0.12 s | **12.55–12.79 s** |
+
+- Of the forks' steps (2.0 s with the REPL's typing hints off) 1.55 s is compilation; the rest is about pandas' 0.30 s.
+- The imports: validation of the images' edges about 0.6 s, TraitWorld's member records and image hook about 0.2 s.
+- An emulated cache across sessions (E-234) takes the steps to 1.1 s and the session (hints off) from 3.9–4.1 s to 3.0–3.2 s.
+
 ## M0: the baseline
 
 The M0 table (pandas and upstream, 5 runs, before the facts compiler) is under "History (before the facts compiler)". The session-29 upstream numbers are in "Measured in session 29".
