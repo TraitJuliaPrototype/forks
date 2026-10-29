@@ -202,7 +202,7 @@ Not run at all:
 
 To run, in this order (one job at a time; `scripts/testsuites.sh` takes the lock):
 1. `scripts/testsuites.sh ../julia-1.13/julia "CSV DataFrames" M6`: both suites green, the counts as at M1 (CSV 330,549; DataFrames 16,515,336).
-2. `scripts/check_session.sh`: "digests equal", the REPL session with 20 marks and 0 errors.
+2. `scripts/check_session.sh`: "digests equal", the REPL session with 20 marks and 0 errors; its last line is the verdict, `check_session: pass`, and it exits non-zero on a failure.
 3. Tables again only if TraitWorld changes the `@implement` machinery.
 
 ## Measured in session 29
