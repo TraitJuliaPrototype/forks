@@ -1,0 +1,3 @@
+jl: slot 2 (cores 4-7), depot /tmp/claude-1000/depots/w92-all
+285.765037 seconds (5.35 M allocations: 335.100 MiB, 0.06% gc time, 0.98% compilation time: 3% of which was recompilation)
+true

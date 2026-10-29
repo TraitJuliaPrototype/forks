@@ -1,0 +1,13 @@
+jl: slot 1 (cores 0-3), depot /tmp/claude-1000/depots/w92
+Test Summary: | Pass  Total   Time
+cat.jl        |  233    233  14.6s
+F cat.jl 14.7 s
+Test Summary: | Pass  Total   Time
+insertion.jl  | 1210   1210  32.0s
+F insertion.jl 32.0 s
+Test Summary: | Pass  Total   Time
+subset.jl     | 2218   2218  53.1s
+F subset.jl 53.1 s
+Test Summary: | Pass  Total     Time
+select.jl     | 4192   4192  4m14.7s
+F select.jl 254.7 s

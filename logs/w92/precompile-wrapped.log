@@ -1,0 +1,2 @@
+ 69.423505 seconds (5.48 M allocations: 347.594 MiB, 0.38% gc time, 6.38% compilation time: 75% of which was recompilation)
+DataFrames.ColumnKernels

@@ -115,6 +115,22 @@ julia-1.13 bfca89decc, TraitWorld ca92f22, forks 115c208; `scripts/measure_sessi
 - The imports: validation of the images' edges about 0.6 s, TraitWorld's member records and image hook about 0.2 s.
 - An emulated cache across sessions (E-234) takes the steps to 1.1 s and the session (hints off) from 3.9–4.1 s to 3.0–3.2 s.
 
+## W-92: the invalidated plain code, and the public layer as trait-module code (2026-10-29, E-238)
+
+julia-1.13 bfca89decc, TraitWorld ca92f22, forks ba71341 and the branch `w92-wrapped` (0f0c518); the REPL's typing hints off; logs and the census in `../experiments/w92-forks-invalidation/` (its README), the checks in `logs/w92/`. Current numbers: [the evidence](../writeup/design/evidence.md) §3.
+
+- Of what the session compiles again after the load, DataFrames' API code (`manipulate`, `innerjoin`, `combine`, 0.23 s) is image code rejected at load: its plain untyped calls of `Column`'s operations (`vector(::Any)`) match the methods that CSV's subtraits (`CSVColumn`, `TextColumn`) add to those functions. The rest is the compiler's code (0.14 s) and Base's methods compiled plainly beside a facts copy (0.08 s).
+- The branch `w92-wrapped` puts the whole `DataFrames` module in `@trait_module` (porting 0.1a): `vcat` names its first frame; `@nospecialize` on varargs spelled `args::Vararg{T}`. The rejection is gone, but the session compiles the facts owner's copies of the display, `describe` and the `ByRow` paths:
+
+| session without its start, 2 runs | wall | steps (compiling) | imports |
+|---|---|---|---|
+| main | 3.60 s | 2.08–2.10 s (1.59–1.60) | 1.39–1.40 s |
+| `w92-wrapped` | 3.84–3.94 s | 2.26–2.31 s (1.78–1.80) | 1.46–1.50 s |
+| main under `all` | 3.27–3.30 s | 1.89–1.90 s (1.16) | 1.26–1.29 s |
+
+- Not adopted on main ([the note](../writeup/plans/2026-10-29-w92-forks-invalidation.md)). The branch passes `check_session.sh` (26 digests equal, 20 marks, 0 errors), D2 (`d2_pooled.jl`, output equal to `logs/d2/pooled.log`) and DataFrames' `cat`, `insertion`, `subset`, `select` test files (7,853 tests).
+- `scripts/measure_session.sh` holds the lock (and `experiments/tools/jl`'s gate) before its clock starts.
+
 ## M0: the baseline
 
 The M0 table (pandas and upstream, 5 runs, before the facts compiler) is under "History (before the facts compiler)". The session-29 upstream numbers are in "Measured in session 29".
