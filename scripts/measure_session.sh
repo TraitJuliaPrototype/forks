@@ -24,6 +24,7 @@ FACTSIMAGE=$ROOT/julia-1.13/usr/lib/julia/facts/sys.so
 LOCK=${JULIA_LOCK:-/tmp/claude-1000/julia-review.lock}
 OUT=${TMPDIR:-/tmp}/forks_session; mkdir -p "$OUT"
 export JULIA_PKG_OFFLINE=true DATA=$PWD/data LINES=40 COLUMNS=120
+exec 9>>"$LOCK"  # the lock's descriptor; each run takes it before its clock starts
 
 session() {     # the session text with the load lines inserted
     awk -v loads="${LOADS:-}" -v late="${LATE:-}" '
@@ -54,16 +55,18 @@ for c in $CONFIGS; do
     esac
     if [ $c = up-all ]; then export JULIA_DEPOT_PATH=/tmp/claude-1000/depot-facts:$HOME/.julia:; else unset JULIA_DEPOT_PATH; fi
     for i in $(seq "$RUNS"); do
+        [ $c = py ] || session > "$OUT/session.jl"
+        flock 9     # the lock first, then the clock: a wait for another job is not the session's start
         load=$(cut -d' ' -f1 /proc/loadavg)
         s=$(date +%s.%N)
         if [ $c = py ]; then
-            flock "$LOCK" nice -n 19 "$PYENV/bin/python" scripts/session.py > "$OUT/$c.out" 2>&1
+            nice -n 19 "$PYENV/bin/python" scripts/session.py > "$OUT/$c.out" 2>&1
         else
-            session > "$OUT/session.jl"
-            flock "$LOCK" nice -n 19 script -qec "$J $flags ${JFLAGS:-} --startup-file=no -i --banner=no --project=$env" /dev/null \
+            nice -n 19 script -qec "$J $flags ${JFLAGS:-} --startup-file=no -i --banner=no --project=$env" /dev/null \
                 < "$OUT/session.jl" > "$OUT/$c.out" 2>&1
         fi
         e=$(date +%s.%N)
+        flock -u 9
         echo "$c $i load $load | $(marks "$s" "$e" < "$OUT/$c.out")"
     done
 done
