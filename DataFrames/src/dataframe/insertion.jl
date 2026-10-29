@@ -103,7 +103,7 @@ function Base.append!(df::DataFrame, table; cols::Symbol=:setequal,
     append!(df, DataFrame(table, copycols=false), cols=cols, promote=promote)
 end
 
-function Base.append!(df::DataFrame, @nospecialize tables...;
+function Base.append!(df::DataFrame, @nospecialize(tables::Vararg{Any});
                       cols::Symbol=:setequal,
                       promote::Bool=(cols in [:union, :subset]))
     if !(cols in (:orderequal, :setequal, :intersect, :subset, :union))
@@ -224,7 +224,7 @@ function Base.prepend!(df::DataFrame, table; cols::Symbol=:setequal,
     prepend!(df, DataFrame(table, copycols=false), cols=cols, promote=promote)
 end
 
-function Base.prepend!(df::DataFrame, @nospecialize tables...;
+function Base.prepend!(df::DataFrame, @nospecialize(tables::Vararg{Any});
                        cols::Symbol=:setequal,
                        promote::Bool=(cols in [:union, :subset]))
     if !(cols in (:orderequal, :setequal, :intersect, :subset, :union))
@@ -1100,7 +1100,7 @@ function _row_inserter!(df::DataFrame, loc::Integer,
     return df
 end
 
-function Base.push!(df::DataFrame, @nospecialize rows...;
+function Base.push!(df::DataFrame, @nospecialize(rows::Vararg{Any});
                     cols::Symbol=:setequal,
                     promote::Bool=(cols in [:union, :subset]))
     if !(cols in (:orderequal, :setequal, :intersect, :subset, :union))
@@ -1117,7 +1117,7 @@ function Base.push!(df::DataFrame, @nospecialize rows...;
     return foldl((df, row) -> push!(df, row, cols=cols, promote=promote), rows, init=df)
 end
 
-function Base.pushfirst!(df::DataFrame, @nospecialize rows...;
+function Base.pushfirst!(df::DataFrame, @nospecialize(rows::Vararg{Any});
                          cols::Symbol=:setequal,
                          promote::Bool=(cols in [:union, :subset]))
     if !(cols in (:orderequal, :setequal, :intersect, :subset, :union))

@@ -1789,12 +1789,14 @@ julia> vcat(df1, df2, df4, df3, cols=:union, source=:source => 'a':'d')
    9 │     9  missing        9  d
 ```
 """
-Base.vcat(dfs::AbstractDataFrame...;
+# W-92: the first frame named, so that every arity the method applies to names a type of DataFrames (a trait
+# module refuses a pirate, traits §10.2); at zero arguments Base's own `vcat()` is selected anyway
+Base.vcat(df::AbstractDataFrame, dfs::AbstractDataFrame...;
           cols::Union{Symbol, AbstractVector{Symbol},
                       AbstractVector{<:AbstractString}}=:setequal,
           source::Union{Nothing, SymbolOrString,
                            Pair{<:SymbolOrString, <:AbstractVector}}=nothing) =
-    reduce(vcat, dfs; cols=cols, source=source)
+    reduce(vcat, (df, dfs...); cols=cols, source=source)
 
 """
     repeat(df::AbstractDataFrame; inner::Integer = 1, outer::Integer = 1)

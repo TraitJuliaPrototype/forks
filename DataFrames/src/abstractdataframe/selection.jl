@@ -947,12 +947,12 @@ $TRANSFORM_METADATA
 
 See [`select`](@ref) for examples.
 """
-select!(df::DataFrame, @nospecialize(args...);
+select!(df::DataFrame, @nospecialize(args::Vararg{Any});
         renamecols::Bool=true, threads::Bool=true) =
     _replace_columns!(df, select(df, args..., copycols=false,
                                  renamecols=renamecols, threads=threads))
 
-select!(df::SubDataFrame, @nospecialize(args...);
+select!(df::SubDataFrame, @nospecialize(args::Vararg{Any});
         renamecols::Bool=true, threads::Bool=true) =
     _replace_columns!(df, select(df, args..., copycols=true,
                                  renamecols=renamecols, threads=threads),
@@ -997,11 +997,11 @@ $TRANSFORM_METADATA
 
 See [`select`](@ref) for examples.
 """
-transform!(df::DataFrame, @nospecialize(args...);
+transform!(df::DataFrame, @nospecialize(args::Vararg{Any});
            renamecols::Bool=true, threads::Bool=true) =
     select!(df, :, args..., renamecols=renamecols, threads=threads)
 
-transform!(df::SubDataFrame, @nospecialize(args...); renamecols::Bool=true, threads::Bool=true) =
+transform!(df::SubDataFrame, @nospecialize(args::Vararg{Any}); renamecols::Bool=true, threads::Bool=true) =
     _replace_columns!(df, select(df, args..., copycols=true, renamecols=renamecols, threads=threads),
                       keep_present=true)
 
@@ -1300,7 +1300,7 @@ julia> select(gd, nrow, proprow, groupindices, eachindex)
    8 │     2      3    0.375             2          3
 ```
 """
-select(df::AbstractDataFrame, @nospecialize(args...);
+select(df::AbstractDataFrame, @nospecialize(args::Vararg{Any});
        copycols::Bool=true, renamecols::Bool=true, threads::Bool=true) =
     manipulate(df, map(x -> broadcast_pair(df, x), args)...,
                copycols=copycols, keeprows=true, renamecols=renamecols)
@@ -1380,7 +1380,7 @@ ERROR: ArgumentError: column :x in returned data frame is not equal to grouping 
 
 See [`select`](@ref) for more examples.
 """
-transform(df::AbstractDataFrame, @nospecialize(args...);
+transform(df::AbstractDataFrame, @nospecialize(args::Vararg{Any});
           copycols::Bool=true, renamecols::Bool=true, threads::Bool=true) =
     select(df, :, args..., copycols=copycols,
            renamecols=renamecols, threads=threads)
@@ -1687,7 +1687,7 @@ julia> combine(gd, :b => Ref∘sum)
    2 │     2  [7, 9]
 ```
 """
-combine(df::AbstractDataFrame, @nospecialize(args...);
+combine(df::AbstractDataFrame, @nospecialize(args::Vararg{Any});
         renamecols::Bool=true, threads::Bool=true) =
     manipulate(df, map(x -> broadcast_pair(df, x), args)...,
                copycols=true, keeprows=false, renamecols=renamecols)
@@ -1706,7 +1706,7 @@ combine(@nospecialize(f::Pair), gd::AbstractDataFrame;
                         "You can pass a `Pair` as the second argument of the transformation. If you want the return " *
                         "value to be processed as having multiple columns add `=> AsTable` suffix to the pair."))
 
-function manipulate(df::DataFrame, @nospecialize(cs...); copycols::Bool, keeprows::Bool, renamecols::Bool)
+function manipulate(df::DataFrame, @nospecialize(cs::Vararg{Any}); copycols::Bool, keeprows::Bool, renamecols::Bool)
     cs_vec = []
     for v in cs
         if v isa AbstractVecOrMat{<:Pair}
@@ -1804,7 +1804,7 @@ function _manipulate(df::AbstractDataFrame, normalized_cs::Vector{Any}, copycols
     return newdf
 end
 
-function manipulate(dfv::SubDataFrame, @nospecialize(args...); copycols::Bool, keeprows::Bool,
+function manipulate(dfv::SubDataFrame, @nospecialize(args::Vararg{Any}); copycols::Bool, keeprows::Bool,
                     renamecols::Bool)
     if copycols
         cs_vec = []

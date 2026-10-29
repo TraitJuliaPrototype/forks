@@ -1,4 +1,9 @@
 module DataFrames
+# W-92 (E-238): the public layer is trait-module code too (porting 0.1a), so that what it compiles is code of
+# the facts owner: its untyped calls (into `Column`'s operations, PrettyTables, Base) are run-time sites with no
+# edge, and no unrelated load or another package's subtrait rejects its image's code (facts §2.2, G2)
+using TraitWorld: @trait_module
+@trait_module begin
 
 using Base.Sort,
       Base.Order,
@@ -188,5 +193,7 @@ include("other/metadata.jl")
 include("deprecated.jl")
 
 include("other/precompile.jl")
+
+end # @trait_module (W-92)
 
 end # module DataFrames

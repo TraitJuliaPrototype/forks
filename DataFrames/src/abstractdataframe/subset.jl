@@ -275,7 +275,7 @@ julia> subset(groupby(df, :y), :v => x -> minimum(x) > 5)
    2 │     4  false  false  missing     12
 ```
 """
-function subset(df::AbstractDataFrame, @nospecialize(args...);
+function subset(df::AbstractDataFrame, @nospecialize(args::Vararg{Any});
                 skipmissing::Bool=false, view::Bool=false, threads::Bool=true)
     conditions = _preprocess_subset_args(df, Ref{Any}(args))
     if isempty(conditions)
@@ -287,7 +287,7 @@ function subset(df::AbstractDataFrame, @nospecialize(args...);
     return view ? Base.view(df, row_selector, :) : df[row_selector, :]
 end
 
-function subset(gdf::GroupedDataFrame, @nospecialize(args...);
+function subset(gdf::GroupedDataFrame, @nospecialize(args::Vararg{Any});
                 skipmissing::Bool=false, view::Bool=false,
                 ungroup::Bool=true, threads::Bool=true)
     df = parent(gdf)
@@ -469,7 +469,7 @@ julia> df
    2 │     4  false  false  missing     12
 ```
 """
-function subset!(df::AbstractDataFrame, @nospecialize(args...);
+function subset!(df::AbstractDataFrame, @nospecialize(args::Vararg{Any});
                 skipmissing::Bool=false, threads::Bool=true)
     conditions = _preprocess_subset_args(df, Ref{Any}(args))
     isempty(conditions) && return df
@@ -477,7 +477,7 @@ function subset!(df::AbstractDataFrame, @nospecialize(args...);
     return deleteat!(df, .!row_selector)
 end
 
-function subset!(gdf::GroupedDataFrame, @nospecialize(args...); skipmissing::Bool=false,
+function subset!(gdf::GroupedDataFrame, @nospecialize(args::Vararg{Any}); skipmissing::Bool=false,
                  ungroup::Bool=true, threads::Bool=true)
     df = parent(gdf)
     conditions = _preprocess_subset_args(gdf, Ref{Any}(args))

@@ -862,8 +862,8 @@ combine(@nospecialize(f::Pair), gd::GroupedDataFrame;
                         "value to be processed as having multiple columns add `=> AsTable` suffix to the pair."))
 
 combine(gd::GroupedDataFrame,
-        @nospecialize(args::Union{Pair, Base.Callable, ColumnIndex, MultiColumnIndex,
-                                  AbstractVecOrMat}...);
+        @nospecialize(args::Vararg{Union{Pair, Base.Callable, ColumnIndex, MultiColumnIndex,
+                                  AbstractVecOrMat}});
         keepkeys::Bool=true, ungroup::Bool=true, renamecols::Bool=true,
         threads::Bool=true) =
     _combine_prepare(gd, Ref{Any}(map(x -> broadcast_pair(parent(gd), x), args)),
@@ -892,8 +892,8 @@ function select(@nospecialize(f::Base.Callable), gd::GroupedDataFrame; copycols:
                   threads=threads)
 end
 
-function select(gd::GroupedDataFrame, @nospecialize(args::Union{Pair, Base.Callable, ColumnIndex,
-                                                                MultiColumnIndex, AbstractVecOrMat}...);
+function select(gd::GroupedDataFrame, @nospecialize(args::Vararg{Union{Pair, Base.Callable, ColumnIndex,
+                                                                MultiColumnIndex, AbstractVecOrMat}});
                 copycols::Bool=true, keepkeys::Bool=true, ungroup::Bool=true, renamecols::Bool=true,
                 threads::Bool=true)
     res = _combine_prepare(gd, Ref{Any}(map(x -> broadcast_pair(parent(gd), x), args)),
@@ -916,8 +916,8 @@ function transform(@nospecialize(f::Base.Callable), gd::GroupedDataFrame; copyco
                      threads=threads)
 end
 
-function transform(gd::GroupedDataFrame, @nospecialize(args::Union{Pair, Base.Callable, ColumnIndex, MultiColumnIndex,
-                                                                   AbstractVecOrMat}...);
+function transform(gd::GroupedDataFrame, @nospecialize(args::Vararg{Union{Pair, Base.Callable, ColumnIndex, MultiColumnIndex,
+                                                                   AbstractVecOrMat}});
                    copycols::Bool=true, keepkeys::Bool=true, ungroup::Bool=true,
                    renamecols::Bool=true,
                    threads::Bool=true)
@@ -938,8 +938,8 @@ function select!(@nospecialize(f::Base.Callable), gd::GroupedDataFrame;
 end
 
 function select!(gd::GroupedDataFrame,
-                 @nospecialize(args::Union{Pair, Base.Callable, ColumnIndex, MultiColumnIndex,
-                                           AbstractVecOrMat}...);
+                 @nospecialize(args::Vararg{Union{Pair, Base.Callable, ColumnIndex, MultiColumnIndex,
+                                           AbstractVecOrMat}});
                  ungroup::Bool=true, renamecols::Bool=true, threads::Bool=true)
     df = parent(gd)
     if df isa DataFrame
@@ -964,8 +964,8 @@ function transform!(@nospecialize(f::Base.Callable), gd::GroupedDataFrame;
 end
 
 function transform!(gd::GroupedDataFrame,
-                    @nospecialize(args::Union{Pair, Base.Callable, ColumnIndex, MultiColumnIndex,
-                                              AbstractVecOrMat}...);
+                    @nospecialize(args::Vararg{Union{Pair, Base.Callable, ColumnIndex, MultiColumnIndex,
+                                              AbstractVecOrMat}});
                     ungroup::Bool=true, renamecols::Bool=true, threads::Bool=true)
     df = parent(gd)
     if df isa DataFrame
