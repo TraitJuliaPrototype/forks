@@ -15,7 +15,7 @@ set -u
 cd "$(dirname "$0")/.."
 RUNS=${1:-5}
 CONFIGS=${2:-"py up-stock up-patched"}
-ROOT=/home/hellmann/Repos/julia-trait-bound
+ROOT=${TW_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}
 PYENV=${PYENV:-/tmp/claude-1000/pyenv}
 STOCK=${STOCK:-$HOME/.julia/juliaup/julia-1.13.2+0.x64.linux.gnu/bin/julia}
 PATCHED=${PATCHED:-$ROOT/julia-1.13/julia}
