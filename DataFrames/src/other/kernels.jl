@@ -10,8 +10,9 @@
 # Upstream reaches the same code through function barriers into code compiled per column
 # type (`get_stats(@nospecialize(col))`), or per tuple of column types (`DFPerm`,
 # `row_group_slots!`).
-@trait_module module ColumnKernels
+module ColumnKernels
 using TraitWorld
+@trait_module
 using Tables.ColumnCore: Column, PooledColumn, nrows, cell, emptycells, take, nlevels, levelcode, level, vector,
                          TableSource, tablenames, tablecolumn, tablerows
 using Statistics
@@ -30,9 +31,8 @@ end
 
 """
 A column seen as an `AbstractVector{T}` of its cells, for plain code that reads a vector (Statistics,
-upstream's `groupreduce`): no copy. The parameter is bounded by the trait (traits reference §7.4): a
-column opened (by `compiled_for`, or by an `Opened` bound) is kept as the user's object, and code over the view is compiled per
-column type; a `Dynamic` one is kept as `Dynamic{Column{T}}`, and that code is compiled per cell type.
+upstream's `groupreduce`): no copy. The parameter is bounded by the trait (traits §8.2): it records the
+column's own type, so code over the view is compiled per column type.
 """
 struct CellVector{T, C <: Column{T}} <: AbstractVector{T}
     c::C
@@ -48,7 +48,8 @@ Base.@propagate_inbounds Base.getindex(v::CellVector, i::Int) = cell(v.c, i)
 Missing values are skipped as upstream does: for a cell type that admits `missing`, the
 statistics are those of `skipmissing` of the cells.
 """
-function colstats(c::Opened{Column}, stats::Vector{Symbol})::Dict{Symbol, Any}
+# open on purpose (traits §7.3): it reads the column through a `CellVector`, whose parameter records its type
+@open function colstats(@specialize(c::Column), stats::Vector{Symbol})::Dict{Symbol, Any}
     n = nrows(c)
     v = CellVector(c)                                   # read in place; `_stats` copies only for the quantiles
     d = eltype(v) >: Missing ? _stats(skipmissing(v), stats) : _stats(v, stats)
@@ -111,9 +112,9 @@ end
 A fast aggregate whose result does not depend on the column's kind (`Reduce`: `sum`, `prod`,
 `mean`, with or without `skipmissing`; `var`, `std`, `length`) of one column per group of
 `gd`: upstream's `groupreduce` over the cells, read in place through a `CellVector`. A worker per
-column type; the bound opens the column (`Opened`), so `groupreduce` is compiled per column type.
+column type; the kernel takes the column `@specialize`, so `groupreduce` is compiled per column type.
 """
-aggregate(c::Opened{Column}, agg, gd)::AbstractVector = agg(CellVector(c), gd)
+@open aggregate(@specialize(c::Column), agg, gd)::AbstractVector = agg(CellVector(c), gd)   # open on purpose, as colstats
 
 # --- sorting --------------------------------------------------------------------------------
 
@@ -124,7 +125,7 @@ per column type, comparing cells. Applied to the sort columns from the last to t
 sorts lexicographically, as upstream's stable default algorithms do (`MergeSort`, `TimSort`,
 `RadixSort`), without code compiled per tuple of column types.
 """
-function refine!(perm::Vector{Int}, c::Opened{Column}, rev::Bool)::Nothing
+function refine!(perm::Vector{Int}, @specialize(c::Column), rev::Bool)::Nothing
     sort!(perm; alg = Base.Sort.DEFAULT_STABLE, lt = (i, j) -> isless(cell(c, i), cell(c, j)), rev = rev)
     return nothing
 end
@@ -136,7 +137,7 @@ The group codes of one column by first appearance, into `codes` (1, 2, … in or
 appearance; 0 for `missing` when `skipmissing`); returns the number of codes. Equality is
 `isequal`, as upstream's row hashing. A worker per column type.
 """
-function firstcodes!(codes::Vector{Int}, c::Opened{Column{T}}, skipmissing::Bool)::Int where {T}
+function firstcodes!(codes::Vector{Int}, @specialize(c::Column{T}), skipmissing::Bool)::Int where {T}
     d = Dict{T, Int}()
     n = 0
     @inbounds for i in 1:nrows(c)
@@ -164,11 +165,11 @@ the codes follow the sorted order of the values. A column has a reference pool i
 `refpool_and_array` decides, if its cells are integers in a narrow range. With `sort`, codes
 follow the sorted order of the pool. A worker per column type.
 """
-refcodes(c::Opened{Column}, skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}} =
+refcodes(@specialize(c::Column), skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}} =
     _integercodes(c, skipmissing)
 # a column with a reference pool: selected by what the column's object can do, also for a column stored
 # as a `Dynamic{Column}` (traits reference §6.5)
-function refcodes(c::Opened{(Column, PooledColumn)}, skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}}
+function refcodes(@specialize(c::All{Column, PooledColumn}), skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}}
     n = nrows(c)
     L = nlevels(c)
     levels = emptycells(c, L)
@@ -776,7 +777,7 @@ end
     fromsource(t, copycols)
 
 A `DataFrame` with the columns of `t`, any `TableSource` (a `CSV.File`, a column table, a
-`DataFrame`): the columns are read by position as `Dynamic{Column}` values and kept as they
+`DataFrame`): the columns are read by position as `Column` values and kept as they
 are, or copied with `copycols`, as upstream's `fromcolumns` does for a Tables.jl table.
 """
 function fromsource(t::TableSource, copycols::Bool)::_DF.DataFrame

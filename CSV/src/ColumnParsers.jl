@@ -13,8 +13,9 @@
 #     CSV.jl's extension added methods to seven internal functions instead.
 # The reader's entry is bounded by `CSVSource`, what it reads from, so the read runs in a
 # worker compiled per source type. `CSV.File` conforms to Tables' `TableSource`.
-@trait_module module ColumnParsers
+module ColumnParsers
 using TraitWorld
+@trait_module
 using Tables.ColumnCore: Column, nrows, cell, emptycells, TableSource
 const _CSV = parentmodule(@__MODULE__)
 export CSVSource, rawsource, readfile, CSVColumn, parsecell!, parsecells!,
@@ -24,13 +25,13 @@ export CSVSource, rawsource, readfile, CSVColumn, parsecell!, parsecells!,
 @trait CSVSource begin
     rawsource(s::CSVSource)::Any
 end
-@implement CSVSource A where {A <: AbstractString} begin
+@implement CSVSource AbstractString begin
     rawsource(s) = s
 end
-@implement CSVSource A where {A <: IO} begin
+@implement CSVSource IO begin
     rawsource(s) = s
 end
-@implement CSVSource A where {A <: AbstractVector{UInt8}} begin
+@implement CSVSource AbstractVector{UInt8} begin
     rawsource(s) = s
 end
 
@@ -48,12 +49,12 @@ scratch)` parses the cell content `buf[pos:pos+len-1]` (`esc`: it holds escapes)
 column's non-missing cell type, stores it in row `i`, and returns `true`; it returns `false`
 and stores nothing if the content is not a value of that type.
 """
-@trait CSVColumn{T} <: Column begin
+@trait CSVColumn{T} <: Column{T} begin
     T = eltype(Self)
     parsecell!(c::CSVColumn, i::Int, buf::Vector{UInt8}, pos::Int, len::Int, esc::Bool,
                opts::_CSV.ValueOpts, scratch::Vector{UInt8})::Bool
 end
-@implement CSVColumn A where {A <: Vector} begin
+@implement CSVColumn{T} Vector{T} where {T} begin
     parsecell!(c, i, buf, pos, len, esc, opts, scratch) = _parseinto!(c, i, buf, pos, len, esc, opts, scratch)
 end
 @inline function _parseinto!(c::Vector{E}, i::Int, buf::Vector{UInt8}, pos::Int, len::Int, esc::Bool,
@@ -126,7 +127,7 @@ A column text cells are converted into, for a string type other than CSV's own.
 - `settext!(c, i, x)`: store text `x` (a `DataString`, or `missing`) in row `i`;
 - `rowtexttype(c)`, `rowtext(c, x)`: the type of a text cell read row by row, and the cell.
 """
-@trait TextColumn{T} <: Column begin
+@trait TextColumn{T} <: Column{T} begin
     T = eltype(Self)
     textcolumn(c::TextColumn, maxlen::Int, n::Int, withmissing::Bool)::AbstractVector
     settext!(c::TextColumn, i::Int, x::Union{Missing, _CSV.DataString})::Nothing
@@ -147,7 +148,7 @@ end
 type): rows `lo:hi` rendered cell by cell into the stage `st`, each cell's bytes ended. A worker per
 column type (the writer opens the column), so no code is compiled per schema (E-217).
 """
-function stagecells!(st::_CSV.ColStage, c::Opened{Column}, lo::Int, hi::Int, o::_CSV.WriteOpts)
+function stagecells!(st::_CSV.ColStage, @specialize(c::Column), lo::Int, hi::Int, o::_CSV.WriteOpts)
     _CSV._reset!(st, hi - lo + 1)
     k = 0
     for r in lo:hi

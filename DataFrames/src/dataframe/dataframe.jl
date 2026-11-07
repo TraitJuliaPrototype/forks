@@ -178,7 +178,7 @@ julia> DataFrame([1 0; 2 0], :auto) # matrix constructor
 mutable struct DataFrame <: AbstractDataFrame
     # each column kept as a dynamic value of the `Column` trait (Tables.ColumnCore): the vector
     # itself, reached by code bounded by `Column` in workers compiled per column type
-    columns::Vector{Dynamic{Column}}
+    columns::Vector{Column}
     colindex::Index
     metadata::Union{Nothing, Dict{String, Tuple{Any, Any}}}
     colmetadata::Union{Nothing, Dict{Int, Dict{String, Tuple{Any, Any}}}}
@@ -195,7 +195,7 @@ mutable struct DataFrame <: AbstractDataFrame
     function DataFrame(columns::Union{Vector{Any}, Vector{AbstractVector}},
                        colindex::Index; copycols::Bool=true)
         if length(columns) == length(colindex) == 0
-            return new(Dynamic{Column}[], Index(), nothing, nothing, true)
+            return new(Column[], Index(), nothing, nothing, true)
         elseif length(columns) != length(colindex)
             throw(DimensionMismatch("Number of columns ($(length(columns))) and number of " *
                                     "column names ($(length(colindex))) are not equal"))
@@ -236,7 +236,7 @@ mutable struct DataFrame <: AbstractDataFrame
             firstindex(col) != 1 && _onebased_check_error(i, col)
         end
 
-        return new(Dynamic{Column}[tocolumn(col::AbstractVector) for col in columns], colindex, nothing, nothing, true)
+        return new(Column[tocolumn(col::AbstractVector) for col in columns], colindex, nothing, nothing, true)
     end
 end
 
@@ -444,7 +444,7 @@ _columns(df::DataFrame) = ColumnVectors(getfield(df, :columns))
 "The columns of `df` as dynamic values of `Column`, for code bounded by `Column`."
 _dcolumns(df::DataFrame) = getfield(df, :columns)
 # forks: any other data frame (a SubDataFrame's selected columns, views): its columns as dynamic values
-_dcolumns(df::AbstractDataFrame) = Dynamic{Column}[tocolumn(col) for col in eachcol(df)]
+_dcolumns(df::AbstractDataFrame) = Column[tocolumn(col) for col in eachcol(df)]
 "Column `i` of a data frame as a dynamic value of `Column`."
 _dcolumn(df::DataFrame, i::Int) = getfield(df, :columns)[i]
 _dcolumn(df::AbstractDataFrame, i::Int) = tocolumn(df[!, i])
@@ -453,11 +453,11 @@ _dcolumn(df::AbstractDataFrame, i::Int) = tocolumn(df[!, i])
     ColumnVectors
 
 The column vectors of a `DataFrame`, read and written through its storage, a
-`Vector{Dynamic{Column}}`: `cols[i]` is the stored vector itself, `cols[i] = v` stores `v`.
+`Vector{Column}`: `cols[i]` is the stored vector itself, `cols[i] = v` stores `v`.
 Code written for `Vector{AbstractVector}` storage works on it unchanged.
 """
 struct ColumnVectors <: AbstractVector{AbstractVector}
-    cols::Vector{Dynamic{Column}}
+    cols::Vector{Column}
 end
 Base.size(c::ColumnVectors) = size(c.cols)
 Base.IndexStyle(::Type{ColumnVectors}) = IndexLinear()

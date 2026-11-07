@@ -902,10 +902,10 @@ struct _WriterColumns
     original::Vector{AbstractVector}   # the transform path reads cells here
     direct::Vector{_WriteColumn}
     fallback::Vector{Int}
-    stagers::Vector{Dynamic{Tables.ColumnCore.Column}}
+    stagers::Vector{Tables.ColumnCore.Column}
 end
 _stagers(original::Vector{AbstractVector}, fallback::Vector{Int}) =
-    Dynamic{Tables.ColumnCore.Column}[Tables.ColumnCore.tocolumn(original[j]) for j in fallback]
+    Tables.ColumnCore.Column[Tables.ColumnCore.tocolumn(original[j]) for j in fallback]
 
 _fallbackindices(direct::Vector{_WriteColumn}) = findall(col -> col.tag == 0x00, direct)
 @noinline _lengthmismatch() =

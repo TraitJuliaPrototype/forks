@@ -8,5 +8,5 @@ using Tables.ColumnCore: PooledColumn, _pool_nlevels, _pool_levelcode, _pool_lev
 ColumnCore.nlevels(c::CategoricalVector) = _pool_nlevels(c)
 ColumnCore.levelcode(c::CategoricalVector, i::Int) = _pool_levelcode(c, i)
 ColumnCore.level(c::CategoricalVector, k::Int) = _pool_level(c, k)
-@implement PooledColumn A where {A <: CategoricalVector}
+@implement PooledColumn{T} CategoricalArray{T, 1, R, V, C, U} where {T, R, V, C, U}
 end

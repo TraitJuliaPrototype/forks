@@ -30,7 +30,7 @@ Unicode = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
 
 [sources]
 Tables = {path = "../Tables"}
-TraitWorld = {path = "../../TraitWorld"}
+TraitWorld = {path = "../../TraitWorld-unified"}
 
 [compat]
 CategoricalArrays = "0.10.0, 1"

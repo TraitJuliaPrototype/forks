@@ -32,7 +32,8 @@ clean() { tr -d '\r' < "$OUT/repl.txt" | sed 's/\x1b\[[0-9;?]*[a-zA-Z]//g'; }   
 # what the REPL session must print: one `T <step> <time>` line per mark `_m("…")` in scripts/session.jl,
 # and one ERROR per line marked `# ERROR expected` (none today)
 want=$(grep -c '^_m("' scripts/session.jl); want_err=$(grep -c '# ERROR expected$' scripts/session.jl)
-marks=$(clean | grep -ac '^T '); errs=$(clean | grep -ac '^ERROR')
+# a mark or an error may follow the prompt on its line (the REPL does not always end the prompt's line)
+marks=$(clean | grep -acE '(^|julia> )T [A-Za-z0-9_]+ '); errs=$(clean | grep -acE '(^|julia> )ERROR')
 echo "repl exit $rc; marks $marks of $want; errors $errs, $want_err expected (transcript: $OUT/repl.txt)"
 [ $rc = 0 ] || fail+=("the REPL exited $rc")
 [ "$marks" = "$want" ] || fail+=("marks $marks of $want")

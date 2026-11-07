@@ -511,7 +511,7 @@ end
 # column type (ColumnKernels.refcodes, ColumnKernels.firstcodes!), combined in integer code:
 # nothing is compiled per tuple of column types. Returns the number of groups and whether
 # the groups are sorted.
-function _group_rows!(cols::Vector{Dynamic{Column}}, groups::Vector{Int},
+function _group_rows!(cols::Vector{Column}, groups::Vector{Int},
                       skipmissing::Bool, sort::Union{Bool, Nothing})::Tuple{Int, Bool}
     n = length(groups)
     N = length(cols)

@@ -209,7 +209,7 @@ end
 # two rows have equal keys exactly when their key cells are `isequal` (as upstream's `OnCol`
 # rows), and the keys are ordered as the rows are when all codes are ordered. Plain code over
 # `Vector{Int}`: compiled once, for every key schema.
-function joinkeys(left_cols::Vector{Dynamic{Column}}, right_cols::Vector{Dynamic{Column}}, disallow_sorted::Bool)
+function joinkeys(left_cols::Vector{Column}, right_cols::Vector{Column}, disallow_sorted::Bool)
     nl = nrows(left_cols[1])
     nr = nrows(right_cols[1])
     lk = ones(Int, nl)
@@ -235,7 +235,7 @@ function joinkeys(left_cols::Vector{Dynamic{Column}}, right_cols::Vector{Dynamic
 end
 
 # the key columns as `Dynamic{Column}` values, a typed container for `joinkeys`
-_keycolumns(cols::AbstractVector) = Dynamic{Column}[tocolumn(c) for c in cols]
+_keycolumns(cols::AbstractVector) = Column[tocolumn(c) for c in cols]
 
 # the keys of both sides renumbered 1, 2, … in their order; returns their number
 function densekeys!(lk::Vector{Int}, rk::Vector{Int})

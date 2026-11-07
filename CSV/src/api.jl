@@ -2210,7 +2210,7 @@ _stringsink(::Type{String}) = true
 _stringsink(::Type{Symbol}) = true   # `types=Symbol`: text converted once after parsing
 _stringsink(T::Type) = _istextsink(T)
 "Whether `S` is a string type and `Vector{S}` conforms to `ColumnParsers.TextColumn`: a string type an extension provides. (`S <: AbstractString` decides at compile time for every other type.)"
-_istextsink(S::Type) = S <: AbstractString && !(S isa Union) && S !== Union{} && conforms(Vector{S}, ColumnParsers.TextColumn)
+_istextsink(S::Type) = S <: AbstractString && !(S isa Union) && S !== Union{} && (Vector{S} <: ColumnParsers.TextColumn)
 _istextsink(S) = false
 "An empty `Vector{S}`, the value that stands for string type `S` at the trait's operations."
 _textsink(::Type{S}) where {S} = S[]

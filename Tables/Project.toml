@@ -20,7 +20,7 @@ TablesCategoricalArraysExt = "CategoricalArrays"
 TablesPooledArraysExt = "PooledArrays"
 
 [sources]
-TraitWorld = {path = "../../TraitWorld"}
+TraitWorld = {path = "../../TraitWorld-unified"}
 
 [compat]
 DataAPI = "1.1"
