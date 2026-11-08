@@ -133,6 +133,11 @@ const METADATA_FIXED =
     Metadata: this function preserves table-level and column-level `:note`-style metadata.
     """
 
+# the module's code compiled by facts (facts §6; E-305), as CSV's reader is: its abstract calls are run-time
+# sites, so a plain package's method at its own type invalidates none of its image code and validation
+# checks no call by signature in it
+@trait_module bounded = false no_pirates = false
+
 include("other/utils.jl")
 include("other/index.jl")
 
