@@ -39,6 +39,21 @@ const _M = DataFrames.Statistics.mean
             innerjoin(df, df[1:2, [:city, :income]], on = :city, makeunique = true)
             df.income ./ 1000
             CSV.write(path * ".out", df)
+            # forks (E-308): the verbs the reader's tables meet next, at these broad column types, and the
+            # REPL's display; each entry point through `invokelatest`, so it gets an instance of its own
+            # rather than being inlined into this closure (E-306)
+            io = IOContext(IOBuffer(), :limit => true, :displaysize => (24, 80))
+            Base.invokelatest(show, io, MIME"text/plain"(), df)
+            Base.invokelatest(show, io, MIME"text/plain"(), describe(df))
+            sel = Base.invokelatest(select, df, :id, :city, :income)
+            Base.invokelatest(subset, sel, :income => ByRow(x -> !ismissing(x) && x > 2.0))
+            Base.invokelatest(subset, df, :age => ByRow(x -> !ismissing(x) && x > 35))
+            Base.invokelatest(transform, df, [:age, :income] => ByRow((a, i) -> coalesce(i, 0.0) / max(coalesce(a, 1), 1)) => :ratio)
+            Base.invokelatest(transform, df, :income => ByRow(x -> coalesce(x, 0.0) * 2) => :double)
+            Base.invokelatest(sort, df, [:city, :income]; rev = [false, true])
+            Base.invokelatest(innerjoin, df, df[1:2, [:id, :income]]; on = :id, makeunique = true)
+            Base.invokelatest(CSV.write, path * ".out", df)
+            Base.invokelatest(CSV.read, path, DataFrame)
         end
     end
 end

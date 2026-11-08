@@ -59,34 +59,14 @@ function ourshow(io::IO, x::Markdown.MD, truncstring::Int)
     return print(io, len < length(r) - 1 ? first(r, len)*'…' : first(r, len))
 end
 
-# For most data frames, especially wide, columns having the same element type
-# occur multiple times. batch_compacttype ensures that we compute string
-# representation of a specific column element type only once and then reuse it.
-
-# forks: the cache is read and written directly, not through `get!` with a closure: a closure that
-# captures `T` has a type per column element type, and `get!` was compiled again for each (E-306)
-function batch_compacttype(types::Vector{Any}, maxwidths::Vector{Int})
-    @assert length(types) == length(maxwidths)
-    cache = Dict{Any, String}()
-    out = Vector{String}(undef, length(types))
-    for i in eachindex(types, maxwidths)
-        T = types[i]
-        s = get(cache, T, nothing)
-        out[i] = s === nothing ? (cache[T] = compacttype(T, maxwidths[i])) : s
-    end
-    return out
-end
-
-function batch_compacttype(types::Vector{Any}, maxwidth::Int)
-    cache = Dict{Any, String}()
-    out = Vector{String}(undef, length(types))
-    for i in eachindex(types)
-        T = types[i]
-        s = get(cache, T, nothing)
-        out[i] = s === nothing ? (cache[T] = compacttype(T, maxwidth)) : s
-    end
-    return out
-end
+# forks: each column's type string computed directly, with no cache keyed by the type: under the facts
+# policy a call with the type as an untyped argument is dispatched when it runs, and a cache's `get!` or
+# `setindex!` was compiled again for each column element type (E-306, E-308); `compacttype` takes `::Type`,
+# which Julia does not specialize per type, and a table has few columns
+batch_compacttype(types::Vector{Any}, maxwidths::Vector{Int}) =
+    String[compacttype(types[i], maxwidths[i]) for i in eachindex(types, maxwidths)]
+batch_compacttype(types::Vector{Any}, maxwidth::Int) =
+    String[compacttype(types[i], maxwidth) for i in eachindex(types)]
 
 """
     compacttype(T::Type, maxwidth::Int=8, initial::Bool=true)
