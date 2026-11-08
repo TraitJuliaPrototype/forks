@@ -15,6 +15,10 @@ module CSV
 
 using Tables
 using TraitWorld: Dynamic, compiled_for   # the writer's fallback columns (write.jl, E-217)
+using TraitWorld: @trait_module
+# the reader's code compiled by facts (facts §6; E-303): a plain package's method at its own type then
+# invalidates none of it, as LaTeXStrings' `codeunits` and SentinelArrays' `eltype` did
+@trait_module bounded = false no_pirates = false
 
 # These files form one `CSV` module. The split keeps each implementation area
 # small enough to read without adding private module boundaries.

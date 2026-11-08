@@ -262,8 +262,23 @@ function _degroup!(scratch::Vector{UInt8}, buf::Vector{UInt8}, i::Int, j::Int,
     return copied
 end
 
+# An option's spellings as bytes. The option reaches here untyped (a keyword's value); a `Vector{String}`
+# is converted by calls at concrete types, any other collection behind `invokelatest`, so that this code
+# holds no edge a package's method of `codeunits` at its own string type invalidates (LaTeXStrings' did,
+# and with it `_file` in every image, E-302).
 function _bytelist(x, name::Symbol)
     x === nothing && return Vector{UInt8}[]
+    if x isa Vector{String}
+        out = Vector{Vector{UInt8}}()
+        for s in x
+            isempty(s) && throw(ArgumentError("$name cannot contain an empty spelling"))
+            push!(out, Vector{UInt8}(codeunits(s)))
+        end
+        return out
+    end
+    return Base.invokelatest(_bytelist_any, x, name)::Vector{Vector{UInt8}}
+end
+function _bytelist_any(x, name::Symbol)
     x isa AbstractString &&
         throw(ArgumentError("$name must be a collection of strings, not one string"))
     out = Vector{Vector{UInt8}}()
