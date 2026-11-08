@@ -68,8 +68,13 @@ _pool_nlevels(c::AbstractVector) = length(DataAPI.refpool(c))
 _pool_levelcode(c::AbstractVector, i::Int) = @inbounds Int(DataAPI.refarray(c)[firstindex(c) + i - 1]) - firstindex(DataAPI.refpool(c)) + 1
 _pool_level(c::AbstractVector, k::Int) = convert(eltype(c), @inbounds DataAPI.refpool(c)[firstindex(DataAPI.refpool(c)) + k - 1])
 
-"A column of any member type, as table code keeps it: the object itself, in a container typed by `Column` (traits §8.1)."
-tocolumn(@nospecialize(c::Column)) = c
+"""
+A column of any member type, as table code keeps it: the object itself, in a container typed by `Column`
+(traits §8.1). Taken `@specialize`, so the call dispatches on the column's own type and a member of the
+family is checked at its first use here (traits §5.10), where a table is made (`DataFrame(...)` refuses a
+column that does not conform).
+"""
+tocolumn(@specialize(c::Column)) = c
 
 """
 A table: its column names (`tablenames(t)`, a new vector), its columns by position

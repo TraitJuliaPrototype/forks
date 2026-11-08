@@ -1,0 +1,5 @@
+env_forks exit 0
+upstream exit 0
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/claude-3147/-p-projects-coen-julia-trait-bound/526e6ede-34f0-459e-97c3-7d1f9ee65230/scratchpad/tmp/forks_check/repl.txt)
+check_session: pass

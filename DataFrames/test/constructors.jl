@@ -453,7 +453,7 @@ Base.getindex(v::AnyLengthVector, i::Int) = i
     @test err isa DataFrames.TraitWorld.ImplementError
     msg = sprint(showerror, err)
     @test occursin("AnyLengthVector", msg) && occursin("Column", msg)
-    @test occursin("`nrows` at Tuple{$(AnyLengthVector)} returns `Any`, declared `Int64`", msg)
+    @test occursin("nrows's method at $(AnyLengthVector) infers its result as Any, wider than the declared Int = Int64", msg)
     @test_throws DataFrames.TraitWorld.ImplementError DataFrame([:x => v]; copycols = false)
     df = DataFrame(x = v)                    # the default: a copy is stored
     @test df.x isa Vector{Int} && df.x == [1, 2, 3]

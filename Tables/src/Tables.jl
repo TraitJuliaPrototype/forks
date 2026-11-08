@@ -711,6 +711,12 @@ include("scan.jl")
 # the traits (forks/, plan §2): Column, TableSource
 using TraitWorld: @trait_module
 include("ColumnCore.jl")
+# a function with no method at the cells' types is no `Callable` there (traits §9: `!` over a
+# `Vector{Any}`): dispatch takes these methods of `byrow`, and each cell is called by the function's
+# own dispatch, as upstream's `map` does
+ColumnCore.byrow(f, c::ColumnCore.Column) = invoke(map, Tuple{Any, AbstractVector}, f, ColumnCore.vector(c))
+ColumnCore.byrow(f, a::ColumnCore.Column, b::ColumnCore.Column) =
+    invoke(map, Tuple{Any, AbstractVector, AbstractVector}, f, ColumnCore.vector(a), ColumnCore.vector(b))
 
 """
     Tables.columnindex(table, name::Symbol)
