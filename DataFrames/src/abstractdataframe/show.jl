@@ -63,23 +63,29 @@ end
 # occur multiple times. batch_compacttype ensures that we compute string
 # representation of a specific column element type only once and then reuse it.
 
+# forks: the cache is read and written directly, not through `get!` with a closure: a closure that
+# captures `T` has a type per column element type, and `get!` was compiled again for each (E-306)
 function batch_compacttype(types::Vector{Any}, maxwidths::Vector{Int})
     @assert length(types) == length(maxwidths)
     cache = Dict{Any, String}()
-    return map(types, maxwidths) do T, maxwidth
-        get!(cache, T) do
-            compacttype(T, maxwidth)
-        end
+    out = Vector{String}(undef, length(types))
+    for i in eachindex(types, maxwidths)
+        T = types[i]
+        s = get(cache, T, nothing)
+        out[i] = s === nothing ? (cache[T] = compacttype(T, maxwidths[i])) : s
     end
+    return out
 end
 
 function batch_compacttype(types::Vector{Any}, maxwidth::Int)
-    cache = Dict{Type, String}()
-    return map(types) do T
-        get!(cache, T) do
-            compacttype(T, maxwidth)
-        end
+    cache = Dict{Any, String}()
+    out = Vector{String}(undef, length(types))
+    for i in eachindex(types)
+        T = types[i]
+        s = get(cache, T, nothing)
+        out[i] = s === nothing ? (cache[T] = compacttype(T, maxwidth)) : s
     end
+    return out
 end
 
 """
