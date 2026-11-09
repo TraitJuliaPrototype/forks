@@ -455,10 +455,7 @@ julia> show(df, row_labels=nothing)
      3  z
 ```
 """
-# The display entry erases its stream (traits §9b): it passes `IOContext{IO}(io)` on, one type whatever
-# the stream, with the stream's properties. One compiled display then serves every stream type (the
-# REPL's, a file's, a notebook's), and the image's workload at an `IOBuffer` covers them.
-function Base.show(@nospecialize(io::IO),
+function Base.show(io::IO,
                    df::AbstractDataFrame;
                    allrows::Bool = !get(io, :limit, false),
                    allcols::Bool = !get(io, :limit, false),
@@ -471,7 +468,7 @@ function Base.show(@nospecialize(io::IO),
     # Check for keywords that are valid in other backends but not here.
     _verify_kwargs_for_text(; kwargs...)
 
-    _show(IOContext{IO}(io), df; allrows=allrows, allcols=allcols, rowlabel=rowlabel,
+    _show(io, df; allrows=allrows, allcols=allcols, rowlabel=rowlabel,
           summary=summary, eltypes=eltypes, truncate=truncate, kwargs...)
 end
 
