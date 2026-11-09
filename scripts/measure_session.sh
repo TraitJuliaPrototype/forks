@@ -24,6 +24,10 @@ FACTSIMAGE=$ROOT/julia-1.13/usr/lib/julia/facts/sys.so
 LOCK=${JULIA_LOCK:-/tmp/claude-1000/julia-review.lock}
 OUT=${TMPDIR:-/tmp}/forks_session; mkdir -p "$OUT"
 export JULIA_PKG_OFFLINE=true DATA=$PWD/data LINES=40 COLUMNS=120
+# The terminal's type is fixed: in a capable terminal (TERM=screen, xterm-…) the REPL computes hints as each
+# line is typed, and the hint code, invalidated at load by DataStrings' print(::IO, ::DataString), compiles on
+# the first line after `using` (0.6 s, either build; E-313). The record's earlier sessions match TERM=dumb.
+export TERM=dumb
 [ -f "$DATA/people.csv" ] || { echo "no data in $DATA: run scripts/gendata.jl first"; exit 1; }   # a missing file times errors, not steps
 GATE=${JULIA_GATE:-/tmp/claude-1000/jl/gate.lock}   # experiments/tools/jl's gate: held, no new slot job starts
 [ -d "$(dirname "$GATE")" ] && exec 7>>"$GATE" || exec 7>/dev/null
