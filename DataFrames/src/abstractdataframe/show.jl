@@ -455,7 +455,13 @@ julia> show(df, row_labels=nothing)
      3  z
 ```
 """
-function Base.show(io::IO,
+# The stream is passed on erased, as Julia's `IOContext{IO}`: one compiled display for every stream type
+# (the REPL's, a file's, a notebook's), which the image's workload at an `IOBuffer` covers. The type of the
+# stream would otherwise reach PrettyTables' code, compiled per stream type (open issue 164 (a), E-323).
+_erased_stream(@nospecialize(io::IOContext)) = IOContext{IO}(io.io, io.dict)
+_erased_stream(@nospecialize(io::IO)) = _erased_stream(IOContext(io))   # the stream's own properties (a TTY's color)
+
+function Base.show(@nospecialize(io::IO),
                    df::AbstractDataFrame;
                    allrows::Bool = !get(io, :limit, false),
                    allcols::Bool = !get(io, :limit, false),
@@ -468,7 +474,7 @@ function Base.show(io::IO,
     # Check for keywords that are valid in other backends but not here.
     _verify_kwargs_for_text(; kwargs...)
 
-    _show(io, df; allrows=allrows, allcols=allcols, rowlabel=rowlabel,
+    _show(_erased_stream(io), df; allrows=allrows, allcols=allcols, rowlabel=rowlabel,
           summary=summary, eltypes=eltypes, truncate=truncate, kwargs...)
 end
 
