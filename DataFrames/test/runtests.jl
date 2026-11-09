@@ -28,6 +28,14 @@ if !isempty(unbound_args_vec)
     throw(AssertionError("unbound type parameters found"))
 end
 
+# a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
+unused_casts_vec = DataFrames.TraitWorld.detect_unused_casts(DataFrames)
+if !isempty(unused_casts_vec)
+    @error "Casts without effect:"
+    display(unused_casts_vec)
+    throw(AssertionError("casts at a parameter no trait types found"))
+end
+
 my_tests = ["utils.jl",
             "cat.jl",
             "data.jl",

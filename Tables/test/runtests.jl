@@ -1,4 +1,10 @@
 using Test, Tables, OrderedCollections, TableTraits, DataValues, QueryOperators, IteratorInterfaceExtensions, SparseArrays, DataAPI
+using TraitWorld: detect_unused_casts
+
+# a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
+@testset "no casts without effect" begin
+    @test isempty(detect_unused_casts(Tables))
+end
 
 @testset "utils.jl" begin
 
