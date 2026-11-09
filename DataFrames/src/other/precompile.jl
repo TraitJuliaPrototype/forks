@@ -27,6 +27,7 @@ PrecompileTools.@compile_workload begin
     leftjoin!(df, DataFrame(c=1:5), on=:c)
     reduce(vcat, [df, df])
     show(IOBuffer(), df)
+    show(IOContext{IO}(IOBuffer()), MIME"text/plain"(), df)   # the REPL's display, which erases the stream (E-338)
     subset(df, :q)
     subset!(copy(df), :q)
     df[:, 1:2]
