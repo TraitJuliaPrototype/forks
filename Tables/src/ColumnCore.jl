@@ -102,7 +102,7 @@ Where the inferred result type is not concrete, the result's element type is nar
 as `map` gives it.
 """
 # open on purpose at `f` (traits §7.3): it asks for the function's result type, `promote_op(f, T)` (§9)
-@open function byrow(f::Callable{Tuple{T}}, c::Column{T}) where {T}
+@unbounded function byrow(f::Callable{Tuple{T}}, c::Column{T}) where {T}
     S = Base.promote_op(f, T)          # `S` is checked on return, not bound by the call (traits §9)
     n = nrows(c)
     out = Vector{S}(undef, n)
@@ -111,7 +111,7 @@ as `map` gives it.
     end
     return isconcretetype(S) ? out : _narrowed(out)
 end
-@open function byrow(f::Callable{Tuple{T1, T2}}, a::Column{T1}, b::Column{T2}) where {T1, T2}
+@unbounded function byrow(f::Callable{Tuple{T1, T2}}, a::Column{T1}, b::Column{T2}) where {T1, T2}
     S = Base.promote_op(f, T1, T2)
     n = nrows(a)
     out = Vector{S}(undef, n)

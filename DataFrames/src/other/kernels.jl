@@ -48,8 +48,8 @@ Base.@propagate_inbounds Base.getindex(v::CellVector, i::Int) = cell(v.c, i)
 Missing values are skipped as upstream does: for a cell type that admits `missing`, the
 statistics are those of `skipmissing` of the cells.
 """
-# open on purpose (traits §7.3): it reads the column through a `CellVector`, whose parameter records its type
-@open function colstats(@specialize(c::Column), stats::Vector{Symbol})::Dict{Symbol, Any}
+# unbounded on purpose (traits §7.3): it reads the column through a `CellVector`, whose parameter records its type
+@unbounded function colstats(@specialize(c::Column), stats::Vector{Symbol})::Dict{Symbol, Any}
     n = nrows(c)
     v = CellVector(c)                                   # read in place; `_stats` copies only for the quantiles
     d = eltype(v) >: Missing ? _stats(skipmissing(v), stats) : _stats(v, stats)
@@ -114,7 +114,7 @@ A fast aggregate whose result does not depend on the column's kind (`Reduce`: `s
 `gd`: upstream's `groupreduce` over the cells, read in place through a `CellVector`. A worker per
 column type; the kernel takes the column `@specialize`, so `groupreduce` is compiled per column type.
 """
-@open aggregate(@specialize(c::Column), agg, gd)::AbstractVector = agg(CellVector(c), gd)   # open on purpose, as colstats
+@unbounded aggregate(@specialize(c::Column), agg, gd)::AbstractVector = agg(CellVector(c), gd)   # unbounded on purpose, as colstats
 
 # --- sorting --------------------------------------------------------------------------------
 
