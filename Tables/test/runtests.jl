@@ -1,6 +1,5 @@
 using Test, Tables, OrderedCollections, TableTraits, DataValues, QueryOperators, IteratorInterfaceExtensions, SparseArrays, DataAPI
-using TraitWorld: Dynamic, Callable
-using TraitWorld.ByType: compiled_for       # the wrapper, a value (traits §7.6; the library's export is still the cast: T-126)
+using TraitWorld: Dynamic, Callable, compiled_for
 
 # `byrow`'s function plain, as the wrapper or as a box (traits §7.4, §9): the same results
 @testset "byrow: the function in each form" begin
