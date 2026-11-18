@@ -17,8 +17,11 @@ Forks of Tables 1.14.0, DataFrames 1.8.2 and CSV 1.1.0 with traits brought in wh
 
 ## How it uses the design
 
-- No trait erases by default (no `@default_dynamic`), and no box is made in the code. `tocolumn` and the kernels take their trait arguments `@specialize`: code per column type.
-- Not yet on the design's one way to erase: `byrow`'s docstring offers `compiled_for(f)` as the cast that compiles the loop per function (`Tables/src/ColumnCore.jl`); DataFrames and CSV import the library's casts (`DataFrames/src/DataFrames.jl`, `CSV/src/CSV.jl`). This is recorded as deviation T-128 of the traits reference.
+- No trait of the forks erases by default (no `@default_dynamic`). `tocolumn` and the kernels take their trait arguments `@specialize`: code per column type. A table's columns are kept as given, each the stored vector, in a `Vector{Column}`.
+- A join erases at its door: the key columns are boxed, `Dynamic{Column{T}}` (`DataFrames/src/join/core.jl`), so a join's worker (`innerrows`, `semirows`, `jointcodes!`) is compiled once per pair of cell types, whatever the columns' types.
+- The forks' trait modules write `@trait_module` without `first_seen = false`, so on the build a trait argument without `@specialize`, at a call whose caller does not know the value's type, is compiled once at the declared type (the library's default, deviation T-127 of the traits reference).
+- `byrow`'s function is a `Callable`, which erases by default: the loop is compiled once per cell type, whatever the function; the wrapper `compiled_for(f)` compiles it for the function (`Tables/src/ColumnCore.jl`). On the build the wrapper at a `Callable` argument is compiled once too: the compiler still resolves `Callable`'s default at a call (deviation C-112 of the compiler reference). Tables' tests run `byrow` with the function plain, as the wrapper and as a box (`Tables/test/runtests.jl`).
+- Upstream's `Tables.ByRow(Dict)` (Tables' suite) fails: a type used as a function is no member of `Callable`, which takes a subtype of `Function` and a callable type declared a member (traits §9).
 
 ## The workload
 
@@ -38,6 +41,8 @@ From the workspace root, `source env.sh` first. The scripts take Julia's path as
 The current numbers, each against plain Julia or Python, are in the design repository's `writeup/design/evidence.md`. The suites' last results are in its `writeup/state.md` §3; on `julia-next` the forks' session gives upstream's digests at 26 steps.
 
 - `scripts/check_session.sh ../julia-unified/julia env_forks`: digests equal upstream's at 26 steps, the REPL session's 20 marks print (2026-11-08, `unified` 350c5b1c59, TraitWorld bd9a721; `logs/w104e/check-session.log`).
+
+- On `julia-next` (2026-11-18, `next` 02139b2168, TraitWorld 3e64ede): the session's digests equal upstream's at 26 steps; Tables' suite passes but for upstream's `Tables.ByRow(Dict)` (a type as a function is no `Callable`), as before this branch; DataFrames' `test/join.jl` alone, 1,465,119 pass (`experiments/implementation/w156/logs/after-digests.log`, `after-forks-tables.log`, `after-dataframes-join.log`).
 
 Upstream's suites against the forks (dated):
 

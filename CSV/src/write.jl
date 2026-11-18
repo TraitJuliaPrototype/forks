@@ -895,7 +895,7 @@ end
 
 # A fallback column (pooled, InlineString, custom scalar, ...) stages once per block
 # through the `Column` kernel `ColumnParsers.stagecells!`, compiled per column type
-# (forks, E-217). `stagers` holds them as `Dynamic{Column}`, in `fallback` order, so
+# (forks, E-217). `stagers` holds them in a `Vector{Column}`, each as it is, in `fallback` order, so
 # the descriptor container's type (and everything compiled for it) is shared by
 # every schema, whatever its fallback columns.
 struct _WriterColumns

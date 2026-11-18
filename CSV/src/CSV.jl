@@ -14,7 +14,7 @@ for any supported thread count.
 module CSV
 
 using Tables
-using TraitWorld: Dynamic, compiled_for   # the writer's fallback columns (write.jl, E-217)
+using TraitWorld: Dynamic   # the writer's fallback columns (write.jl, E-217)
 using TraitWorld: @trait_module
 # the reader's code compiled by facts (facts §6; E-303): a plain package's method at its own type then
 # invalidates none of it, as LaTeXStrings' `codeunits` and SentinelArrays' `eltype` did

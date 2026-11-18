@@ -167,8 +167,8 @@ follow the sorted order of the pool. A worker per column type.
 """
 refcodes(@specialize(c::Column), skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}} =
     _integercodes(c, skipmissing)
-# a column with a reference pool: selected by what the column's object can do, also for a column stored
-# as a `Dynamic{Column}` (traits reference §6.5)
+# a column with a reference pool: selected by what the column can do, a member of both traits (traits
+# reference §6.5)
 function refcodes(@specialize(c::All{Column, PooledColumn}), skipmissing::Bool, sort::Bool)::Union{Nothing, Tuple{Vector{Int}, Int, Bool}}
     n = nrows(c)
     L = nlevels(c)
@@ -268,7 +268,7 @@ Joint codes of a pair of key columns, for a join on several keys: row `i` of `l`
 `lc[i]`, row `j` of `r` the code `rc[j]`, in `1:n`, equal exactly when the cells are `isequal`
 (as upstream's `OnCol` rows compare them). Returns `(n, ordered)`. With `order`, the codes follow
 the cells' `isless` order if all cells can be compared (`ordered`); otherwise they number the
-cells by first appearance, the right column's first. A worker per pair of cell types (the joins pass the columns `Dynamic`).
+cells by first appearance, the right column's first. A worker per pair of cell types (the joins pass the columns boxed, `Dynamic{Column{T}}`).
 """
 function jointcodes!(lc::Vector{Int}, rc::Vector{Int}, l::Column{T1}, r::Column{T2}, order::Bool)::Tuple{Int, Bool} where {T1, T2}
     d = Dict{Union{T1, T2}, Int}()
@@ -312,7 +312,7 @@ end
 The matching rows of an inner join on one column each side, `(left rows, right rows)`, by
 upstream's algorithms (join/core.jl: a sorted merge if both columns are sorted, else hashing
 the shorter side, with a direct table for integers in a narrow range), over the cells of the
-two columns. A worker per pair of cell types (the joins pass the columns `Dynamic`).
+two columns. A worker per pair of cell types (the joins pass the columns boxed, `Dynamic{Column{T}}`).
 """
 function innerrows(l::Column, r::Column, right_shorter::Bool, disallow_sorted::Bool)::Tuple{Vector{Int}, Vector{Int}}
     (nrows(l) == 0 || nrows(r) == 0) && return Int[], Int[]
@@ -592,7 +592,7 @@ end
 """
 The rows of the left column that have a match in the right column, for `semijoin` and
 `antijoin` on one column each side (upstream's `find_semi_rows`, join/core.jl, ported onto
-the cells: a sorted merge, a set or table of the shorter side). A worker per pair of cell types (the joins pass the columns `Dynamic`).
+the cells: a sorted merge, a set or table of the shorter side). A worker per pair of cell types (the joins pass the columns boxed, `Dynamic{Column{T}}`).
 """
 function semirows(l::Column, r::Column, right_shorter::Bool, disallow_sorted::Bool)::BitVector
     seen_rows = falses(nrows(l))

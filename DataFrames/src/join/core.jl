@@ -203,8 +203,8 @@ function preprocess_columns(joiner::DataFrameJoiner)
 end
 
 # forks: the join keys of several key columns, one integer per row, for the one-column kernels.
-# Each pair of key columns is coded by `ColumnKernels.jointcodes!` (the columns `Dynamic`: a worker
-# per pair of cell types): equal codes for `isequal` cells, in `isless` order when all can be compared.
+# Each pair of key columns is coded by `ColumnKernels.jointcodes!` (the columns boxed, `Dynamic{Column{T}}`:
+# a worker per pair of cell types): equal codes for `isequal` cells, in `isless` order when all can be compared.
 # The codes are folded into one key per row, the first column most significant (mixed radix):
 # two rows have equal keys exactly when their key cells are `isequal` (as upstream's `OnCol`
 # rows), and the keys are ordered as the rows are when all codes are ordered. Plain code over
@@ -234,8 +234,11 @@ function joinkeys(left_cols::Vector{Column}, right_cols::Vector{Column}, disallo
     return lk, rk, ordered
 end
 
-# the key columns as `Dynamic{Column}` values, a typed container for `joinkeys`
-_keycolumns(cols::AbstractVector) = Column[tocolumn(c) for c in cols]
+# a key column erased at the join's door (traits §7.5): a box of `Column` at its cell type, so a join's worker is
+# compiled once per pair of cell types, whatever the columns' types
+_erased(c::Column{T}) where {T} = Dynamic{Column{T}}(c)
+# the key columns boxed, in a typed container for `joinkeys`
+_keycolumns(cols::AbstractVector) = Column[_erased(tocolumn(c)) for c in cols]
 
 # the keys of both sides renumbered 1, 2, … in their order; returns their number
 function densekeys!(lk::Vector{Int}, rk::Vector{Int})
@@ -252,10 +255,10 @@ end
 function find_inner_rows(joiner::DataFrameJoiner)
     left_cols, right_cols, right_shorter, disallow_sorted = preprocess_columns(joiner)
     # forks: the rows matched by a kernel for one key column each side (ColumnKernels.innerrows, the
-    # columns `Dynamic`: a worker per pair of cell types): on the key columns, or on the join keys of several,
+    # columns boxed: a worker per pair of cell types): on the key columns, or on the join keys of several,
     # with upstream's algorithms (a sorted merge only if the keys keep the rows' order)
     if length(left_cols) == 1
-        return innerrows(tocolumn(left_cols[1]), tocolumn(right_cols[1]), right_shorter, disallow_sorted)
+        return innerrows(_erased(tocolumn(left_cols[1])), _erased(tocolumn(right_cols[1])), right_shorter, disallow_sorted)
     end
     (isempty(left_cols[1]) || isempty(right_cols[1])) && return Int[], Int[]
     lk, rk, ordered = joinkeys(_keycolumns(left_cols), _keycolumns(right_cols), disallow_sorted)
@@ -266,7 +269,7 @@ function find_semi_rows(joiner::DataFrameJoiner)
     left_cols, right_cols, right_shorter, disallow_sorted = preprocess_columns(joiner)
     # forks: as `find_inner_rows`, with ColumnKernels.semirows
     if length(left_cols) == 1
-        return semirows(tocolumn(left_cols[1]), tocolumn(right_cols[1]), right_shorter, disallow_sorted)
+        return semirows(_erased(tocolumn(left_cols[1])), _erased(tocolumn(right_cols[1])), right_shorter, disallow_sorted)
     end
     (isempty(left_cols[1]) || isempty(right_cols[1])) && return falses(length(left_cols[1]))
     lk, rk, ordered = joinkeys(_keycolumns(left_cols), _keycolumns(right_cols), disallow_sorted)

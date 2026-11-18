@@ -96,8 +96,9 @@ end
 
 """
 `ByRow(f)` over one column (or two): `f` called once per row with the cells, in order, as upstream's
-`map`. The function is a `Callable` at the cells' types (traits §9); the result's element type is
-`Base.promote_op(f, T)`, as `map` computes it. `compiled_for(f)` compiles the loop per function.
+`map`. The function is a `Callable` at the cells' types (traits §9), which erases by default: the loop is
+compiled once per cell type, whatever the function; the wrapper `compiled_for(f)` compiles it for the function
+(traits §7.6). The result's element type is `Base.promote_op(f, T)`, as `map` computes it.
 Where the inferred result type is not concrete, the result's element type is narrowed from the values,
 as `map` gives it.
 """

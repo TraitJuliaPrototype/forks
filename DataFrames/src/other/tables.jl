@@ -55,7 +55,7 @@ function DataFrame(x; copycols::Union{Nothing, Bool}=nothing)
                        copycols=something(copycols, true))
     elseif (src = x isa Tables.CopiedColumns ? Tables.source(x) : x; typeof(src) <: TableSource)
         # forks: a table conforming to `TableSource` (a `CSV.File`, a column table) is read
-        # through the trait: its columns as `Dynamic{Column}` values, no schema type
+        # through the trait: its columns as `Column` values, each the stored vector, no schema type
         df = fromsource(src, something(copycols, !(x isa Tables.CopiedColumns)))
     else
         cols = Tables.columns(x)

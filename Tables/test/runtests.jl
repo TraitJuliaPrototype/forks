@@ -1,9 +1,13 @@
 using Test, Tables, OrderedCollections, TableTraits, DataValues, QueryOperators, IteratorInterfaceExtensions, SparseArrays, DataAPI
-using TraitWorld: detect_unused_casts
+using TraitWorld: Dynamic, Callable
+using TraitWorld.ByType: compiled_for       # the wrapper, a value (traits §7.6; the library's export is still the cast: T-126)
 
-# a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
-@testset "no casts without effect" begin
-    @test isempty(detect_unused_casts(Tables))
+# `byrow`'s function plain, as the wrapper or as a box (traits §7.4, §9): the same results
+@testset "byrow: the function in each form" begin
+    f(x) = 2x
+    c = [1, 2, 3]
+    @test Tables.ColumnCore.byrow(f, c) == Tables.ColumnCore.byrow(compiled_for(f), c) ==
+          Tables.ColumnCore.byrow(Dynamic{Callable{Tuple{Int}, Int}}(f), c) == [2, 4, 6]
 end
 
 @testset "utils.jl" begin
