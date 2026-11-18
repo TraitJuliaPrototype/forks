@@ -60,7 +60,6 @@ for c in $CONFIGS; do
         fk-image) J=$PATCHED; env=env_forks; flags="-J $IMAGE" ;;
         *) echo "unknown config $c"; exit 1 ;;
     esac
-    if [ $c = up-all ]; then export JULIA_DEPOT_PATH=/tmp/claude-1000/depot-facts:$HOME/.julia:; else unset JULIA_DEPOT_PATH; fi
     for i in $(seq "$RUNS"); do
         [ $c = py ] || session > "$OUT/session.jl"
         flock 7; flock 9     # the gate and the lock first (every slot job finished), then the clock: a wait for another job is not the session's start
