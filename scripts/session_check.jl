@@ -7,7 +7,10 @@ using CSV, DataFrames, Statistics, Dates
 D = get(ENV, "DATA", "data")
 tmp = tempname()
 
-cellhash(col) = hash(Any[x for x in col])   # cells only, not the container type
+# Cells only, not the container type; and each cell by its printed form, not by `hash`: the hash of a value of a
+# package's type (a `Date`) mixes in the type's identity, which differs between two cache files of that package,
+# so two sessions with equal cells gave different digests after a rebuild of the images (2026-11-18).
+cellhash(col) = hash(join((repr(x) for x in col), '\n'))
 function digest(x::AbstractDataFrame)
     s = string(size(x), " ", join(names(x), ","), " ", join(string.(eltype.(eachcol(x))), ","))
     return s * " " * join(string.(cellhash.(eachcol(x)), base = 16), ",")
